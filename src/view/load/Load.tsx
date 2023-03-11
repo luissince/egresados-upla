@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import '../../assets/css/loader.css';
 import { useDispatch } from 'react-redux';
-import { starting } from '../../store/authSlice';
+import { restore, starting } from '../../store/authSlice';
 
 const Load = () => {
 
@@ -13,8 +13,15 @@ const Load = () => {
     }, []);
 
     const valid = async () => {
-        try {           
-            dispatch(starting());
+        try {
+            const login = window.localStorage.getItem("login");
+            if (login == null) {
+                dispatch(starting());
+            } else {
+                const user = JSON.parse(login)
+                const authentication = true;
+                dispatch(restore({ user: user, authentication: authentication }));
+            }
         } catch (error) {
             dispatch(starting());
         }

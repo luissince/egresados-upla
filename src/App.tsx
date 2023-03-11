@@ -4,7 +4,7 @@ import { RootState } from './store/store';
 import Load from './view/load/Load';
 import Login from './view/login/Login';
 import Inicio from './view/inicio/Inicio';
-import NotFound from './view/pages/NotFound';
+import NotFound from './view/pages/404/NotFound';
 
 function App() {
 

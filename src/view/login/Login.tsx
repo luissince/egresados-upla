@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../store/store";
 import { images } from "../../helper";
-import { AcedemicCapSvg, ArrowRightOnCicleSvg, ArrowRightOnRectSvg, EyeSlashSvg, EyeSvg, LoaderSvg, MagnifyingGlassSvg } from "../../component/svg/Svg";
+import { AcedemicCapSvg, ArrowRightOnCicleSvg, EyeSlashSvg, EyeSvg, LoaderSvg } from "../../component/svg/Svg";
 import { login } from "../../store/authSlice";
 
 const Login = (props: RouteComponentProps<{}>) => {
@@ -45,6 +45,10 @@ const Login = (props: RouteComponentProps<{}>) => {
             return;
         }
 
+        if (document.activeElement instanceof HTMLElement) {
+            document.activeElement.blur();
+        }
+
         setProcess(true);
 
         await new Promise((resolve) => {
@@ -52,12 +56,12 @@ const Login = (props: RouteComponentProps<{}>) => {
         });
 
         const data = {
-            "codigo":codigo,
+            "codigo": codigo,
             "password": clave,
             "token": "qwe1qwe-266q6we2-wqweqw"
         };
 
-        dispatch(login({user: data}));
+        dispatch(login({ user: data }));
 
         setProcess(false);
     }
@@ -94,13 +98,13 @@ const Login = (props: RouteComponentProps<{}>) => {
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ opacity: 0 }}> <span className="px-1">(SGD)</span> <AcedemicCapSvg size={"w-8 h-8"} /></motion.p>
                 </div>
-            </div> 
+            </div>
             <div className="px-6 md:px-12 sm:px-10 my-auto w-full md:w-1/2 xl:w-1/3">
                 <div className="shadow-lg border">
                     <motion.img
-                        className="m-auto w-36 pt-4"
+                        className="m-auto w-32 pt-4"
                         animate={{
-                            scale: [1, 2, 2, 1, 1],
+                            scale: [1, 1.5, 1.5, 1, 1],
                             rotate: [0, 0, 270, 270, 0],
                             borderRadius: ["20%", "20%", "50%", "50%", "20%"],
                         }}
