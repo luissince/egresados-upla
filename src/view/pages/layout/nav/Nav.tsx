@@ -1,7 +1,7 @@
 import { AiFillBell, AiOutlineMenu } from "react-icons/ai";
 import { BsPersonCircle } from "react-icons/bs";
 import { useDispatch } from "react-redux";
-import { logout } from "../../../store/authSlice";
+import { logout } from "../../../../store/authSlice";
 
 type Props = {
     refBlock: React.RefObject<HTMLInputElement>,

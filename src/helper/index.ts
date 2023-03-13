@@ -1,3 +1,4 @@
 import images from './images';
+import css from './css';
 
-export { images }; 
+export { images,css }; 

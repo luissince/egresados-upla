@@ -37,7 +37,6 @@ Siga los pasos para iniciar el desarrollo:
     // Generar tu clave ssh para poder contribuir al proyecto
     ssh-keygen -t rsa -b 4096 -C "tu email"
 
-    
     // crea una carpera
     mkdir upla-egresados
 
@@ -60,7 +59,7 @@ Siga los pasos para iniciar el desarrollo:
     ** Para el proceso de clonación **
     **/
 
-    // Clonar al proyectp
+    // Clonar al proyecto
     git clone https://github.com/luissince/egresados-upla.git
 
 2. Instale typescript si su proyecto lo usa
@@ -75,7 +74,7 @@ Siga los pasos para iniciar el desarrollo:
 
     npm install
 
-4. Ejecute **npm run dev** para iniciar el mode desarrollo
+4. Ejecute **npm run dev** para iniciar el modo desarrollo
 
 #Code
 
@@ -85,7 +84,7 @@ Siga los pasos para iniciar el desarrollo:
 
 #Code
 
-    npm run dev
+    npm run build
 
 6. Ejecute **npm run preview** para darle una preview del proyecto
 

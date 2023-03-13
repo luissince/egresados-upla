@@ -7,8 +7,8 @@ import { SiGoogleanalytics } from "react-icons/si";
 import { TbDeviceAnalytics } from "react-icons/tb"
 import { RootState } from '../../store/store';
 import { images } from '../../helper';
-import Aside from '../pages/layout/Aside';
-import Nav from '../pages/layout/Nav';
+import Aside from '../pages/layout/aside/Aside';
+import Nav from '../pages/layout/nav/Nav';
 
 const Inicio = (props: RouteComponentProps<{}>) => {
 
