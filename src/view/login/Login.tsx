@@ -4,23 +4,26 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../store/store";
 import { images } from "../../helper";
-import { AcedemicCapSvg, ArrowRightOnCicleSvg, EyeSlashSvg, EyeSvg, LoaderSvg } from "../../component/svg/Svg";
+import { AcedemicCapSvg } from "../../component/svg/Svg";
 import { login } from "../../store/authSlice";
+import Button from "./widget/Button";
+import InputPassword from "./widget/InputPassword";
+import InputClave from "./widget/InputClave";
 
 const Login = (props: RouteComponentProps<{}>) => {
 
     const dispatch = useDispatch();
     const authentication = useSelector((state: RootState) => state.authentication.authentication)
 
-    const [codigo, setCodigo] = useState('');
-    const [clave, setClave] = useState('');
-    const [message, setMessage] = useState('');
-    const [process, setProcess] = useState(false);
+    const [codigo, setCodigo] = useState<string>('');
+    const [clave, setClave] = useState<string>('');
+    const [message, setMessage] = useState<string>('');
+    const [process, setProcess] = useState<boolean>(false);
 
-    const [see, setSee] = useState(false);
+    const [see, setSee] = useState<boolean>(false);
 
-    const [codigoMessage, setCodigoMessage] = useState('');
-    const [claveMessage, setClaveMessage] = useState('');
+    const [codigoMessage, setCodigoMessage] = useState<string>('');
+    const [claveMessage, setClaveMessage] = useState<string>('');
 
     const refCodigo = useRef<HTMLInputElement>(null);
     const refClave = useRef<HTMLInputElement>(null);
@@ -119,85 +122,25 @@ const Login = (props: RouteComponentProps<{}>) => {
                             <span className="px-1">(SGD)</span> <AcedemicCapSvg />
                         </p>
                         <form className="w-full lg:px-12 md:px-8 px-4" onSubmit={onEventLogin}>
-                            <div className="my-3">
-                                <label
-                                    htmlFor="codigo"
-                                    className="font-mont block mb-2 text-sm font-medium text-gray-900 "
-                                >
-                                    Codigo
-                                </label>
-                                <input
-                                    type="text"
-                                    className="font-mont bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                    placeholder="Dijite su código"
-                                    ref={refCodigo}
-                                    value={codigo}
-                                    onChange={(changeevent: React.ChangeEvent<HTMLInputElement>) => {
-                                        if (changeevent.target.value.length == 0) {
-                                            setCodigoMessage("!El campo es oblogatorio¡");
-                                            setCodigo(changeevent.target.value);
-                                        } else {
-                                            setCodigo(changeevent.target.value);
-                                            setCodigoMessage("");
-                                        }
-                                    }}
-                                    autoFocus
-                                />
-                                <span className="text-red-600 text-xs">{codigoMessage}</span>
-                            </div>
 
-                            <div className="my-3">
-                                <label
-                                    htmlFor="password"
-                                    className="font-mont block mb-2 text-sm font-medium text-gray-900 "
-                                >
-                                    Contraseña
-                                </label>
-                                <div className="relative w-full">
-                                    <input
-                                        type={see ? "text" : "password"}
-                                        placeholder="Dijite su contraseña"
-                                        className="font-mont bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
-                                        ref={refClave}
-                                        value={clave}
-                                        onChange={(changeevent: React.ChangeEvent<HTMLInputElement>) => {
-                                            if (changeevent.target.value.length == 0) {
-                                                setClaveMessage("!El campo es oblogatorio¡");
-                                                setClave(changeevent.target.value)
-                                            } else {
-                                                setClave(changeevent.target.value)
-                                                setClaveMessage("");
-                                            }
-                                        }}
-                                    />
-                                    <button
-                                        onClick={onEvenSeePassword}
-                                        type="button"
-                                        className="absolute 
-                                        top-0 right-0 
-                                        p-2.5
-                                        text-sm 
-                                        font-medium
-                                        text-white
-                                        bg-upla-100 
-                                        rounded-r-lg 
-                                        border
-                                        border-blue-700
-                                        hover:bg-upla-200 
-                                        focus:ring-4 
-                                        focus:outline-none
-                                        focus:ring-blue-300">
-                                        {
-                                            see ?
-                                                <EyeSvg />
-                                                :
-                                                <EyeSlashSvg />
-                                        }
+                            <InputClave
+                                refCodigo={refCodigo}
+                                codigo={codigo}
+                                codigoMessage={codigoMessage}
+                                setCodigoMessage={setCodigoMessage}
+                                setCodigo={setCodigo}
+                            />
 
-                                    </button>
-                                </div>
-                                <span className="text-red-600 text-xs">{claveMessage}</span>
-                            </div>
+                            <InputPassword
+                                see={see}
+                                refClave={refClave}
+                                clave={clave}                               
+                                setClaveMessage={setClaveMessage}
+                                setClave={setClave}
+                                onEvenSeePassword={onEvenSeePassword}
+                                claveMessage={claveMessage}
+                            />
+
 
                             <div className="flex items-start mb-6">
                                 <div className="flex items-center h-5">
@@ -215,36 +158,8 @@ const Login = (props: RouteComponentProps<{}>) => {
                                 </label>
                             </div>
 
-                            <button
-                                type="submit"
-                                className="
-                                font-mont
-                                block 
-                                m-auto 
-                                md:w-full 
-                                text-white 
-                                bg-upla-100 
-                                hover:bg-upla-200 
-                                hover:transition-all 
-                                focus:ring-4 
-                                focus:outline-none 
-                                focus:ring-blue-300 
-                                font-medium 
-                                rounded-lg 
-                                text-sm w-full 
-                                sm:w-auto px-5 
-                                py-2.5 text-center">
-                                <div className="flex justify-center items-center">
-                                    {
-                                        process ?
-                                            <LoaderSvg />
-                                            :
-                                            <ArrowRightOnCicleSvg />
-                                    }
+                            <Button process={process} />
 
-                                    <span className="px-2">Ingresar</span>
-                                </div>
-                            </button>
                         </form>
                     </div>
                 </div>
