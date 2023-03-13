@@ -63,25 +63,31 @@ Siga los pasos para iniciar el desarrollo:
     // Clonar al proyectp
     git clone https://github.com/luissince/egresados-upla.git
 
-2. Ejecute en la carpte la clonada **npm install**
+2. Instale typescript si su proyecto lo usa
+
+#Code
+
+    npm install -g typescript
+
+3. Ejecute en la carpte la clonada **npm install** para descargar las dependencias del proyecto
 
 #Code
 
     npm install
 
-3. Ejecute **npm run dev**
+4. Ejecute **npm run dev** para iniciar el mode desarrollo
 
 #Code
 
     npm run dev
 
-3. Ejecute **npm run build**
+5. Ejecute **npm run build** para construir el proyecto
 
 #Code
 
     npm run dev
 
-4. Ejecute **npm run build**
+6. Ejecute **npm run preview** para darle una preview del proyecto
 
 #Code
 
