@@ -5,6 +5,7 @@ import Load from './view/load/Load';
 import Login from './view/login/Login';
 import Inicio from './view/inicio/Inicio';
 import NotFound from './view/pages/404/NotFound';
+import Control from './view/control/Control';
 
 function App() {
 
@@ -36,6 +37,11 @@ function App() {
                 path="/inicio"
                 render={(props) => <Inicio {...props} />}
               />
+
+              {/* <Route
+                path="/control"
+                render={(props) => <Control {...props} />}
+              /> */}
 
               <Route component={NotFound} />
 

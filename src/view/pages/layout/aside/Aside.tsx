@@ -25,7 +25,7 @@ const Aside = (props: Props) => {
                     <Menu
                         Icon={<AiFillAppstore className={css.IconMenu} />}
                         nombre="Primero"
-                        to="#"
+                        to="/inicio/dashboard"
                     />
                     <ListMenu
                         Icon={<AiFillSmile className={css.IconMenu} />}
@@ -34,7 +34,7 @@ const Aside = (props: Props) => {
                     <Menu
                         Icon={<AiOutlineBehance className={css.IconMenu} />}
                         nombre="Segundo"
-                        to="#"
+                        to="/inicio/control"
                     />
                     <ListMenu
                         Icon={<AiFillSmile className={css.IconMenu} />}

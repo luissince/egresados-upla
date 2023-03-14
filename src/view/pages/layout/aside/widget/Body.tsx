@@ -2,7 +2,7 @@ import React from 'react';
 
 type Props = {
     refAside: React.RefObject<HTMLInputElement>,
-    children: React.ReactNode;
+    children: React.ReactNode,
 }
 
 const Body = (props: Props) => {

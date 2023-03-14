@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../store/store";
 import { images } from "../../helper";
 import { AcedemicCapSvg } from "../../component/svg/Svg";
-import { login } from "../../store/authSlice";
+import { login } from "../../store/authSlice"; 
 import Button from "./widget/Button";
 import InputPassword from "./widget/InputPassword";
 import InputClave from "./widget/InputClave";
@@ -123,7 +123,6 @@ const Login = (props: RouteComponentProps<{}>) => {
                             <span className="px-1">(SGD)</span> <AcedemicCapSvg />
                         </p>
                         <form className="w-full lg:px-12 md:px-8 px-4" onSubmit={onEventLogin}>
-
                             <InputClave
                                 refCodigo={refCodigo}
                                 codigo={codigo}
