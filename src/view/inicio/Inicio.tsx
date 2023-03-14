@@ -8,6 +8,7 @@ import Dashboard from '../dashboard/Dashboard';
 import Control from '../control/Control';
 import Welcome from '../welcome/Welcome';
 import { css } from '../../helper';
+import Reporte from '../reporte/Reporte';
 
 const Inicio = (props: RouteComponentProps<{}>) => {
 
@@ -98,6 +99,10 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                             <Route
                                 path={`${path}/control`}
                                 render={(props) => <Control {...props} />}
+                            />
+                             <Route
+                                path={`${path}/reporte`}
+                                render={(props) => <Reporte {...props} />}
                             />
                         </Switch>
                     </div>

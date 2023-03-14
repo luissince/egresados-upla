@@ -40,6 +40,11 @@ const Aside = (props: Props) => {
                         Icon={<AiFillSmile className={css.IconMenu} />}
                         nombre="Lista 2"
                     />
+                    <Menu
+                        Icon={<AiOutlineBehance className={css.IconMenu} />}
+                        nombre="Reporte"
+                        to="/inicio/reporte"
+                    />
                 </ul>
             </div>
             <Overlay refOverlay={props.refOverlay} onEventOverlay={props.onEventOverlay} />
