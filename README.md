@@ -37,6 +37,12 @@ Siga los pasos para iniciar el desarrollo:
     // Generar tu clave ssh para poder contribuir al proyecto
     ssh-keygen -t rsa -b 4096 -C "tu email"
 
+    // Configuración global del nombre
+    git config --global user.name "John Doe"
+
+    // Configuración global del email
+    git config --global user.email johndoe@example.com
+
     // crea una carpera
     mkdir upla-egresados
 
