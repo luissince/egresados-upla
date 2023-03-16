@@ -5,10 +5,10 @@ import { RootState } from '../../store/store';
 import Aside from '../pages/layout/aside/Aside';
 import Nav from '../pages/layout/nav/Nav';
 import Dashboard from './dashboard/Dashboard';
-import Control from '../control/Control';
-import Welcome from '../welcome/Welcome';
 import { css } from '../../helper';
-import Reporte from '../reporte/Reporte';
+import Welcome from './welcome/Welcome';
+import Control from './control/Control';
+import Reporte from './reporte/Reporte';
 
 const Inicio = (props: RouteComponentProps<{}>) => {
 
