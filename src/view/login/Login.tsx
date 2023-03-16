@@ -94,13 +94,13 @@ const Login = (props: RouteComponentProps<{}>) => {
                         initial={{ x: -1000, opacity: 0 }}
                         animate={{ x: 0, opacity: 1 }}
                         transition={{ duration: 1 }}
-                    >SEGUIMIENTO DEL GRADUADO</motion.h1>
+                    >INTRANET</motion.h1>
                     <motion.p
                         className="text-lg md:text-xl lg:text-2xl font-mont font-thin flex justify-center items-center"
                         initial={{ x: -1000, opacity: 0 }}
                         transition={{ duration: 0.8 }}
                         animate={{ x: 0, opacity: 1 }}
-                        exit={{ opacity: 0 }}> <span className="px-1">(SGD)</span> <AcedemicCapSvg size={"w-8 h-8"} /></motion.p>
+                        exit={{ opacity: 0 }}> <span className="px-1">(INT)</span> <AcedemicCapSvg size={"w-8 h-8"} /></motion.p>
                 </div>
             </div>
             <div className="px-6 md:px-12 sm:px-10 my-auto w-full md:w-1/2 xl:w-1/3">
