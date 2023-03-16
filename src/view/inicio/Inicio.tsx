@@ -4,7 +4,7 @@ import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
 import { RootState } from '../../store/store';
 import Aside from '../pages/layout/aside/Aside';
 import Nav from '../pages/layout/nav/Nav';
-import Dashboard from '../dashboard/Dashboard';
+import Dashboard from './dashboard/Dashboard';
 import Control from '../control/Control';
 import Welcome from '../welcome/Welcome';
 import { css } from '../../helper';
