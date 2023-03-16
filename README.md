@@ -1,4 +1,4 @@
-# UPLA EGRESADOS
+# UPLA INTRANET
 
 <!-- ![IMAGES DE GO LANG](images/ladder.svg) -->
 <img src="src/assets/images/logo_upla.svg" alt="Imagen go" width="200" />
@@ -24,7 +24,7 @@ Algunos recursos para iniciar con este proyecto puedes ver en:
 
 Siga los pasos para iniciar el desarrollo:
 
-1. Clona el proyecto o agrague el ssh al repositorio para contribuir en nuevos cambios [Git Hub - UPLA EGRESADOS](https://github.com/luissince/egresados-upla)
+1. Clona el proyecto o agrague el ssh al repositorio para contribuir en nuevos cambios [Git Hub - UPLA EGRESADOS](https://github.com/luissince/intranet-upla)
 
 #Code
 
@@ -53,7 +53,7 @@ Siga los pasos para iniciar el desarrollo:
     git init
 
     // comando que agrega la referencia de la rama
-    git remote add origin git@github.com:luissince/egresados-upla.git
+    git remote add origin git@github.com:luissince/intranet-upla.git
    
     // comando que descarga los archivos al working directory
     git fetch origin master
@@ -66,7 +66,7 @@ Siga los pasos para iniciar el desarrollo:
     **/
 
     // Clonar al proyecto
-    git clone https://github.com/luissince/egresados-upla.git
+    git clone https://github.com/luissince/intranet-upla.git
 
 2. Instale typescript si su proyecto lo usa
 
