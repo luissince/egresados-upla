@@ -15,7 +15,7 @@ return (
             </span>
         </div>
     </div>
-    <small className="font-bold my-2">Seguimiento del Graduado</small>
+    <small className="font-bold my-2">INTRANET</small>
 </Link>
 );
 }
