@@ -12,7 +12,7 @@ import Reporte from './reporte/Reporte';
 
 const Inicio = (props: RouteComponentProps<{}>) => {
 
-    const authentication = useSelector((state: RootState) => state.authentication.authentication)
+    const autenticado = useSelector((state: RootState) => state.autenticacion.autenticado)
 
     const refAside = useRef<HTMLInputElement>(null);
 
@@ -58,8 +58,8 @@ const Inicio = (props: RouteComponentProps<{}>) => {
         }
     }
 
-    if (!authentication) {
-        return <Redirect to="/login" />
+    if (!autenticado) {
+        return <Redirect to="/acceso" />
     }
 
     const { path, url } = props.match;
