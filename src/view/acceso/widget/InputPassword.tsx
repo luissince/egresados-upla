@@ -5,10 +5,10 @@ type Props = {
     see: boolean,
     refClave: React.RefObject<HTMLInputElement>,
     clave: string,
-    setClaveMessage: Dispatch<SetStateAction<string>>,
+    setClaveMensaje: Dispatch<SetStateAction<string>>,
     setClave: Dispatch<SetStateAction<string>>,
-    onEvenSeePassword: React.MouseEventHandler,
-    claveMessage: string,
+    onEvenVerClave: React.MouseEventHandler,
+    claveMensaje: string,
 }
 
 const InputPassword = (props: Props) => {
@@ -30,16 +30,16 @@ const InputPassword = (props: Props) => {
                     value={props.clave}
                     onChange={(changeevent: React.ChangeEvent<HTMLInputElement>) => {
                         if (changeevent.target.value.length == 0) {
-                            props.setClaveMessage("!El campo es oblogatorio¡");
+                            props.setClaveMensaje("!El campo es oblogatorio¡");
                             props.setClave(changeevent.target.value)
                         } else {
                             props.setClave(changeevent.target.value)
-                            props.setClaveMessage("");
+                            props.setClaveMensaje("");
                         }
                     }}
                 />
                 <button
-                    onClick={props.onEvenSeePassword}
+                    onClick={props.onEvenVerClave}
                     type="button"
                     className="absolute 
                     top-0 right-0 
@@ -63,7 +63,7 @@ const InputPassword = (props: Props) => {
                     }
                 </button>
             </div>
-            <span className="text-red-600 text-xs">{props.claveMessage}</span>
+            <span className="text-red-600 text-xs">{props.claveMensaje}</span>
         </div>
     );
 }

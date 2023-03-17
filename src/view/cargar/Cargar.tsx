@@ -3,7 +3,7 @@ import '../../assets/css/loader.css';
 import { useDispatch } from 'react-redux';
 import { restore, starting } from '../../store/authSlice';
 
-const Load = () => {
+const Cargar = () => {
 
 
     const dispatch = useDispatch();
@@ -51,4 +51,4 @@ const Load = () => {
     );
 }
 
-export default Load;
+export default Cargar;

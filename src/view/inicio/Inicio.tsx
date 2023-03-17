@@ -6,7 +6,7 @@ import Aside from '../pages/layout/aside/Aside';
 import Nav from '../pages/layout/nav/Nav';
 import Dashboard from './dashboard/Dashboard';
 import { css } from '../../helper';
-import Welcome from './welcome/Welcome';
+import Bienvenido from './bienvenido/Bienvenido';
 import Control from './control/Control';
 import Reporte from './reporte/Reporte';
 
@@ -86,11 +86,11 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                                 path={"/inicio"}
                                 exact={true}
                             >
-                                <Redirect to={`${path}/welcome`} />
+                                <Redirect to={`${path}/bienvenido`} />
                             </Route>
                             <Route
-                                path={`${path}/welcome`}
-                                render={(props) => <Welcome {...props} />}
+                                path={`${path}/bienvenido`}
+                                render={(props) => <Bienvenido {...props} />}
                             />
                             <Route
                                 path={`${path}/dashboard`}
