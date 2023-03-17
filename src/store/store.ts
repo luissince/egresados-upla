@@ -6,8 +6,8 @@ import notifeSlice from './notifeSlice';
 
  const store = configureStore({
   reducer: {
-    authentication: authReducer,
-    notifications: notifeSlice,
+    autenticacion: authReducer,
+    notificacion: notifeSlice,
     // [apis.reducerPath]: apis.reducer,
   },
 

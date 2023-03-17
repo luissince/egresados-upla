@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 type Props = {
     refCodigo: React.RefObject<HTMLInputElement>,
     codigo: string,
-    codigoMessage: string,
+    codigoMensaje: string,
     setCodigoMessage: Dispatch<SetStateAction<string>>,
     setCodigo: Dispatch<SetStateAction<string>>
 }
@@ -34,7 +34,7 @@ const InputClave = (props: Props) => {
                 }}
                 autoFocus
             />
-            <span className="text-red-600 text-xs">{props.codigoMessage}</span>
+            <span className="text-red-600 text-xs">{props.codigoMensaje}</span>
         </div>
     );
 }

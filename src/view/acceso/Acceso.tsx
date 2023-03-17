@@ -11,41 +11,41 @@ import InputPassword from "./widget/InputPassword";
 import InputClave from "./widget/InputClave";
 import Checked from "./widget/Checked";
 
-const Login = (props: RouteComponentProps<{}>) => {
+const Acceso = (props: RouteComponentProps<{}>) => {
 
     const dispatch = useDispatch();
-    const authentication = useSelector((state: RootState) => state.authentication.authentication)
+    const autenticado = useSelector((state: RootState) => state.autenticacion.autenticado)
 
     const [codigo, setCodigo] = useState<string>('');
     const [clave, setClave] = useState<string>('');
-    const [message, setMessage] = useState<string>('');
-    const [process, setProcess] = useState<boolean>(false);
+    const [mensaje, setMensaje] = useState<string>('');
+    const [proceso, setProceso] = useState<boolean>(false);
 
-    const [see, setSee] = useState<boolean>(false);
+    const [ver, setVer] = useState<boolean>(false);
 
-    const [codigoMessage, setCodigoMessage] = useState<string>('');
-    const [claveMessage, setClaveMessage] = useState<string>('');
+    const [codigoMensaje, setCodigoMensaje] = useState<string>('');
+    const [claveMensaje, setClaveMensaje] = useState<string>('');
 
     const refCodigo = useRef<HTMLInputElement>(null);
     const refClave = useRef<HTMLInputElement>(null);
 
-    const onEventLogin = async (event: React.FormEvent<HTMLFormElement>) => {
+    const onEventAcceso = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
-        if (process) return;
+        if (proceso) return;
 
-        setCodigoMessage("");
-        setClaveMessage("");
+        setCodigoMensaje("");
+        setClaveMensaje("");
 
         if (codigo == "") {
             refCodigo.current!.focus();
-            setCodigoMessage("!El campo es oblogatorio¡");
+            setCodigoMensaje("!El campo es oblogatorio¡");
             return;
         }
 
         if (clave == "") {
             refClave.current!.focus();
-            setClaveMessage("!El campo es oblogatorio¡");
+            setClaveMensaje("!El campo es oblogatorio¡");
             return;
         }
 
@@ -53,7 +53,7 @@ const Login = (props: RouteComponentProps<{}>) => {
             document.activeElement.blur();
         }
 
-        setProcess(true);
+        setProceso(true);
 
         await new Promise((resolve) => {
             setTimeout(resolve, 3000);
@@ -67,15 +67,15 @@ const Login = (props: RouteComponentProps<{}>) => {
 
         dispatch(login({ user: data }));
 
-        setProcess(false);
+        setProceso(false);
     }
 
-    const onEvenSeePassword = () => {
-        setSee(!see);
+    const onEvenVerClave = () => {
+        setVer(!ver);
         refClave.current?.focus();
     }
 
-    if (authentication) {
+    if (autenticado) {
         return <Redirect to="/inicio" />
     }
 
@@ -122,28 +122,28 @@ const Login = (props: RouteComponentProps<{}>) => {
                         <p className="md:hidden text-center font-mont text-sm flex">
                             <span className="px-1">(SGD)</span> <AcedemicCapSvg />
                         </p>
-                        <form className="w-full lg:px-12 md:px-8 px-4" onSubmit={onEventLogin}>
+                        <form className="w-full lg:px-12 md:px-8 px-4" onSubmit={onEventAcceso}>
                             <InputClave
                                 refCodigo={refCodigo}
                                 codigo={codigo}
-                                codigoMessage={codigoMessage}
-                                setCodigoMessage={setCodigoMessage}
+                                codigoMensaje={codigoMensaje}
+                                setCodigoMessage={setCodigoMensaje}
                                 setCodigo={setCodigo}
                             />
 
                             <InputPassword
-                                see={see}
+                                see={ver}
                                 refClave={refClave}
                                 clave={clave}
-                                setClaveMessage={setClaveMessage}
+                                setClaveMensaje={setClaveMensaje}
                                 setClave={setClave}
-                                onEvenSeePassword={onEvenSeePassword}
-                                claveMessage={claveMessage}
+                                onEvenVerClave={onEvenVerClave}
+                                claveMensaje={claveMensaje}
                             />
 
                             <Checked />
 
-                            <Button process={process} />
+                            <Button proceso={proceso} />
                         </form>
                     </div>
                 </div>
@@ -152,4 +152,4 @@ const Login = (props: RouteComponentProps<{}>) => {
     </>
 }
 
-export default Login;
+export default Acceso;

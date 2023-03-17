@@ -1,7 +1,7 @@
 import { ArrowRightOnCicleSvg, LoaderSvg } from "../../../component/svg/Svg";
 
 type Props = {
-    process: boolean
+    proceso: boolean
 }
 
 const Button = (props: Props) => {
@@ -26,7 +26,7 @@ const Button = (props: Props) => {
             py-2.5 text-center">
             <div className="flex justify-center items-center">
                 {
-                    props.process ?
+                    props.proceso ?
                         <LoaderSvg />
                         :
                         <ArrowRightOnCicleSvg />

@@ -1,22 +1,21 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { RootState } from './store/store';
-import Load from './view/load/Load';
-import Login from './view/login/Login';
+import Cargar from './view/cargar/Cargar';
 import Inicio from './view/inicio/Inicio';
 import NotFound from './view/pages/404/NotFound';
-import Control from './view/control/Control';
+import Acceso from './view/acceso/Acceso';
 
 function App() {
 
-  const loading = useSelector((state: RootState) => state.authentication.loading);
+  const cargando = useSelector((state: RootState) => state.autenticacion.cargando);
 
   return (
     <>
 
       {
-        loading ?
-          <Load />
+        cargando ?
+          <Cargar />
           :
           <>
             <Switch>
@@ -24,13 +23,13 @@ function App() {
               <Route
                 path="/"
                 exact={true}>
-                <Redirect to={"/login"} />
+                <Redirect to={"/acceso"} />
               </Route>
 
               <Route
-                path="/login"
+                path="/acceso"
                 exact={true}
-                render={(props) => <Login {...props} />}
+                render={(props) => <Acceso {...props} />}
               />
 
               <Route

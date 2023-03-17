@@ -1,15 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 type SliceState = {
-    loading: boolean,
+    cargando: boolean,
     user: null,
-    authentication: boolean,
+    autenticado: boolean,
 }
 
 export const initialState: SliceState = {
-    loading: true,
+    cargando: true,
     user: null,
-    authentication: false,
+    autenticado: false,
 }
 
 export const authSlice = createSlice({
@@ -18,25 +18,25 @@ export const authSlice = createSlice({
     reducers: {
         starting: (state) => {
             window.localStorage.clear();
-            state.loading = false;
+            state.cargando = false;
             state.user = null;
-            state.authentication = false;
+            state.autenticado = false;
         },
         restore: (state, action) => {
-            state.loading = false;
+            state.cargando = false;
             state.user = action.payload.user;
-            state.authentication = action.payload.authentication;
+            state.autenticado = action.payload.authentication;
         },
         login: (state, action) => {
-            state.authentication = true;
+            state.autenticado = true;
             state.user = action.payload.user;
             window.localStorage.setItem('login', JSON.stringify(action.payload.user));
         },
         logout: (state) => {
             window.localStorage.clear();
-            state.loading = true;
+            state.cargando = true;
             state.user = null;
-            state.authentication = false;
+            state.autenticado = false;
         },
     },
 })
