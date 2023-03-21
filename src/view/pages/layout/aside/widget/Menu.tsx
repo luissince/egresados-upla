@@ -2,24 +2,28 @@ import { IconType } from "react-icons";
 import { NavLink } from "react-router-dom";
 
 type Props = {
+    pathname: string,
     Icon: JSX.Element,
     nombre: string,
     to: string,
 }
 
 const Menu = (props: Props) => {
-
     return (
         <li>
             <NavLink
                 to={props.to}
-                className="flex 
+                className={`${props.to === props.pathname ? "bg-upla-100 text-white" : ""}
+                flex 
                 items-center 
-                p-2 text-sm 
+                p-4 
+                text-sm 
                 font-normal 
-                text-gray-900 
-                rounded-lg                             
-                hover:bg-gray-100"
+                text-gray-900   
+                hover:text-gray-900                       
+                hover:bg-gray-300             
+                transition-all 
+                duration-200`}
             >
                 {props.Icon}
                 <span className="ml-1">{props.nombre}</span>

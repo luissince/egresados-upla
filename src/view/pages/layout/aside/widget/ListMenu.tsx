@@ -1,44 +1,50 @@
-import { useRef, useState } from "react";
 import Menu from "./Menu";
 import { AiOutlineMinus } from "react-icons/ai";
 import { IoIosArrowDown } from "react-icons/io";
 import { css } from "../../../../../helper";
+import { useEffectOnce } from "react-use";
+import { useRef } from "react";
 
 type Props = {
+    desplegar: boolean,
     Icon: JSX.Element,
     nombre: string,
+    children: React.ReactNode,
 }
 
 const ListMenu = (props: Props) => {
 
     const refUl = useRef<HTMLUListElement>(null);
 
-    const [dropdown, setDropdown] = useState<boolean>(false);
+    useEffectOnce(() => {
+        if (props.desplegar) {
+            const element = refUl.current as HTMLElement;
+            element.setAttribute("aria-expanded", "true");
+            element.style.maxHeight = element.scrollHeight + "px";
+
+            const button = (element.parentNode as HTMLElement).querySelector("button") as HTMLButtonElement;
+
+            button.classList.add("bg-gray-200");
+            button.children[2].classList.remove("rotate-[-90deg]");
+        }
+    });
 
     return (
         <li>
             <button
-                data-tip
-                data-for={"lis1"}
-                onClick={() => {
-                    setDropdown(!dropdown)
-                    refUl.current?.classList.toggle("hidden");
-
-                }}
                 type="button"
-                className={`bg-gray-100  
+                className={`
                 flex 
                 items-center 
-                p-2 
+                p-4 
                 w-full 
                 text-sm 
                 font-normal 
-                text-gray-900 
-                rounded-lg 
+                text-gray-900                
                 transition 
                 duration-75 
                 group 
-                hover:bg-gray-100`}
+                hover:bg-gray-200`}
             >
                 {props.Icon}
                 <span
@@ -51,28 +57,19 @@ const ListMenu = (props: Props) => {
                 >
                     {props.nombre}
                 </span>
-                <IoIosArrowDown className={`${!dropdown && 'rotate-[-90deg]'} w-5 h-5`} />
+                <IoIosArrowDown className={`rotate-[-90deg] w-5 h-5 transition-all duration-700`} />
             </button>
             <ul
                 ref={refUl}
-                className={` 
-                            hidden
-                            py-2
-                            space-y-2 
-                            border-l-2 
-                            border-gray-300`}
+                aria-expanded={false}
+                className={`max-h-0 
+                            overflow-hidden 
+                            transition-all 
+                            duration-500                          
+                            bg-gray-200`}
             >
-                <Menu
-                    Icon={<AiOutlineMinus className={css.IconMenu} />}
-                    nombre="sub menu 1"
-                    to="#"
-                />
+                {props.children}
 
-                <Menu
-                    Icon={<AiOutlineMinus className={css.IconMenu} />}
-                    nombre="sub menu 2"
-                    to="#"
-                />
             </ul>
         </li>
     );

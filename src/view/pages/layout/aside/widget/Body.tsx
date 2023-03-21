@@ -16,7 +16,7 @@ const Body = (props: Props) => {
             ml-[-256px]
             md:ml-[0px]
             transition-all
-            duration-700
+            duration-500
             z-50                
             overflow-auto 
             fixed 

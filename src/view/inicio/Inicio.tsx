@@ -9,6 +9,8 @@ import { css } from '../../helper';
 import Bienvenido from './bienvenido/Bienvenido';
 import Control from './control/Control';
 import Reporte from './reporte/Reporte';
+import Pago from './pago/Pago';
+import { useEffectOnce } from 'react-use';
 
 const Inicio = (props: RouteComponentProps<{}>) => {
 
@@ -22,9 +24,32 @@ const Inicio = (props: RouteComponentProps<{}>) => {
 
     const refOverlay = useRef<HTMLInputElement>(null);
 
-    useEffect(() => {
+    useEffectOnce(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, []);
+
+        const menus = document.querySelectorAll<HTMLElement>("#menus li button") as NodeListOf<HTMLButtonElement>;
+        for (const menu of menus) {
+            menu.addEventListener("click", (event) => {
+                const element = menu.parentNode?.querySelector("ul") as HTMLElement;
+
+                if (element.getAttribute("aria-expanded") !== "true") {
+                    element.setAttribute("aria-expanded", "true");
+                    element!.style.maxHeight = element!.scrollHeight + "px";
+
+                    menu!.classList.add("bg-gray-200");
+
+                    menu.children[2].classList.remove("rotate-[-90deg]")
+                } else {
+                    element.setAttribute("aria-expanded", "false");
+                    element!.style.maxHeight = element.style.maxHeight = "0px";
+
+                    menu!.classList.remove("bg-gray-200");
+
+                    menu.children[2].classList.add("rotate-[-90deg]")
+                }
+            });
+        }
+    });
 
     useEffect(() => {
         const onEventResize = (event: Event) => {
@@ -71,7 +96,7 @@ const Inicio = (props: RouteComponentProps<{}>) => {
             {/*  */}
 
             {/* Aside */}
-            <Aside refAside={refAside} refOverlay={refOverlay} onEventOverlay={onEventOverlay} />
+            <Aside pathname={props.location.pathname} refAside={refAside} refOverlay={refOverlay} onEventOverlay={onEventOverlay} />
             {/*  */}
 
             {/*  */}
@@ -100,9 +125,13 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                                 path={`${path}/control`}
                                 render={(props) => <Control {...props} />}
                             />
-                             <Route
+                            <Route
                                 path={`${path}/reporte`}
                                 render={(props) => <Reporte {...props} />}
+                            />
+                            <Route
+                                path={`${path}/pago`}
+                                render={(props) => <Pago {...props} />}
                             />
                         </Switch>
                     </div>

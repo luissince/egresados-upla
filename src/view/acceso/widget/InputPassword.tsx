@@ -9,6 +9,7 @@ type Props = {
     setClave: Dispatch<SetStateAction<string>>,
     onEvenVerClave: React.MouseEventHandler,
     claveMensaje: string,
+    setMensaje: Dispatch<SetStateAction<string>>
 }
 
 const InputPassword = (props: Props) => {
@@ -36,6 +37,7 @@ const InputPassword = (props: Props) => {
                             props.setClave(changeevent.target.value)
                             props.setClaveMensaje("");
                         }
+                        props.setMensaje("");
                     }}
                 />
                 <button

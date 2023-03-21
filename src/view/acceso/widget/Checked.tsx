@@ -1,7 +1,6 @@
 
 
 const Checked = () => {
-
     return (
         <div className="flex items-start mb-6">
             <div className="flex items-center h-5">

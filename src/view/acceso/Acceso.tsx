@@ -5,11 +5,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from "../../store/store";
 import { images } from "../../helper";
 import { AcedemicCapSvg } from "../../component/svg/Svg";
-import { login } from "../../store/authSlice"; 
+import { login } from "../../store/authSlice";
 import Button from "./widget/Button";
 import InputPassword from "./widget/InputPassword";
 import InputClave from "./widget/InputClave";
 import Checked from "./widget/Checked";
+import { Login } from "../../network/rest";
+import Response from "../../model/clases/response";
+import RestError from "../../model/clases/resterror";
+import Token from "../../model/interfaces/token";
+import { AiFillWarning } from "react-icons/ai";
+import { Types } from "../../model/enum/types";
 
 const Acceso = (props: RouteComponentProps<{}>) => {
 
@@ -36,6 +42,7 @@ const Acceso = (props: RouteComponentProps<{}>) => {
 
         setCodigoMensaje("");
         setClaveMensaje("");
+        setMensaje("");
 
         if (codigo == "") {
             refCodigo.current!.focus();
@@ -55,19 +62,25 @@ const Acceso = (props: RouteComponentProps<{}>) => {
 
         setProceso(true);
 
-        await new Promise((resolve) => {
-            setTimeout(resolve, 3000);
-        });
-
         const data = {
             "codigo": codigo,
-            "password": clave,
-            "token": "qwe1qwe-266q6we2-wqweqw"
-        };
+            "contraseña": clave
+        }
 
-        dispatch(login({ user: data }));
+        const response = await Login<Token>(data);
 
-        setProceso(false);
+        if (response instanceof Response) {
+            dispatch(login({ token: response.data.token }));
+            return;
+        }
+
+        if (response instanceof RestError) {
+            if (response.getType() === Types.CANCELED) return;
+
+            setMensaje(response.getMessage());
+            setProceso(false);
+            refCodigo.current?.focus();
+        }
     }
 
     const onEvenVerClave = () => {
@@ -118,10 +131,12 @@ const Acceso = (props: RouteComponentProps<{}>) => {
                     />
                     <div className="flex flex-col items-center my-5">
                         <p className="font-mont text-center my-1">Por favor ingrese a su cuenta</p>
-                        <p className="md:hidden text-center font-mont">SEGUIMIENTO DEL GRADUADO</p>
+                        <p className="md:hidden text-center font-mont">INTRANET</p>
                         <p className="md:hidden text-center font-mont text-sm flex">
-                            <span className="px-1">(SGD)</span> <AcedemicCapSvg />
+                            <span className="px-1">(INT)</span> <AcedemicCapSvg />
                         </p>
+                        {mensaje != "" && <p className="text-red-600 flex items-center"><AiFillWarning className="mr-1" /> <span>{mensaje}</span></p>}
+
                         <form className="w-full lg:px-12 md:px-8 px-4" onSubmit={onEventAcceso}>
                             <InputClave
                                 refCodigo={refCodigo}
@@ -129,6 +144,7 @@ const Acceso = (props: RouteComponentProps<{}>) => {
                                 codigoMensaje={codigoMensaje}
                                 setCodigoMessage={setCodigoMensaje}
                                 setCodigo={setCodigo}
+                                setMensaje={setMensaje}
                             />
 
                             <InputPassword
@@ -139,6 +155,7 @@ const Acceso = (props: RouteComponentProps<{}>) => {
                                 setClave={setClave}
                                 onEvenVerClave={onEvenVerClave}
                                 claveMensaje={claveMensaje}
+                                setMensaje={setMensaje}
                             />
 
                             <Checked />

@@ -3,7 +3,7 @@ import { BsPersonCircle } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../../store/authSlice";
 
-type Props = {
+type Props = {   
     refBlock: React.RefObject<HTMLInputElement>,
     onEventMenu: React.MouseEventHandler,
 }
@@ -15,7 +15,7 @@ const Nav = (props: Props) => {
     return (
         <nav
             className="
-          bg-gray-200
+         bg-gray-200
             flex 
             left-0
             fixed  
@@ -31,7 +31,7 @@ const Nav = (props: Props) => {
                 md:w-64      
                 bg-gray-50 
                 transition-all
-                duration-700">
+                duration-500">
             </div>
             <button
                 onClick={props.onEventMenu}
@@ -46,9 +46,7 @@ const Nav = (props: Props) => {
                 </li>
                 <li className="flex justify-center h-full">
                     <button
-                        onClick={() => {
-                            dispatch(logout());
-                        }}
+                        onClick={() => dispatch(logout())}
                         className="px-4 text-gray-700 hover:bg-gray-300">
                         <BsPersonCircle className='w-5 h-5' />
                     </button>

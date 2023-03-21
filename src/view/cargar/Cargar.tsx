@@ -18,9 +18,9 @@ const Cargar = () => {
             if (login == null) {
                 dispatch(starting());
             } else {
-                const user = JSON.parse(login)
+                const token = JSON.parse(login)
                 const authentication = true;
-                dispatch(restore({ user: user, authentication: authentication }));
+                dispatch(restore({ token: token, authentication: authentication }));
             }
         } catch (error) {
             dispatch(starting());

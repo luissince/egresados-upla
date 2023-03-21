@@ -1,14 +1,10 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { PayloadAction, createSlice } from '@reduxjs/toolkit'
+import Auth from '../model/types/auth';
 
-type SliceState = {
-    cargando: boolean,
-    user: null,
-    autenticado: boolean,
-}
 
-export const initialState: SliceState = {
+const initialState: Auth = {
     cargando: true,
-    user: null,
+    token: null,
     autenticado: false,
 }
 
@@ -19,23 +15,23 @@ export const authSlice = createSlice({
         starting: (state) => {
             window.localStorage.clear();
             state.cargando = false;
-            state.user = null;
+            state.token = null;
             state.autenticado = false;
         },
-        restore: (state, action) => {
+        restore: (state, action: PayloadAction<{ token: string, authentication: boolean }>) => {
             state.cargando = false;
-            state.user = action.payload.user;
+            state.token = action.payload.token;
             state.autenticado = action.payload.authentication;
         },
-        login: (state, action) => {
+        login: (state, action: PayloadAction<{ token: string }>) => {
             state.autenticado = true;
-            state.user = action.payload.user;
-            window.localStorage.setItem('login', JSON.stringify(action.payload.user));
+            state.token = action.payload.token;
+            window.localStorage.setItem('login', JSON.stringify(action.payload.token));
         },
         logout: (state) => {
             window.localStorage.clear();
             state.cargando = true;
-            state.user = null;
+            state.token = null;
             state.autenticado = false;
         },
     },

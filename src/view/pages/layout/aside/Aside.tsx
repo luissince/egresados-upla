@@ -1,4 +1,4 @@
-import { AiFillAppstore, AiFillSmile, AiOutlineBehance } from "react-icons/ai";
+import { AiFillAppstore, AiFillSmile, AiOutlineBehance, AiOutlineMinus } from "react-icons/ai";
 import Menu from "./widget/Menu";
 import ListMenu from "./widget/ListMenu";
 import Title from "./widget/Title";
@@ -8,43 +8,121 @@ import Body from "./widget/Body";
 import { css } from "../../../../helper";
 
 type Props = {
+    pathname: string,
     refAside: React.RefObject<HTMLInputElement>,
     refOverlay: React.RefObject<HTMLInputElement>,
     onEventOverlay: React.MouseEventHandler,
 }
 
+type MenuItem = {
+    id: string,
+    nombre: string,
+    pathname?: string,
+    subMenus?: MenuItem[]
+}
+
+const menus: MenuItem[] = [
+    {
+        id: "1",
+        nombre: "Primero",
+        pathname: "/inicio/dashboard",
+        subMenus: []
+    },
+    {
+        id: "1",
+        nombre: "Lista 1",
+        subMenus: [
+            {
+                id: "11",
+                pathname: "/inicio/pago",
+                nombre: "Pago",
+            },
+            {
+                id: "12",
+                pathname: "#",
+                nombre: "Sub Menu 1",
+            }
+        ]
+    },
+    {
+        id: "2",
+        nombre: "Segundo",
+        pathname: "/inicio/control",
+        subMenus: []
+    },
+    {
+        id: "3",
+        nombre: "Lista 2",
+        subMenus: [
+            {
+                id: "31",
+                pathname: "#",
+                nombre: "Sub Menu 2",
+            }
+        ]
+    },
+    {
+        id: "4",
+        nombre: "Lista 3",
+        subMenus: [
+            {
+                id: "41",
+                pathname: "#",
+                nombre: "Sub Menu 2",
+            }
+        ]
+    },
+    {
+        id: "5",
+        nombre: "Reporte",
+        pathname: "/inicio/reporte",
+        subMenus: []
+    },
+];
+
+
 const Aside = (props: Props) => {
+
     return (
         <Body refAside={props.refAside}>
-            <div className="relative z-30 h-full overflow-y-auto py-4 px-3 bg-gray-50">
+            <div className="relative z-30 h-full overflow-y-auto py-4 bg-gray-50">
                 <Title />
 
                 <SubTitle />
 
-                <ul className="space-y-2 ">
-                    <Menu
-                        Icon={<AiFillAppstore className={css.IconMenu} />}
-                        nombre="Primero"
-                        to="/inicio/dashboard"
-                    />
-                    <ListMenu
-                        Icon={<AiFillSmile className={css.IconMenu} />}
-                        nombre="Lista 1"
-                    />
-                    <Menu
-                        Icon={<AiOutlineBehance className={css.IconMenu} />}
-                        nombre="Segundo"
-                        to="/inicio/control"
-                    />
-                    <ListMenu
-                        Icon={<AiFillSmile className={css.IconMenu} />}
-                        nombre="Lista 2"
-                    />
-                    <Menu
-                        Icon={<AiOutlineBehance className={css.IconMenu} />}
-                        nombre="Reporte"
-                        to="/inicio/reporte"
-                    />
+                <ul id="menus">
+                    {
+                        menus.map((menu, index) => {
+                            if (menu.subMenus?.length == 0) {
+                                return <Menu
+                                    key={index}
+                                    pathname={props.pathname}
+                                    Icon={<AiFillAppstore className={css.IconMenu} />}
+                                    nombre={menu.nombre}
+                                    to={menu.pathname!}
+                                />
+                            } else {
+                                return <ListMenu
+                                    key={index}
+                                    desplegar={menu.subMenus?.filter(item => item.pathname === props.pathname).length != 0}
+                                    Icon={<AiFillSmile className={css.IconMenu} />}
+                                    nombre={menu.nombre}
+                                >
+                                    {
+                                        menu.subMenus?.map((submenu, indexm) => {
+                                            return <Menu
+                                                key={indexm}
+                                                pathname={props.pathname}
+                                                Icon={<AiFillAppstore className={css.IconMenu} />}
+                                                nombre={submenu.nombre}
+                                                to={submenu.pathname!}
+                                            />
+                                        })
+                                    }
+                                </ListMenu>
+                            }
+                        })
+                    }
                 </ul>
             </div>
             <Overlay refOverlay={props.refOverlay} onEventOverlay={props.onEventOverlay} />

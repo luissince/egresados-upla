@@ -5,7 +5,8 @@ type Props = {
     codigo: string,
     codigoMensaje: string,
     setCodigoMessage: Dispatch<SetStateAction<string>>,
-    setCodigo: Dispatch<SetStateAction<string>>
+    setCodigo: Dispatch<SetStateAction<string>>,
+    setMensaje: Dispatch<SetStateAction<string>>
 }
 
 const InputClave = (props: Props) => {
@@ -31,6 +32,7 @@ const InputClave = (props: Props) => {
                         props.setCodigo(changeevent.target.value);
                         props.setCodigoMessage("");
                     }
+                    props.setMensaje("");
                 }}
                 autoFocus
             />
