@@ -16,7 +16,7 @@ Algunos recursos para iniciar con este proyecto puedes ver en:
 - [Visual Studio](https://code.visualstudio.com/) Editor de código para todos tipos de lenguaje de programación.
 - [Tailwindcss](https://tailwindcss.com/) Framework css para la parte visual.
 - [TypeScript](https://www.typescriptlang.org/) Lenguaje de programación de tipado fuerte.
-- [JavaScript](https://developer.mozilla.org/es/docs/Web/JavaScript) Lenguajde de programación interpretado.
+- [JavaScript](https://developer.mozilla.org/es/docs/Web/JavaScript) Lenguaje de programación interpretado.
 - [Git](https://git-scm.com/) Software de control de versiones.
 - [Git Hub](https://github.com/) Plataforma de alojamiento de proyecto de todo ámbito.
 
@@ -26,74 +26,94 @@ Siga los pasos para iniciar el desarrollo:
 
 1. Clona el proyecto o agrague el ssh al repositorio para contribuir en nuevos cambios [Git Hub - UPLA EGRESADOS](https://github.com/luissince/intranet-upla)
 
-#Code
+    1.1. Agregue por ssh para la integración
 
-    /** 
-    ** Para el proceso de integración **
-    **/
+    #Code
 
-    // ejecute en su consola cmd, bash, git los siguientes comandos
+        /** 
+        ** Para el proceso de integración **
+        **/
+
+        // ejecute en su consola cmd, bash, git los siguientes comandos
+        
+        // Generar tu clave ssh para poder contribuir al proyecto
+        ssh-keygen -t rsa -b 4096 -C "tu email"
+
+        // Configuración global del nombre
+        git config --global user.name "John Doe"
+
+        // Configuración global del email
+        git config --global user.email johndoe@example.com
+
+        // crea una carpera
+        mkdir upla-egresados
+
+        // moverse a la carpera
+        cd upla-egresados
+        
+        // comando que inicia git
+        git init
+
+        // comando que agrega la referencia de la rama
+        git remote add origin git@github.com:luissince/intranet-upla.git
     
-    // Generar tu clave ssh para poder contribuir al proyecto
-    ssh-keygen -t rsa -b 4096 -C "tu email"
+        // comando que descarga los archivos al working directory
+        git fetch origin master
+        
+        // comando que une los cambios al staging area
+        git merge origin/master
 
-    // Configuración global del nombre
-    git config --global user.name "John Doe"
+    2.2 Clonar
 
-    // Configuración global del email
-    git config --global user.email johndoe@example.com
+        #code
 
-    // crea una carpera
-    mkdir upla-egresados
+        /** 
+        ** Para el proceso de clonación **
+        **/
 
-    // moverse a la carpera
-    cd upla-egresados
-    
-    // comando que inicia git
-    git init
-
-    // comando que agrega la referencia de la rama
-    git remote add origin git@github.com:luissince/intranet-upla.git
-   
-    // comando que descarga los archivos al working directory
-    git fetch origin master
-    
-    // comando que une los cambios al staging area
-    git merge origin/master
-
-    /** 
-    ** Para el proceso de clonación **
-    **/
-
-    // Clonar al proyecto
-    git clone https://github.com/luissince/intranet-upla.git
+        // Clonar al proyecto
+        git clone https://github.com/luissince/intranet-upla.git
 
 2. Instale typescript si su proyecto lo usa
 
-#Code
+    #Code
 
-    npm install -g typescript
+        npm install -g typescript
 
 3. Ejecute en la carpte la clonada **npm install** para descargar las dependencias del proyecto
 
-#Code
+    #Code
 
-    npm install
+        npm install
 
-4. Ejecute **npm run dev** para iniciar el modo desarrollo
+4. Copiar el arhivo de la ruta del EndPoint
 
-#Code
+    #code
 
-    npm run dev
+        //copie el archivo .env.example a .env 
+        cp .env.example .env
 
-5. Ejecute **npm run build** para construir el proyecto
+5. Agregue el EndPoint el archivo .env 
 
-#Code
+    #code
 
-    npm run build
+        //Agregue la url del servidor
+        VITE_URL_AP = "http://localhost"
 
-6. Ejecute **npm run preview** para darle una preview del proyecto
+6. Ejecute **npm run dev** para iniciar el modo desarrollo    
 
-#Code
+    #Code
 
-    npm run preview
+        npm run dev
+
+7. Ejecute **npm run build** para construir el proyecto
+
+    #Code
+
+        npm run build
+
+8. Ejecute **npm run preview** para darle una preview del proyecto
+
+    #Code
+
+        npm run preview

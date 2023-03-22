@@ -3,7 +3,10 @@ module.exports = {
   mode: 'jit',
   darkMode: 'class',
   content: [
-    "./src/**/*.{html,ts,jsx,ts,tsx}", "./node_modules/flowbite/**/*.(js,jsx,ts,tsx,html)", './public/index.html',
+    "./src/**/*.{html,ts,jsx,ts,tsx}",
+    "./node_modules/flowbite/**/*.(js,jsx,ts,tsx,html)",
+    './node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
+    './public/index.html',
   ],
   safelist: [
     'w-64',
