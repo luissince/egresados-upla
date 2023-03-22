@@ -7,6 +7,7 @@ import { useRef } from "react";
 
 type Props = {
     desplegar: boolean,
+    idList: string,
     Icon: JSX.Element,
     nombre: string,
     children: React.ReactNode,
@@ -33,6 +34,7 @@ const ListMenu = (props: Props) => {
         <li>
             <button
                 type="button"
+                id-list={props.idList}
                 className={`
                 flex 
                 items-center 

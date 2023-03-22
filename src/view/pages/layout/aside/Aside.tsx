@@ -29,41 +29,30 @@ const menus: MenuItem[] = [
         subMenus: []
     },
     {
-        id: "1",
+        id: "2",
         nombre: "Lista 1",
         subMenus: [
             {
-                id: "11",
+                id: "21",
                 pathname: "/inicio/pago",
                 nombre: "Pago",
             },
             {
-                id: "12",
+                id: "22",
                 pathname: "#",
                 nombre: "Sub Menu 1",
             }
         ]
     },
     {
-        id: "2",
+        id: "3",
         nombre: "Segundo",
         pathname: "/inicio/control",
         subMenus: []
     },
     {
-        id: "3",
-        nombre: "Lista 2",
-        subMenus: [
-            {
-                id: "31",
-                pathname: "#",
-                nombre: "Sub Menu 2",
-            }
-        ]
-    },
-    {
         id: "4",
-        nombre: "Lista 3",
+        nombre: "Lista 2",
         subMenus: [
             {
                 id: "41",
@@ -74,6 +63,17 @@ const menus: MenuItem[] = [
     },
     {
         id: "5",
+        nombre: "Lista 3",
+        subMenus: [
+            {
+                id: "51",
+                pathname: "#",
+                nombre: "Sub Menu 2",
+            }
+        ]
+    },
+    {
+        id: "6",
         nombre: "Reporte",
         pathname: "/inicio/reporte",
         subMenus: []
@@ -104,6 +104,7 @@ const Aside = (props: Props) => {
                             } else {
                                 return <ListMenu
                                     key={index}
+                                    idList={menu.id}
                                     desplegar={menu.subMenus?.filter(item => item.pathname === props.pathname).length != 0}
                                     Icon={<AiFillSmile className={css.IconMenu} />}
                                     nombre={menu.nombre}

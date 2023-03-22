@@ -28,24 +28,40 @@ const Inicio = (props: RouteComponentProps<{}>) => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
 
         const menus = document.querySelectorAll<HTMLElement>("#menus li button") as NodeListOf<HTMLButtonElement>;
-        for (const menu of menus) {
-            menu.addEventListener("click", (event) => {
-                const element = menu.parentNode?.querySelector("ul") as HTMLElement;
+        for (const button of menus) {
+            button.addEventListener("click", (event) => {
+                const element = button.parentNode?.querySelector("ul") as HTMLElement;
 
                 if (element.getAttribute("aria-expanded") !== "true") {
                     element.setAttribute("aria-expanded", "true");
                     element!.style.maxHeight = element!.scrollHeight + "px";
 
-                    menu!.classList.add("bg-gray-200");
+                    button!.classList.add("bg-gray-200");
 
-                    menu.children[2].classList.remove("rotate-[-90deg]")
+                    button.children[2].classList.remove("rotate-[-90deg]");      
+
+                    const list = button.parentElement?.parentElement?.querySelectorAll<HTMLElement>("button") as  NodeListOf<HTMLButtonElement>;
+                    for(const bu of list){
+                        if(button.getAttribute("id-list") !== bu.getAttribute("id-list")){
+                            const elementUl = bu.parentNode?.querySelector("ul") as HTMLElement;
+                            if(elementUl.getAttribute("aria-expanded") == "true"){
+                                elementUl.setAttribute("aria-expanded", "false");
+                                elementUl!.style.maxHeight = elementUl.style.maxHeight = "0px";
+
+                                bu!.classList.remove("bg-gray-200");
+                                bu.children[2].classList.add("rotate-[-90deg]");
+                            }
+                        }                        
+                    }
+
+                   
                 } else {
                     element.setAttribute("aria-expanded", "false");
                     element!.style.maxHeight = element.style.maxHeight = "0px";
 
-                    menu!.classList.remove("bg-gray-200");
+                    button!.classList.remove("bg-gray-200");
 
-                    menu.children[2].classList.add("rotate-[-90deg]")
+                    button.children[2].classList.add("rotate-[-90deg]");
                 }
             });
         }
