@@ -1,6 +1,6 @@
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { RootState } from './store/store';
+import { RootState } from './store/configureStore.store';
 import Cargar from './view/cargar/Cargar';
 import Inicio from './view/inicio/Inicio';
 import NotFound from './view/pages/404/NotFound';

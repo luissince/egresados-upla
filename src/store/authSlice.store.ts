@@ -1,9 +1,10 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
-import Auth from '../model/types/auth';
+import Auth from '../model/types/auth.model';
 
 
 const initialState: Auth = {
     cargando: true,
+    codigo: "",
     token: null,
     autenticado: false,
 }
@@ -15,24 +16,29 @@ export const authSlice = createSlice({
         starting: (state) => {
             window.localStorage.clear();
             state.cargando = false;
+            state.codigo = "";
             state.token = null;
             state.autenticado = false;
         },
-        restore: (state, action: PayloadAction<{ token: string, authentication: boolean }>) => {
+        restore: (state, action: PayloadAction<{ codigo: string, token: string, authentication: boolean }>) => {
             state.cargando = false;
+            state.codigo = action.payload.codigo
             state.token = action.payload.token;
             state.autenticado = action.payload.authentication;
         },
-        login: (state, action: PayloadAction<{ token: string }>) => {
+        login: (state, action: PayloadAction<{ codigo: string, token: string }>) => {
             state.autenticado = true;
+            state.codigo = action.payload.codigo
             state.token = action.payload.token;
-            window.localStorage.setItem('login', JSON.stringify(action.payload.token));
+            window.localStorage.setItem('codigo', JSON.stringify(action.payload.codigo));
+            window.localStorage.setItem('token', JSON.stringify(action.payload.token));
         },
-        logout: (state) => {
-            window.localStorage.clear();
+        logout: (state) => {          
             state.cargando = true;
+            state.codigo = "";
             state.token = null;
             state.autenticado = false;
+            window.localStorage.clear();
         },
     },
 })

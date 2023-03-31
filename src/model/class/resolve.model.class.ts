@@ -1,6 +1,6 @@
 import axios, { AxiosError, AxiosResponse } from "axios";
-import Response from "./response";
-import RestError from "./resterror";
+import Response from "./response.model.class";
+import RestError from "./resterror.model.class";
 
 class Resolve {
 
@@ -18,5 +18,4 @@ class Resolve {
     }
 
 }
-
 export default Resolve;

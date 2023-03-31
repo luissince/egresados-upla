@@ -1,9 +1,13 @@
+<link href="src/assets/css/markdown.css" rel="stylesheet"></link>
+
 # UPLA INTRANET
 
 <!-- ![IMAGES DE GO LANG](images/ladder.svg) -->
 <img src="src/assets/images/logo_upla.svg" alt="Imagen go" width="200" />
 
+<font size="5" face="Qwitcher Grypen">
 Aplicación para los egresados de la universidad peruana los andes.
+</font>
 
 ## Iniciar
 

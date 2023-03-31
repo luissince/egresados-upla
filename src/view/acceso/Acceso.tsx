@@ -2,20 +2,20 @@ import React, { useRef, useState } from "react";
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from "../../store/store";
-import { images } from "../../helper";
-import { AcedemicCapSvg } from "../../component/svg/Svg";
-import { login } from "../../store/authSlice";
+import { RootState } from "../../store/configureStore.store";
+import { images } from "../../helper/index.helper";
+import { AcedemicCapSvg } from "../../component/Svg.component";
+import { login } from "../../store/authSlice.store";
 import Button from "./widget/Button";
 import InputPassword from "./widget/InputPassword";
 import InputClave from "./widget/InputClave";
 import Checked from "./widget/Checked";
-import { Login } from "../../network/rest";
-import Response from "../../model/clases/response";
-import RestError from "../../model/clases/resterror";
-import Token from "../../model/interfaces/token";
+import { LoginRest } from "../../network/rest/index.network";
+import Response from "../../model/class/response.model.class";
+import RestError from "../../model/class/resterror.model.class";
+import Login from "../../model/interfaces/login.model.interface";
 import { AiFillWarning } from "react-icons/ai";
-import { Types } from "../../model/enum/types";
+import { Types } from "../../model/enum/types.model";
 
 const Acceso = (props: RouteComponentProps<{}>) => {
 
@@ -67,10 +67,10 @@ const Acceso = (props: RouteComponentProps<{}>) => {
             "contraseña": clave
         }
 
-        const response = await Login<Token>(data);
+        const response = await LoginRest<Login>(data);
 
         if (response instanceof Response) {
-            dispatch(login({ token: response.data.token }));
+            dispatch(login({codigo: response.data.docNumId ,token: response.data.token }));
             return;
         }
 

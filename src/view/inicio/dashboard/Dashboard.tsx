@@ -2,7 +2,7 @@ import { BsFillPersonFill } from "react-icons/bs";
 import { GrAnalytics } from "react-icons/gr";
 import { SiGoogleanalytics } from "react-icons/si";
 import { TbDeviceAnalytics } from "react-icons/tb";
-import { images } from "../../../helper";
+import { images } from "../../../helper/index.helper";
 import { RouteComponentProps } from "react-router-dom";
 
 const Dashboard = (props: RouteComponentProps<{}>) => {

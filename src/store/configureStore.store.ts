@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from './authSlice';
-import notifeSlice from './notifeSlice';
+import authReducer from './authSlice.store';
+import notifeSlice from './notifeSlice.store';
 // import { setupListeners } from '@reduxjs/toolkit/query';
 // import { apis } from '../api/apis';
 

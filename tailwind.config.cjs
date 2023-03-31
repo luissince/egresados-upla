@@ -3,9 +3,8 @@ module.exports = {
   mode: 'jit',
   darkMode: 'class',
   content: [
-    "./src/**/*.{html,ts,jsx,ts,tsx}",
-    "./node_modules/flowbite/**/*.(js,jsx,ts,tsx,html)",
-    './node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}',
+    "./src/**/*.{html,js,jsx,ts,tsx}",
+    "./node_modules/flowbite/**/*.{html,js,jsx,ts,tsx}",
     './public/index.html',
   ],
   safelist: [
@@ -162,14 +161,35 @@ module.exports = {
       },
       backgroundImage: {
         'portada': "url('/src/assets/images/portada.png')",
+      },
+      animation: {
+        'in': 'fade-in 500ms',
+        'out': 'fade-out 500ms',
+      },
+      keyframes: {
+        "fade-in": {
+          'from': {
+            'opacity': 0
+          },
+          'to': {
+            'opacity': 1
+          }
+        },
+        "fade-out": {
+          'from': {
+            'opacity': 1
+          },
+          'to': {
+            'opacity': 0,
+          }
+        }
       }
     }
   },
   plugins: [
-    require('flowbite/plugin'),
-    require('tailwind-scrollbar'),
+    require('flowbite/plugin')
   ],
   variants: {
-    scrollbar: ['dark']
+
   }
 }

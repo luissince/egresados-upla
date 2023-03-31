@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { Types } from "../enum/types";
+import { Types } from "../enum/types.model";
 
 class RestError {
 
@@ -36,9 +36,9 @@ class RestError {
             case 400:
                 return error.message;
             case 401:
-                return error.message;
+                return "Unauthorized";
             case 403:
-                return error.message;
+                return "Forbidden";
             case 404:
                 return error.message;
             case 500:

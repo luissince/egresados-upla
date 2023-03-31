@@ -1,5 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
-import { EyeSlashSvg, EyeSvg } from "../../../component/svg/Svg";
+import { EyeSlashSvg, EyeSvg } from "../../../component/Svg.component";
 
 type Props = {
     see: boolean,

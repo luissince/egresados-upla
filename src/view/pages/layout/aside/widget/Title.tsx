@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { images } from "../../../../../helper";
+import { images } from "../../../../../helper/index.helper";
 
 const Title = () =>{
 return (

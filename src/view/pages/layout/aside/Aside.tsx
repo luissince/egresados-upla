@@ -5,9 +5,12 @@ import Title from "./widget/Title";
 import SubTitle from "./widget/SubTitle";
 import Overlay from "./widget/Overlay";
 import Body from "./widget/Body";
-import { css } from "../../../../helper";
+import { css } from "../../../../helper/index.helper";
+import Estudiante from "../../../../model/interfaces/estudiante.model.interface";
+import Trabajador from "../../../../model/interfaces/trabajador.model.interface";
 
 type Props = {
+    informacion: Estudiante | Trabajador | undefined,
     pathname: string,
     refAside: React.RefObject<HTMLInputElement>,
     refOverlay: React.RefObject<HTMLInputElement>,
@@ -88,7 +91,7 @@ const Aside = (props: Props) => {
             <div className="relative z-30 h-full overflow-y-auto py-4 bg-gray-50">
                 <Title />
 
-                <SubTitle />
+                <SubTitle informacion={props.informacion} />
 
                 <ul id="menus">
                     {

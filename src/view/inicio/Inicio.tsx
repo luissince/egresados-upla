@@ -1,20 +1,34 @@
-import { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Redirect, Route, RouteComponentProps, Switch } from 'react-router-dom';
-import { RootState } from '../../store/store';
+import { RootState } from '../../store/configureStore.store';
 import Aside from '../pages/layout/aside/Aside';
 import Nav from '../pages/layout/nav/Nav';
 import Dashboard from './dashboard/Dashboard';
-import { css } from '../../helper';
+import { css, images } from '../../helper/index.helper';
 import Bienvenido from './bienvenido/Bienvenido';
 import Control from './control/Control';
 import Reporte from './reporte/Reporte';
 import Pago from './pago/Pago';
 import { useEffectOnce } from 'react-use';
+import { EstudianteRest, TrabajadorRest } from '../../network/rest/index.network';
+import Response from '../../model/class/response.model.class';
+import { logout } from '../../store/authSlice.store';
+import RestError from '../../model/class/resterror.model.class';
+import Estudiante from '../../model/interfaces/estudiante.model.interface';
+import Trabajador from '../../model/interfaces/trabajador.model.interface';
 
 const Inicio = (props: RouteComponentProps<{}>) => {
 
+    const dispatch = useDispatch();
+
     const autenticado = useSelector((state: RootState) => state.autenticacion.autenticado)
+
+    if (!autenticado) {
+        return <Redirect to="/acceso" />
+    }
+
+    const codigo = useSelector((state: RootState) => state.autenticacion.codigo)
 
     const refAside = useRef<HTMLInputElement>(null);
 
@@ -24,9 +38,12 @@ const Inicio = (props: RouteComponentProps<{}>) => {
 
     const refOverlay = useRef<HTMLInputElement>(null);
 
+    const [cargando, setCargando] = useState<boolean>(true);
+
+    const [informacion, setInformacion] = useState<Estudiante|Trabajador>();
+
     useEffectOnce(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-
         const menus = document.querySelectorAll<HTMLElement>("#menus li button") as NodeListOf<HTMLButtonElement>;
         for (const button of menus) {
             button.addEventListener("click", (event) => {
@@ -38,23 +55,23 @@ const Inicio = (props: RouteComponentProps<{}>) => {
 
                     button!.classList.add("bg-gray-200");
 
-                    button.children[2].classList.remove("rotate-[-90deg]");      
+                    button.children[2].classList.remove("rotate-[-90deg]");
 
-                    const list = button.parentElement?.parentElement?.querySelectorAll<HTMLElement>("button") as  NodeListOf<HTMLButtonElement>;
-                    for(const bu of list){
-                        if(button.getAttribute("id-list") !== bu.getAttribute("id-list")){
+                    const list = button.parentElement?.parentElement?.querySelectorAll<HTMLElement>("button") as NodeListOf<HTMLButtonElement>;
+                    for (const bu of list) {
+                        if (button.getAttribute("id-list") !== bu.getAttribute("id-list")) {
                             const elementUl = bu.parentNode?.querySelector("ul") as HTMLElement;
-                            if(elementUl.getAttribute("aria-expanded") == "true"){
+                            if (elementUl.getAttribute("aria-expanded") == "true") {
                                 elementUl.setAttribute("aria-expanded", "false");
                                 elementUl!.style.maxHeight = elementUl.style.maxHeight = "0px";
 
                                 bu!.classList.remove("bg-gray-200");
                                 bu.children[2].classList.add("rotate-[-90deg]");
                             }
-                        }                        
+                        }
                     }
 
-                   
+
                 } else {
                     element.setAttribute("aria-expanded", "false");
                     element!.style.maxHeight = element.style.maxHeight = "0px";
@@ -66,6 +83,39 @@ const Inicio = (props: RouteComponentProps<{}>) => {
             });
         }
     });
+
+    useEffect(() => {
+        const load = async () => {
+            // await new Promise((resolve, reject) => {
+            //     setTimeout(resolve, 5000);
+            // });
+
+            if (codigo.length === 8) {
+                const response = await TrabajadorRest<Trabajador>(codigo);
+                if (response instanceof Response) {
+                    setInformacion(response.data);
+                    setCargando(false);
+                }
+
+                if (response instanceof RestError) {
+                    dispatch(logout());
+                }
+            } else {
+                const response = await EstudianteRest<Estudiante>(codigo);
+                if (response instanceof Response) {
+                    setInformacion(response.data);
+                    setCargando(false);
+                }
+
+                if (response instanceof RestError) {
+                    dispatch(logout());
+                }
+            }
+        }
+        
+        load();
+
+    }, []);
 
     useEffect(() => {
         const onEventResize = (event: Event) => {
@@ -99,20 +149,28 @@ const Inicio = (props: RouteComponentProps<{}>) => {
         }
     }
 
-    if (!autenticado) {
-        return <Redirect to="/acceso" />
-    }
-
-    const { path, url } = props.match;
+    const { path } = props.match;
 
     return (
         <div className="flex w-full">
+
+            {cargando && <div className="fixed z-[500] w-screen h-screen">
+                <div className=" w-screen h-screen bg-gray-900"></div>
+                <div className=" w-full h-full absolute left-0 top-0 text-white flex justify-center items-center flex-col">
+                    <img src={images.logo} className="w-[10.5rem] mr-0 my-3" alt="Flowbite Logo" />
+                    <div style={{ "borderTopColor": "transparent" }}
+                        className="w-16 h-16 border-4 border-upla-100 border-solid rounded-full animate-spin">
+                    </div>
+                    <h1 className='m-3 text-center'>Cargando información, espere por favor...</h1>
+                </div>
+            </div>}
+
             {/* Navbar */}
             <Nav refBlock={refBlock} onEventMenu={onEventMenu} />
             {/*  */}
 
             {/* Aside */}
-            <Aside pathname={props.location.pathname} refAside={refAside} refOverlay={refOverlay} onEventOverlay={onEventOverlay} />
+            <Aside informacion={informacion} pathname={props.location.pathname} refAside={refAside} refOverlay={refOverlay} onEventOverlay={onEventOverlay} />
             {/*  */}
 
             {/*  */}

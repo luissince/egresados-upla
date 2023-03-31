@@ -1,4 +1,4 @@
-import { ArrowRightOnCicleSvg, LoaderSvg } from "../../../component/svg/Svg";
+import { ArrowRightOnCicleSvg, LoaderSvg } from "../../../component/Svg.component";
 
 type Props = {
     proceso: boolean

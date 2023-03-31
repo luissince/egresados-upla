@@ -1,4 +1,4 @@
-export default interface Token {
+export default interface Login {
     anio: string,
     docNumId: string,
     periodo: string,
