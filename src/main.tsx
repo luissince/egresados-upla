@@ -5,6 +5,7 @@ import { Provider } from 'react-redux';
 import App from './App'
 import './index.css'
 import './network/rest/index.network';
+import '../node_modules/bootstrap-icons/font/bootstrap-icons.css';
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   // <React.StrictMode>

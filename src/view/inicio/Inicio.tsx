@@ -17,6 +17,8 @@ import { logout } from '../../store/authSlice.store';
 import RestError from '../../model/class/resterror.model.class';
 import Estudiante from '../../model/interfaces/estudiante.model.interface';
 import Trabajador from '../../model/interfaces/trabajador.model.interface';
+import Listar from './centroayuda/listar/Listar';
+import Crear from './centroayuda/crear/Crear';
 
 const Inicio = (props: RouteComponentProps<{}>) => {
 
@@ -40,7 +42,7 @@ const Inicio = (props: RouteComponentProps<{}>) => {
 
     const [cargando, setCargando] = useState<boolean>(true);
 
-    const [informacion, setInformacion] = useState<Estudiante|Trabajador>();
+    const [informacion, setInformacion] = useState<Estudiante | Trabajador>();
 
     useEffectOnce(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -51,9 +53,11 @@ const Inicio = (props: RouteComponentProps<{}>) => {
 
                 if (element.getAttribute("aria-expanded") !== "true") {
                     element.setAttribute("aria-expanded", "true");
-                    element!.style.maxHeight = element!.scrollHeight + "px";
+                    element.style.maxHeight = element.scrollHeight + "px";
 
-                    button!.classList.add("bg-gray-200");
+                    button.classList.remove("text-gray-400");
+                    button.classList.add("text-white");
+                    button.classList.add("bg-gray-700");
 
                     button.children[2].classList.remove("rotate-[-90deg]");
 
@@ -65,7 +69,9 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                                 elementUl.setAttribute("aria-expanded", "false");
                                 elementUl!.style.maxHeight = elementUl.style.maxHeight = "0px";
 
-                                bu!.classList.remove("bg-gray-200");
+                                bu!.classList.remove("text-white");
+                                bu!.classList.add("text-gray-400");
+                                bu!.classList.remove("bg-gray-700");
                                 bu.children[2].classList.add("rotate-[-90deg]");
                             }
                         }
@@ -74,9 +80,11 @@ const Inicio = (props: RouteComponentProps<{}>) => {
 
                 } else {
                     element.setAttribute("aria-expanded", "false");
-                    element!.style.maxHeight = element.style.maxHeight = "0px";
+                    element.style.maxHeight = element.style.maxHeight = "0px";
 
-                    button!.classList.remove("bg-gray-200");
+                    button.classList.remove("text-white");
+                    button.classList.add("text-gray-400");
+                    button.classList.remove("bg-gray-700");
 
                     button.children[2].classList.add("rotate-[-90deg]");
                 }
@@ -112,7 +120,7 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                 }
             }
         }
-        
+
         load();
 
     }, []);
@@ -177,7 +185,7 @@ const Inicio = (props: RouteComponentProps<{}>) => {
             <div
                 ref={refMain}
                 className={css.DivMain}>
-                <div className="w-full p-4 font-mont">
+                <div className="w-full p-4 font-mont overflow-hidden">
                     {/*INICIO NAVEGACION */}
                     <div className="content-wrapper flex-wrap">
                         <Switch>
@@ -196,16 +204,12 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                                 render={(props) => <Dashboard {...props} />}
                             />
                             <Route
-                                path={`${path}/control`}
-                                render={(props) => <Control {...props} />}
+                                path={`${path}/crear`}
+                                render={(props) => <Crear {...props} />}
                             />
                             <Route
-                                path={`${path}/reporte`}
-                                render={(props) => <Reporte {...props} />}
-                            />
-                            <Route
-                                path={`${path}/pago`}
-                                render={(props) => <Pago {...props} />}
+                                path={`${path}/listar`}
+                                render={(props) => <Listar {...props} />}
                             />
                         </Switch>
                     </div>

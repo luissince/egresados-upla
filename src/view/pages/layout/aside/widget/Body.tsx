@@ -12,6 +12,8 @@ const Body = (props: Props) => {
             id="Aside"
             ref={props.refAside}
             className="
+            drop-shadow
+            bg-gray-900
             w-[256px] 
             ml-[-256px]
             md:ml-[0px]
@@ -21,8 +23,7 @@ const Body = (props: Props) => {
             overflow-auto 
             fixed 
             block 
-            bg-gray-50 
-            h-screen 
+            h-screen  
             font-mont"
             aria-label="Sidebar"
         >

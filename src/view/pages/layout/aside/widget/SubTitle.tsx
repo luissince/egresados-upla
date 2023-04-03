@@ -35,17 +35,17 @@ const SubTitle = (props: Props) => {
                 alt="Rounded avatar"
             />
             <div
-                className="pt-3 
+                className="p-3 
                             flex 
                             justify-center 
                             items-center">
-                <h1 className="text-center font-bold mr-3">
+                <h1 className="text-center font-bold text-white mr-3">
                     {
                         informacion
                     }
                 </h1>
             </div>
-            <p className="text-center">{codigo}</p>
+            <p className="text-center text-white">{codigo}</p>
         </div>
     );
 }

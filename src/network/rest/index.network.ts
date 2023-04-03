@@ -36,3 +36,7 @@ export async function TrabajadorRest<Trabajador>(dni: string, signal = null): Pr
 export async function ValidarTokenRest<Void>(signal = null): Promise<Response<Void> | RestError> {
     return await Resolve.create<Void>(instance.get<Void>("/Aplicacion/validarToken", { signal: signal! }));
 }
+
+export async function SoporteListarConsultasRest<Responde>(params: object, abortController: AbortController | null): Promise<Response<Responde> | RestError> {
+    return await Resolve.create<Responde>(instance.post<Responde>("/Soporte/listarConsultas",params, { signal: abortController?.signal }));
+}

@@ -8,7 +8,7 @@ import { useRef } from "react";
 type Props = {
     desplegar: boolean,
     idList: string,
-    Icon: JSX.Element,
+    icon: string,
     nombre: string,
     children: React.ReactNode,
 }
@@ -25,7 +25,9 @@ const ListMenu = (props: Props) => {
 
             const button = (element.parentNode as HTMLElement).querySelector("button") as HTMLButtonElement;
 
-            button.classList.add("bg-gray-200");
+            button.classList.remove("text-gray-400");
+            button.classList.add("text-white");
+            button.classList.add("bg-gray-700");
             button.children[2].classList.remove("rotate-[-90deg]");
         }
     });
@@ -38,20 +40,20 @@ const ListMenu = (props: Props) => {
                 className={`
                 flex 
                 items-center 
-                p-4 
+                p-3 
                 w-full 
                 text-sm 
                 font-normal 
-                text-gray-900                
+                text-gray-400                
                 transition 
                 duration-75 
                 group 
-                hover:bg-gray-200`}
+                hover:text-white`}
             >
-                {props.Icon}
+                <i className={`bi ${props.icon}  text-xl pr-2`} ></i>
                 <span
                     className="flex-1 
-                    ml-1 
+                    pr-2
                     text-left 
                     whitespace-nowrap 
                     overflow-hidden"
@@ -68,7 +70,7 @@ const ListMenu = (props: Props) => {
                             overflow-hidden 
                             transition-all 
                             duration-500                          
-                            bg-gray-200`}
+                            bg-gray-700`}
             >
                 {props.children}
 

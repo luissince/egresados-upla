@@ -1,9 +1,7 @@
-import { AiFillBell, AiOutlineMenu } from "react-icons/ai";
-import { BsPersonCircle } from "react-icons/bs";
 import { useDispatch } from "react-redux";
 import { logout } from "../../../../store/authSlice.store";
 
-type Props = {   
+type Props = {
     refBlock: React.RefObject<HTMLInputElement>,
     onEventMenu: React.MouseEventHandler,
 }
@@ -15,7 +13,8 @@ const Nav = (props: Props) => {
     return (
         <nav
             className="
-         bg-gray-200
+            drop-shadow
+            bg-upla-100
             flex 
             left-0
             fixed  
@@ -35,20 +34,20 @@ const Nav = (props: Props) => {
             </div>
             <button
                 onClick={props.onEventMenu}
-                className="flex items-center justify-center px-4 text-gray-700 hover:bg-gray-300">
-                <AiOutlineMenu className='w-5 h-5' />
+                className="flex items-center justify-center px-4 text-white hover:bg-white hover:text-upla-100">
+                <i className="bi bi-justify text-2xl"></i>
             </button>
             <ul className="flex items-center flex-1 justify-end pr-3">
                 <li className="flex justify-center h-full">
-                    <button className="px-4 text-gray-700 hover:bg-gray-300 ">
-                        <AiFillBell className='w-5 h-5' />
+                    <button className="px-4 text-white hover:bg-white hover:text-upla-100 ">
+                        <i className="bi bi-bell text-xl"></i>
                     </button>
                 </li>
                 <li className="flex justify-center h-full">
                     <button
                         onClick={() => dispatch(logout())}
-                        className="px-4 text-gray-700 hover:bg-gray-300">
-                        <BsPersonCircle className='w-5 h-5' />
+                        className="px-4 text-white hover:bg-white hover:text-upla-100">
+                        <i className="bi bi-person-circle text-xl"></i>
                     </button>
                 </li>
             </ul>

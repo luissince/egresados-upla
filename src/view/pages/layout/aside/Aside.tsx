@@ -1,11 +1,9 @@
-import { AiFillAppstore, AiFillSmile, AiOutlineBehance, AiOutlineMinus } from "react-icons/ai";
 import Menu from "./widget/Menu";
 import ListMenu from "./widget/ListMenu";
 import Title from "./widget/Title";
 import SubTitle from "./widget/SubTitle";
 import Overlay from "./widget/Overlay";
 import Body from "./widget/Body";
-import { css } from "../../../../helper/index.helper";
 import Estudiante from "../../../../model/interfaces/estudiante.model.interface";
 import Trabajador from "../../../../model/interfaces/trabajador.model.interface";
 
@@ -21,66 +19,71 @@ type MenuItem = {
     id: string,
     nombre: string,
     pathname?: string,
+    icon: string,
     subMenus?: MenuItem[]
 }
 
 const menus: MenuItem[] = [
     {
         id: "1",
-        nombre: "Primero",
+        nombre: "Dashboard",
         pathname: "/inicio/dashboard",
+        icon : "bi-speedometer",
         subMenus: []
     },
     {
         id: "2",
-        nombre: "Lista 1",
+        nombre: "Centro de Ayuda",
+        icon : "bi-arrow-left-right",
         subMenus: [
             {
                 id: "21",
-                pathname: "/inicio/pago",
-                nombre: "Pago",
+                pathname: "/inicio/crear",
+                icon : "bi-dash",
+                nombre: "Crear",
             },
             {
                 id: "22",
-                pathname: "#",
-                nombre: "Sub Menu 1",
+                pathname: "/inicio/listar",
+                icon : "bi-dash",
+                nombre: "Lista",
             }
         ]
     },
-    {
-        id: "3",
-        nombre: "Segundo",
-        pathname: "/inicio/control",
-        subMenus: []
-    },
-    {
-        id: "4",
-        nombre: "Lista 2",
-        subMenus: [
-            {
-                id: "41",
-                pathname: "#",
-                nombre: "Sub Menu 2",
-            }
-        ]
-    },
-    {
-        id: "5",
-        nombre: "Lista 3",
-        subMenus: [
-            {
-                id: "51",
-                pathname: "#",
-                nombre: "Sub Menu 2",
-            }
-        ]
-    },
-    {
-        id: "6",
-        nombre: "Reporte",
-        pathname: "/inicio/reporte",
-        subMenus: []
-    },
+    // {
+    //     id: "3",
+    //     nombre: "Segundo",
+    //     pathname: "/inicio/control",
+    //     subMenus: []
+    // },
+    // {
+    //     id: "4",
+    //     nombre: "Lista 2",
+    //     subMenus: [
+    //         {
+    //             id: "41",
+    //             pathname: "#",
+    //             nombre: "Sub Menu 2",
+    //         }
+    //     ]
+    // },
+    // {
+    //     id: "5",
+    //     nombre: "Lista 3",
+    //     subMenus: [
+    //         {
+    //             id: "51",
+    //             pathname: "#",
+    //             nombre: "Sub Menu 2",
+    //         }
+    //     ]
+    // },
+    // {
+    //     id: "6",
+    //     nombre: "Reporte",
+    //     pathname: "/inicio/reporte",
+    //     subMenus: []
+    // },
 ];
 
 
@@ -88,7 +91,7 @@ const Aside = (props: Props) => {
 
     return (
         <Body refAside={props.refAside}>
-            <div className="relative z-30 h-full overflow-y-auto py-4 bg-gray-50">
+            <div className="relative z-30 h-full overflow-y-auto py-4">
                 <Title />
 
                 <SubTitle informacion={props.informacion} />
@@ -100,7 +103,7 @@ const Aside = (props: Props) => {
                                 return <Menu
                                     key={index}
                                     pathname={props.pathname}
-                                    Icon={<AiFillAppstore className={css.IconMenu} />}
+                                    icon={menu.icon}
                                     nombre={menu.nombre}
                                     to={menu.pathname!}
                                 />
@@ -109,7 +112,7 @@ const Aside = (props: Props) => {
                                     key={index}
                                     idList={menu.id}
                                     desplegar={menu.subMenus?.filter(item => item.pathname === props.pathname).length != 0}
-                                    Icon={<AiFillSmile className={css.IconMenu} />}
+                                    icon={menu.icon}
                                     nombre={menu.nombre}
                                 >
                                     {
@@ -117,7 +120,7 @@ const Aside = (props: Props) => {
                                             return <Menu
                                                 key={indexm}
                                                 pathname={props.pathname}
-                                                Icon={<AiFillAppstore className={css.IconMenu} />}
+                                                icon={submenu.icon}
                                                 nombre={submenu.nombre}
                                                 to={submenu.pathname!}
                                             />

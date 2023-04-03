@@ -44,7 +44,7 @@ module.exports = {
       'transparent': '#fff0',
       'sombra': '#00000054',
       upla: {
-        100: '#007cbc',
+        100: '#007dbc',
         200: '#0B5CD4'
       },
       gray: {
@@ -144,11 +144,11 @@ module.exports = {
         900: '#751A3D'
       }
     },
-    fontFamily: {
-      sans: ['Graphik', 'sans-serif'],
-      serif: ['Merriweather', 'serif'],
-      mont: ['Montserrat', 'sans-serif']
-    },
+    // fontFamily: {
+    //   sans: ['Graphik', 'sans-serif'],
+    //   serif: ['Merriweather', 'serif'],
+    //   mont: ['Montserrat', 'sans-serif']
+    // },
     extend: {
       spacing: {
         88: '22rem',

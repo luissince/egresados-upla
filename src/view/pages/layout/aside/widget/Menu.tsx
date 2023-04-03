@@ -3,30 +3,29 @@ import { NavLink } from "react-router-dom";
 
 type Props = {
     pathname: string,
-    Icon: JSX.Element,
+    icon: string,
     nombre: string,
     to: string,
 }
 
 const Menu = (props: Props) => {
     return (
-        <li>
+        <li className="">
             <NavLink
                 to={props.to}
                 className={`${props.to === props.pathname ? "bg-upla-100 text-white" : ""}
                 flex 
                 items-center 
-                p-4 
+                p-3 
                 text-sm 
                 font-normal 
-                text-gray-900   
-                hover:text-gray-900                       
-                hover:bg-gray-300             
+                text-gray-400                    
                 transition-all 
-                duration-200`}
+                duration-200
+                hover:text-white`}
             >
-                {props.Icon}
-                <span className="ml-1">{props.nombre}</span>
+                <i className={`bi ${props.icon} text-xl pr-2`} ></i>
+                <span className=""> {props.nombre}</span>
             </NavLink>
         </li>
     );

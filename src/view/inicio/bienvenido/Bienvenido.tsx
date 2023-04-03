@@ -49,7 +49,22 @@ const Bienvenido = (props: RouteComponentProps<{}>) => {
 
     return (
         <>
-
+            <div className="flex flex-wrap -mx-3">
+                <div className="w-full px-3">
+                    <div className="relative flex flex-col h-full min-w-0 break-words bg-white border-0 dark:bg-gray-950  rounded-sm bg-clip-border">
+                        <div className="p-4 pb-0 mb-0 border-b-0 rounded-t-2xl">
+                            <div className="flex flex-wrap -mx-3">
+                                <div className="flex items-center w-full max-w-full px-3 shrink-0 md:w-8/12 md:flex-none">
+                                    <h6 className="mb-0 dark:text-white">¡Bienvenido/a al software web!</h6>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="flex-auto p-4">
+                            <p className="leading-normal text-sm dark:text-white dark:opacity-60">Estamos encantados de tenerle como usuario/a en nuestra plataforma. Hemos diseñado este software web para proporcionarle una experiencia única, intuitiva y sencilla. Con nuestro software, tendrá acceso a una variedad de herramientas y funciones que le permitirán alcanzar sus objetivos de manera eficiente.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
             {/* <button className="text-white bg-gradient-to-br from-pink-500 to-voilet-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 text-center inline-flex items-center shadow-md shadow-gray-300 hover:scale-[1.02] transition-transform"
                 type="button"
                 onClick={onEventToggleModal}>
