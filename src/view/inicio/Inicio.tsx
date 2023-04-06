@@ -7,9 +7,6 @@ import Nav from '../pages/layout/nav/Nav';
 import Dashboard from './dashboard/Dashboard';
 import { css, images } from '../../helper/index.helper';
 import Bienvenido from './bienvenido/Bienvenido';
-import Control from './control/Control';
-import Reporte from './reporte/Reporte';
-import Pago from './pago/Pago';
 import { useEffectOnce } from 'react-use';
 import { EstudianteRest, TrabajadorRest } from '../../network/rest/index.network';
 import Response from '../../model/class/response.model.class';
@@ -19,6 +16,7 @@ import Estudiante from '../../model/interfaces/estudiante.model.interface';
 import Trabajador from '../../model/interfaces/trabajador.model.interface';
 import Listar from './centroayuda/listar/Listar';
 import Crear from './centroayuda/crear/Crear';
+import Responder from './centroayuda/responder/Responder';
 
 const Inicio = (props: RouteComponentProps<{}>) => {
 
@@ -157,6 +155,7 @@ const Inicio = (props: RouteComponentProps<{}>) => {
         }
     }
 
+    // const { path, url } = props.match;
     const { path } = props.match;
 
     return (
@@ -204,12 +203,19 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                                 render={(props) => <Dashboard {...props} />}
                             />
                             <Route
-                                path={`${path}/crear`}
+                                path={`${path}/centroayuda/crear`}
+                                exact={true}
                                 render={(props) => <Crear {...props} />}
                             />
                             <Route
-                                path={`${path}/listar`}
+                                path={`${path}/centroayuda/listar`}
+                                exact={true}
                                 render={(props) => <Listar {...props} />}
+                            />
+                            <Route
+                                path={`${path}/centroayuda/listar/responder`}
+                                exact={true}
+                                render={(props) => <Responder {...props} />}
                             />
                         </Switch>
                     </div>

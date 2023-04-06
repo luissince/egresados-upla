@@ -38,13 +38,13 @@ const menus: MenuItem[] = [
         subMenus: [
             {
                 id: "21",
-                pathname: "/inicio/crear",
+                pathname: "/inicio/centroayuda/crear",
                 icon : "bi-dash",
                 nombre: "Crear",
             },
             {
                 id: "22",
-                pathname: "/inicio/listar",
+                pathname: "/inicio/centroayuda/listar",
                 icon : "bi-dash",
                 nombre: "Lista",
             }

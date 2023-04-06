@@ -45,7 +45,7 @@ const Crear = (props: RouteComponentProps<{}>) => {
                                     type="button"
                                     aria-controls="address"
                                     next-form-btn=""
-                                    className="w-full sm:w-auto text-sm font-semibold rounded-md bg-white text-gray-900 border px-3 py-2 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                    className="w-full sm:w-auto text-sm font-semibold rounded-md bg-white text-gray-900 border px-3 py-2 hover:bg-upla-100 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100">
                                     <span className="mr-2">Cancelar</span>
                                     <i className="bi bi-x-circle"></i>
                                 </button>
@@ -53,7 +53,7 @@ const Crear = (props: RouteComponentProps<{}>) => {
                                     type="button"
                                     aria-controls="address"
                                     next-form-btn=""
-                                    className="w-full sm:w-auto text-sm font-semibold rounded-md bg-upla-100 text-white border px-3 py-2 hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600">
+                                    className="w-full sm:w-auto text-sm font-semibold rounded-md bg-upla-100 text-white border px-3 py-2 hover:bg-upla-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100">
                                     <span className="mr-2">Guardar</span>
                                     <i className="bi bi-box-arrow-right"></i>
                                 </button>

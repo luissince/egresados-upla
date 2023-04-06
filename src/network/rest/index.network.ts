@@ -38,5 +38,13 @@ export async function ValidarTokenRest<Void>(signal = null): Promise<Response<Vo
 }
 
 export async function SoporteListarConsultasRest<Responde>(params: object, abortController: AbortController | null): Promise<Response<Responde> | RestError> {
-    return await Resolve.create<Responde>(instance.post<Responde>("/Soporte/listarConsultas",params, { signal: abortController?.signal }));
+    return await Resolve.create<Responde>(instance.post<Responde>("/Soporte/listarConsultas", params, { signal: abortController?.signal }));
+}
+
+export async function ObtenerConsultaPorIdConsultaRest<Consulta>(codigo: string, abortController: AbortController | null): Promise<Response<Consulta> | RestError> {
+    return await Resolve.create<Consulta>(instance.get<Consulta>("/Soporte/obtenerConsultaPorIdConsulta/" + codigo, { signal: abortController?.signal }));
+}
+
+export async function ListarRespuestasPorIdConsultaRest<Responde>(params: object, abortController: AbortController | null): Promise<Response<Responde> | RestError> {
+    return await Resolve.create<Responde>(instance.post<Responde>("/Soporte/listarRespuestasPorIdConsulta", params, { signal: abortController?.signal }));
 }

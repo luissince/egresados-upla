@@ -8,6 +8,9 @@ import { Types } from "../../../../model/enum/types.model";
 import Paginacion from "../../../../component/Paginacion.component";
 import Responde from "../../../../model/interfaces/soporte/responde.model.interface";
 import { formatTime } from "../../../../helper/herramieta.helper";
+import { LoaderSvg } from "../../../../component/Svg.component";
+
+
 
 const Listar = (props: RouteComponentProps<{}>) => {
 
@@ -60,7 +63,6 @@ const Listar = (props: RouteComponentProps<{}>) => {
 
             default: fillTable("");
         }
-
     }
 
     const fillTable = async (buscar: string) => {
@@ -77,7 +79,7 @@ const Listar = (props: RouteComponentProps<{}>) => {
 
         if (response instanceof Response) {
             totalPaginacion.current = Math.ceil(response.data.total / filasPorPagina.current);
-            setLista(response.data.resultado)
+            setLista(response.data.resultado as ListarConsulta[])
             setLoading(false);
         }
 
@@ -92,8 +94,18 @@ const Listar = (props: RouteComponentProps<{}>) => {
     useEffect(() => {
         loadInit();
 
-
+        ()=> abortControllerTable.current.abort();
     }, []);
+
+    const onEventeResponder = (idConsulta: string) => {
+        props.history.push({
+            pathname: `${props.match.path}/responder`,
+            state: {
+                "idConsulta": idConsulta,
+            //     "token": authentication.user.token
+            }
+        });
+    }
 
     return (
         <>
@@ -150,7 +162,7 @@ const Listar = (props: RouteComponentProps<{}>) => {
                                     <thead className="align-bottom">
                                         <tr>
                                             <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[5%]">#</th>
-                                            <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[15%]">N° Ticket</th>
+                                            <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[15%]">Ticket</th>
                                             <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[15%]">Fecha y Hora</th>
                                             <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[20%]">Alumno</th>
                                             <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[25%]">Asunto</th>
@@ -161,25 +173,45 @@ const Listar = (props: RouteComponentProps<{}>) => {
                                     </thead>
                                     <tbody>
                                         {
-                                            lista.map((item, index) => {
-
-                                                return (
-                                                    <tr key={index} className="bg-white border-b">
-                                                        <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">{item.id}</td>
-                                                        <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">{item.ticket}</td>
-                                                        <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.fecha} <br />{formatTime(item.hora)}</td>
-                                                        <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.est_Id + "- " + item.est_NumDoc}<br />{item.alumno}</td>
-                                                        <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.asunto}</td>
-                                                        <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.estado_descripcion}</td>
-                                                        <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">
-                                                            <button className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 rounded-md text-sm px-4 py-2"><i className="bi bi-chat-left-text-fill text-sm"></i></button>
-                                                        </td>
-                                                        <td className="p-2 text-center align-middle border-b border-solid whitespace-nowrap">
-                                                            <button className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300  rounded-md text-sm px-4 py-2"><i className="bi bi-trash text-sm"></i></button>
-                                                        </td>
+                                            loading ?
+                                            <tr className="text-center bg-white border-b">
+                                                <td colSpan={8} className="text-sm p-2 border-b border-solid">
+                                                    <div className="flex items-center justify-center">
+                                                        <LoaderSvg /> <span>Cargando datos...</span>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            :
+                                            lista.length == 0 ?
+                                                (
+                                                    <tr className="text-center bg-white border-b">
+                                                        <td colSpan={8} className="text-sm p-2  border-b border-solid">No hay datos para mostrar.</td>
                                                     </tr>
-                                                );
-                                            })
+                                                )
+                                                :
+                                                lista.map((item, index) => {
+
+                                                    return (
+                                                        <tr key={index} className="bg-white border-b">
+                                                            <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">{item.id}</td>
+                                                            <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">N° - {item.ticket}</td>
+                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.fecha} <br />{formatTime(item.hora)}</td>
+                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.est_Id + "- " + item.est_NumDoc}<br />{item.alumno}</td>
+                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.asunto}</td>
+                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.estado_descripcion}</td>
+                                                            <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">
+                                                                <button
+                                                                    className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 rounded-md text-sm px-4 py-2"
+                                                                    onClick={()=>onEventeResponder(item.idConsulta)}>
+                                                                    <i className="bi bi-chat-left-text-fill text-sm"></i>
+                                                                </button>
+                                                            </td>
+                                                            <td className="p-2 text-center align-middle border-b border-solid whitespace-nowrap">
+                                                                <button className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300  rounded-md text-sm px-4 py-2"><i className="bi bi-trash text-sm"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    );
+                                                })
                                         }
                                     </tbody>
                                 </table>
