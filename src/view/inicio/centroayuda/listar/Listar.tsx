@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, useHistory } from "react-router-dom";
 import { SoporteListarConsultasRest } from "../../../../network/rest/index.network";
 import ListarConsulta from "../../../../model/interfaces/soporte/listarconsulta.model.interfaces";
 import RestError from "../../../../model/class/resterror.model.class";
@@ -7,10 +7,8 @@ import Response from "../../../../model/class/response.model.class";
 import { Types } from "../../../../model/enum/types.model";
 import Paginacion from "../../../../component/Paginacion.component";
 import Responde from "../../../../model/interfaces/soporte/responde.model.interface";
-import { formatTime } from "../../../../helper/herramieta.helper";
+import { formatTime } from "../../../../helper/herramienta.helper";
 import { LoaderSvg } from "../../../../component/Svg.component";
-
-
 
 const Listar = (props: RouteComponentProps<{}>) => {
 
@@ -22,6 +20,8 @@ const Listar = (props: RouteComponentProps<{}>) => {
     const [buscar, setBuscar] = useState<string>("");
     const [lista, setLista] = useState<ListarConsulta[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
+
+    const history = useHistory();
 
     const abortControllerTable = useRef(new AbortController());
 
@@ -98,13 +98,18 @@ const Listar = (props: RouteComponentProps<{}>) => {
     }, []);
 
     const onEventeResponder = (idConsulta: string) => {
-        props.history.push({
-            pathname: `${props.match.path}/responder`,
-            state: {
-                "idConsulta": idConsulta,
-            //     "token": authentication.user.token
+        history.push(
+            `${props.match.path}/responder`,
+            {
+                idConsulta: idConsulta,
             }
-        });
+        );
+        // props.history.push({
+        //     pathname: `${props.match.path}/responder`,
+        //     state:  {
+        //         "idConsulta": idConsulta,
+        //     }
+        // });
     }
 
     return (

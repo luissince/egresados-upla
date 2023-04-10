@@ -11,7 +11,8 @@ const Overlay = (props: Props) => {
             className="
             hidden
             md:hidden
-        bg-[rgba(0,0,0,.3)]
+            bg-gray-900 
+            opacity-30
             fixed
             left-0
             top-0

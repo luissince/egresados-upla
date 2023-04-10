@@ -1,21 +1,25 @@
 import { useEffect, useRef, useState } from "react";
-import { RouteComponentProps } from "react-router-dom";
+import { RouteComponentProps, useLocation } from "react-router-dom";
 import { LoaderSvg } from "../../../../component/Svg.component";
 import Response from "../../../../model/class/response.model.class";
 import RestError from "../../../../model/class/resterror.model.class";
 import { Types } from "../../../../model/enum/types.model";
 import Paginacion from "../../../../component/Paginacion.component";
-import { ListarRespuestasPorIdConsultaRest, ObtenerConsultaPorIdConsultaRest } from "../../../../network/rest/index.network";
+import { ListarRespuestasPorIdConsultaRest, ObtenerConsultaPorIdConsultaRest, RegistrarRespuestaRest } from "../../../../network/rest/index.network";
 import Responde from "../../../../model/interfaces/soporte/responde.model.interface";
 import Respuesta from "../../../../model/interfaces/soporte/respuesta.model.interface";
-import { formatTime } from "../../../../helper/herramieta.helper";
+import { formatTime } from "../../../../helper/herramienta.helper";
 import Consulta from "../../../../model/interfaces/soporte/consulta.model.interfaces";
 import { images } from "../../../../helper/index.helper";
 import CustomModal from "../../../../component/Modal.component";
-
-
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../store/configureStore.store";
 
 const Responder = (props: RouteComponentProps<{}>) => {
+
+    const location = useLocation<{ idConsulta: string }>();
+
+    const codigo = useSelector((state: RootState) => state.autenticacion.codigo)
 
     const [loadingConsulta, setLoadingConsulta] = useState<boolean>(true);
     const [consulta, setConsulta] = useState<Consulta>();
@@ -28,14 +32,20 @@ const Responder = (props: RouteComponentProps<{}>) => {
     const [loadingRespuesta, setLoadingRespuesta] = useState<boolean>(false);
     const [respuestas, setRespuestas] = useState<Respuesta[]>([]);
 
+    const refRespuesta = useRef<HTMLTextAreaElement>(null);
     const [isOpen, setIsOpen] = useState(false);
+    const [loadingProceso, setLoadingProceso] = useState<boolean>(false);
+    const [mensajeProceso, setMensajeProceso] = useState<string>("");
+    const [respuestaProceso, setRespuestaProceso] = useState<boolean>(false);
+    const [imagenRespuesta, setImagenRespuesta] = useState<string>(images.accept);
+    const [respuesta, setRespuesta] = useState<string>("");
+    const [mensaje, setMensaje] = useState<string>("");
 
     const abortControllerCabecera = useRef(new AbortController());
     const abortControllerDetalle = useRef(new AbortController());
 
     const loadCabecera = async () => {
-        console.log(props.location.state)
-        const response = await ObtenerConsultaPorIdConsultaRest<Consulta>("CS0001", abortControllerCabecera.current);
+        const response = await ObtenerConsultaPorIdConsultaRest<Consulta>(location.state.idConsulta, abortControllerCabecera.current);
 
         if (response instanceof Response) {
             setConsulta(response.data);
@@ -45,7 +55,6 @@ const Responder = (props: RouteComponentProps<{}>) => {
         if (response instanceof RestError) {
             if (response.getType() === Types.CANCELED) return;
 
-
         }
     }
 
@@ -54,7 +63,7 @@ const Responder = (props: RouteComponentProps<{}>) => {
 
         paginacion.current = 1;
         restart.current = true;
-        fillTable();
+        fillTable(location.state.idConsulta);
         opcion.current = 0;
     }
 
@@ -68,19 +77,19 @@ const Responder = (props: RouteComponentProps<{}>) => {
     const onEventPaginacion = () => {
         switch (opcion.current) {
             case 0:
-                fillTable();
+                fillTable(location.state.idConsulta);
                 break;
 
-            default: fillTable();
+            default: fillTable(location.state.idConsulta);
         }
     }
 
-    const fillTable = async () => {
+    const fillTable = async (idConsulta: string) => {
         setLoadingRespuesta(true);
         setRespuestas([]);
 
         const data = {
-            "idConsulta": "CS0001",
+            "idConsulta": idConsulta,
             "posPagina": ((paginacion.current - 1) * filasPorPagina.current),
             "filaPagina": filasPorPagina.current
         }
@@ -88,7 +97,6 @@ const Responder = (props: RouteComponentProps<{}>) => {
         const response = await ListarRespuestasPorIdConsultaRest<Responde>(data, abortControllerDetalle.current);
 
         if (response instanceof Response) {
-            console.log(response);
             totalPaginacion.current = Math.ceil(response.data.total / filasPorPagina.current);
             setRespuestas(response.data.resultado as Respuesta[])
             setLoadingRespuesta(false);
@@ -108,7 +116,55 @@ const Responder = (props: RouteComponentProps<{}>) => {
 
     const handleClose = () => {
         setIsOpen(false);
+        setRespuesta("");
     };
+
+    const onEventRegistrar = async () => {
+        if (respuesta.trim().length == 0) {
+            setMensaje("!El campo es oblogatorio¡");
+            refRespuesta.current?.focus();
+            return;
+        }
+
+        const params = {
+            "id": 0,
+            "idRespuesta": 0,
+            "idConsulta": location.state.idConsulta,
+            "c_cod_usuario": codigo,
+            "detalle": respuesta.trim(),
+            "fecha": "",
+            "hora": ""
+        }
+        setIsOpen(false);
+        setMensajeProceso("Procesando petición...");
+        setLoadingProceso(true);
+        setRespuestaProceso(false);
+
+        const response = await RegistrarRespuestaRest(params);
+
+        if (response instanceof Response) {
+            setImagenRespuesta(images.accept);
+            setMensajeProceso(response.data as string);
+            setRespuestaProceso(true);
+            setRespuesta("");
+        }
+
+        if (response instanceof RestError) {
+            if (response.getType() === Types.CANCELED) return;
+
+            setImagenRespuesta(images.warning);
+            setMensajeProceso(response.getMessage());
+            setRespuestaProceso(true);
+            setRespuesta("");
+        }
+
+    }
+
+    const onEventRespuesta = () => {
+        setLoadingProceso(false);
+        setRespuestaProceso(false);
+        loadDetalle();
+    }
 
     useEffect(() => {
         loadCabecera();
@@ -136,10 +192,79 @@ const Responder = (props: RouteComponentProps<{}>) => {
                         </div>
                     </div>}
 
+                    {loadingProceso && <div className="absolute z-[500] left-0 top-0 right-0 bottom-0">
+                        <div className=" w-full h-full bg-gray-900 opacity-80"></div>
+                        <div className=" w-full h-full absolute left-0 top-0 text-white flex justify-center items-center flex-col">
+                            {
+                                respuestaProceso ?
+                                <img src={imagenRespuesta} className="w-[6.5rem] mr-0 my-3" alt="Flowbite Logo" />
+                                :
+                                null                           }
+
+
+                            {!respuestaProceso && <div style={{ "borderTopColor": "transparent" }}
+                                className="w-16 h-16 border-4 border-upla-100 border-solid rounded-full animate-spin">
+                            </div>}
+
+                            <h1 className='m-3 text-center'>{mensajeProceso}</h1>
+
+                            {respuestaProceso && <button
+                                type="button"
+                                className="w-full sm:w-auto text-sm font-semibold rounded-md bg-green-500 text-white border px-3 py-2 hover:bg-upla-200 hover:text-white  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
+                                onClick={onEventRespuesta}>
+                                <span className="mr-2">Aceptar</span>
+                                <i className="bi bi-mouse-fill"></i>
+                            </button>}
+                        </div>
+                    </div>}
+
                     <CustomModal isOpen={isOpen} onClose={handleClose}>
-                        <h1>Modal Title</h1>
-                        <p>Modal Content</p>
-                        <button onClick={handleClose}>Close Modal</button>
+                        <div className="relative flex flex-col min-w-0 break-words bg-white border-0 rounded-2xl bg-clip-border">
+                            <div className="border-black/12.5 rounded-t-2xl border-b-0 border-solid p-3 pb-0">
+                                <h6 className="mb-1 dark:text-white">Registrar</h6>
+                                <p className="mb-0 leading-normal text-sm dark:text-white/60">Ingrese su respuesta de maneda adecuada y entendible.</p>
+                            </div>
+                            <div className="flex-auto p-3">
+                                <label className="inline-block mb-2 ml-1 font-bold text-xs text-slate-700 dark:text-white/80">Ingrese su respuesta.</label>
+                                <div className="mb-4">
+                                    <textarea
+                                        autoFocus
+                                        className="focus:shadow-soft-primary-outline dark:bg-gray-950 dark:placeholder:text-white/80 dark:text-white/80 text-sm leading-5.6 block w-full appearance-none rounded-md border border-solid border-gray-300 bg-white bg-clip-padding px-3 py-2 font-normal text-gray-700 outline-none transition-all placeholder:text-gray-500 focus:border-fuchsia-300 focus:outline-none"
+                                        placeholder="Ingrese su respuesta"
+                                        ref={refRespuesta}
+                                        value={respuesta}
+                                        onChange={(event: React.ChangeEvent<HTMLTextAreaElement>) => {
+                                            if (event.currentTarget.value.length == 0) {
+                                                setMensaje("!El campo es oblogatorio¡");
+                                            } else {
+                                                setMensaje("");
+                                            }
+                                            setRespuesta(event.currentTarget.value);
+                                        }}>
+                                    </textarea>
+                                    <span className="text-red-600 text-xs">{mensaje}</span>
+                                </div>
+                                <div className="flex items-center justify-start gap-x-3 gap-y-4 flex-col sm:flex-row">
+                                    <button
+                                        type="button"
+                                        className="w-full sm:w-auto text-sm font-semibold rounded-md bg-green-500 text-white border px-3 py-2 hover:bg-upla-200 hover:text-white  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
+                                        onClick={onEventRegistrar}>
+                                        <span className="mr-2">Registrar</span>
+                                        <i className="bi bi-save2-fill"></i>
+                                    </button>
+                                    <button
+                                        type="button"
+                                        aria-controls="address"
+                                        next-form-btn=""
+                                        className="w-full sm:w-auto text-sm font-semibold rounded-md bg-red-500 text-white border px-3 py-2 hover:bg-upla-100 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
+                                        onClick={handleClose}>
+                                        <span className="mr-2">Cancelar</span>
+                                        <i className="bi bi-x-circle-fill"></i>
+                                    </button>
+
+                                </div>
+                            </div>
+                        </div>                       
                     </CustomModal>
 
                     <div className="flex items-start justify-between flex-col lg:flex-row">
@@ -177,7 +302,7 @@ const Responder = (props: RouteComponentProps<{}>) => {
                                 next-form-btn=""
                                 className="w-full sm:w-auto text-sm font-semibold rounded-md bg-upla-100 text-white border px-3 py-2 hover:bg-upla-200 hover:text-white  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
                                 onClick={handleOpen}
-                           >
+                            >
                                 <span className="mr-2">Responder</span>
                                 <i className="bi bi-lightbulb"></i>
                             </button>
@@ -188,7 +313,7 @@ const Responder = (props: RouteComponentProps<{}>) => {
 
                         <ul className="flex flex-col pl-0 mb-0 rounded-lg">
                             <li className="relative block px-4 py-2 pt-0 pl-0 leading-normal border-0 rounded-t-lg text-sm text-inherit">
-                                <strong className="text-slate-700 dark:text-white">Ticket:</strong> &nbsp; {consulta?.ticket}
+                                <strong className="text-slate-700 dark:text-white">Ticket:</strong> &nbsp; N° - {consulta?.ticket}
                             </li>
                             <li className="relative block px-4 py-2 pt-0 pl-0 leading-normal border-0 rounded-t-lg text-sm text-inherit">
                                 <strong className="text-slate-700 dark:text-white">Tipo:</strong> &nbsp; {consulta?.tipoConsultaDetalle}

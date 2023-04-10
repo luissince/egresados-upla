@@ -48,3 +48,7 @@ export async function ObtenerConsultaPorIdConsultaRest<Consulta>(codigo: string,
 export async function ListarRespuestasPorIdConsultaRest<Responde>(params: object, abortController: AbortController | null): Promise<Response<Responde> | RestError> {
     return await Resolve.create<Responde>(instance.post<Responde>("/Soporte/listarRespuestasPorIdConsulta", params, { signal: abortController?.signal }));
 }
+
+export async function RegistrarRespuestaRest(params: object, abortController: AbortController | null = null): Promise<Response<String> | RestError> {
+    return await Resolve.create(instance.post<string>("/Soporte/registrarRespuesta", params, { signal: abortController?.signal }));
+}

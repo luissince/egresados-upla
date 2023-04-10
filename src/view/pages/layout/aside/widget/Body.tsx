@@ -12,20 +12,19 @@ const Body = (props: Props) => {
             id="Aside"
             ref={props.refAside}
             className="
-            drop-shadow
-            bg-gray-900
-            w-[256px] 
+            w-[256px]
             ml-[-256px]
-            md:ml-[0px]
-            transition-all
-            duration-500
-            z-50                
-            overflow-auto 
-            fixed 
-            block 
-            h-screen  
-            font-mont"
-            aria-label="Sidebar"
+             md:ml-[0px] 
+             transition-all 
+             duration-500 
+             z-50 
+             overflow-auto 
+             fixed 
+             block
+             bg-gray-900
+              h-screen 
+              font-mont"
+                          aria-label="Sidebar"
         >
             {props.children}
         </aside>

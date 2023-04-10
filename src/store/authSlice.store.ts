@@ -7,7 +7,7 @@ const initialState: Auth = {
     codigo: "",
     token: null,
     autenticado: false,
-}
+} 
 
 export const authSlice = createSlice({
     name: 'auth',
