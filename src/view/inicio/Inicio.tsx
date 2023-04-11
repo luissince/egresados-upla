@@ -99,7 +99,7 @@ const Inicio = (props: RouteComponentProps<{}>) => {
             if (codigo.length === 8) {
                 const response = await TrabajadorRest<Trabajador>(codigo);
                 if (response instanceof Response) {
-                    setInformacion(response.data);
+                    setInformacion(response.data as Trabajador);
                     setCargando(false);
                 }
 
@@ -108,8 +108,8 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                 }
             } else {
                 const response = await EstudianteRest<Estudiante>(codigo);
-                if (response instanceof Response) {
-                    setInformacion(response.data);
+                if (response instanceof Response) {                   
+                    setInformacion(response.data as Estudiante);
                     setCargando(false);
                 }
 
