@@ -1,12 +1,8 @@
 FROM node:18
 
-#RUN apt-get update
+RUN mkdir -p /home/app
 
-#RUN apt-get install nano -y
-
-RUN mkdir -p /home/node/app
-
-WORKDIR  /home/node/app
+WORKDIR  /home/app
 
 COPY . .
 
@@ -14,8 +10,10 @@ RUN npm install
 
 RUN npm run build
 
-#RUN npm start
+WORKDIR /home/app/deploy
 
-EXPOSE 3000
+RUN npm install
+
+EXPOSE 5000
 
 CMD ["npm","start"]

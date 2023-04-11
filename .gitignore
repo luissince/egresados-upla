@@ -24,3 +24,6 @@ dist-ssr
 *.sw?
 
 .env
+
+deploy/.env
+deploy/node_modules
