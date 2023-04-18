@@ -17,6 +17,7 @@ import Trabajador from '../../model/interfaces/trabajador.model.interface';
 import Listar from './centroayuda/listar/Listar';
 import Crear from './centroayuda/crear/Crear';
 import Responder from './centroayuda/responder/Responder';
+import toast, { Toaster } from 'react-hot-toast';
 
 const Inicio = (props: RouteComponentProps<{}>) => {
 
@@ -108,7 +109,7 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                 }
             } else {
                 const response = await EstudianteRest<Estudiante>(codigo);
-                if (response instanceof Response) {                   
+                if (response instanceof Response) {
                     setInformacion(response.data as Estudiante);
                     setCargando(false);
                 }
@@ -138,6 +139,16 @@ const Inicio = (props: RouteComponentProps<{}>) => {
         return () => window.removeEventListener('resize', onEventResize)
     }, []);
 
+    useEffect(() => {
+        const onEventFocused = () => {
+            console.log("lasd")
+        }
+
+        window.addEventListener('focus', onEventFocused);
+
+        return () => window.removeEventListener('focus', onEventFocused);
+    }, []);
+
     const onEventOverlay = () => {
         refAside.current?.classList.toggle("ml-[-256px]");
         refOverlay.current?.classList.toggle("hidden");
@@ -160,7 +171,6 @@ const Inicio = (props: RouteComponentProps<{}>) => {
 
     return (
         <div className="flex w-full">
-
             {cargando && <div className="fixed z-[500] w-screen h-screen">
                 <div className=" w-screen h-screen bg-gray-900"></div>
                 <div className=" w-full h-full absolute left-0 top-0 text-white flex justify-center items-center flex-col">
@@ -224,6 +234,7 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                 {/*  */}
             </div>
             {/*  */}
+            <Toaster />
         </div>
     );
 }

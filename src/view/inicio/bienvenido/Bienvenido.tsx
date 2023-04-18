@@ -2,6 +2,8 @@ import { useRef, useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { images } from "../../../helper/index.helper";
 import Transition from "../../../component/Transition.component";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 const Bienvenido = (props: RouteComponentProps<{}>) => {
 
@@ -63,7 +65,7 @@ const Bienvenido = (props: RouteComponentProps<{}>) => {
                             <p className="leading-normal text-sm dark:text-white dark:opacity-60">Estamos encantados de tenerle como usuario/a en nuestra plataforma. Hemos diseñado este software web para proporcionarle una experiencia única, intuitiva y sencilla. Con nuestro software, tendrá acceso a una variedad de herramientas y funciones que le permitirán alcanzar sus objetivos de manera eficiente.</p>
                         </div>
                     </div>
-                </div>
+                </div>           
             </div>
             {/* <button className="text-white bg-gradient-to-br from-pink-500 to-voilet-500 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 text-center inline-flex items-center shadow-md shadow-gray-300 hover:scale-[1.02] transition-transform"
                 type="button"

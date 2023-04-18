@@ -94,7 +94,7 @@ const Listar = (props: RouteComponentProps<{}>) => {
     useEffect(() => {
         loadInit();
 
-        ()=> abortControllerTable.current.abort();
+        () => abortControllerTable.current.abort();
     }, []);
 
     const onEventeResponder = (idConsulta: string) => {
@@ -104,12 +104,6 @@ const Listar = (props: RouteComponentProps<{}>) => {
                 idConsulta: idConsulta,
             }
         );
-        // props.history.push({
-        //     pathname: `${props.match.path}/responder`,
-        //     state:  {
-        //         "idConsulta": idConsulta,
-        //     }
-        // });
     }
 
     return (
@@ -173,50 +167,64 @@ const Listar = (props: RouteComponentProps<{}>) => {
                                             <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[25%]">Asunto</th>
                                             <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[10%]">Estado</th>
                                             <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[5%]">Responder</th>
+                                            <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[5%]">Estado</th>
                                             <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[5%]">Anular</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {
                                             loading ?
-                                            <tr className="text-center bg-white border-b">
-                                                <td colSpan={8} className="text-sm p-2 border-b border-solid">
-                                                    <div className="flex items-center justify-center">
-                                                        <LoaderSvg /> <span>Cargando datos...</span>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                            :
-                                            lista.length == 0 ?
-                                                (
-                                                    <tr className="text-center bg-white border-b">
-                                                        <td colSpan={8} className="text-sm p-2  border-b border-solid">No hay datos para mostrar.</td>
-                                                    </tr>
-                                                )
+                                                <tr className="text-center bg-white border-b">
+                                                    <td colSpan={9} className="text-sm p-2 border-b border-solid">
+                                                        <div className="flex items-center justify-center">
+                                                            <LoaderSvg /> <span>Cargando datos...</span>
+                                                        </div>
+                                                    </td>
+                                                </tr>
                                                 :
-                                                lista.map((item, index) => {
-
-                                                    return (
-                                                        <tr key={index} className="bg-white border-b">
-                                                            <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">{item.id}</td>
-                                                            <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">N° - {item.ticket}</td>
-                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.fecha} <br />{formatTime(item.hora)}</td>
-                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.est_Id + "- " + item.est_NumDoc}<br />{item.alumno}</td>
-                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.asunto}</td>
-                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.estado_descripcion}</td>
-                                                            <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">
-                                                                <button
-                                                                    className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 rounded-md text-sm px-4 py-2"
-                                                                    onClick={()=>onEventeResponder(item.idConsulta)}>
-                                                                    <i className="bi bi-chat-left-text-fill text-sm"></i>
-                                                                </button>
-                                                            </td>
-                                                            <td className="p-2 text-center align-middle border-b border-solid whitespace-nowrap">
-                                                                <button className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300  rounded-md text-sm px-4 py-2"><i className="bi bi-trash text-sm"></i></button>
-                                                            </td>
+                                                lista.length == 0 ?
+                                                    (
+                                                        <tr className="text-center bg-white border-b">
+                                                            <td colSpan={9} className="text-sm p-2  border-b border-solid">No hay datos para mostrar.</td>
                                                         </tr>
-                                                    );
-                                                })
+                                                    )
+                                                    :
+                                                    lista.map((item, index) => {
+
+                                                        const estado = item.estado === 0
+                                                            ? <span className="bg-yellow-300 text-yellow-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-yellow-900 dark:text-yellow-300">PENDIENTE</span> :
+                                                            item.estado === 1
+                                                                ? <span className="bg-green-300 text-green-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300">ATENTIDO</span>
+                                                                : <span className="bg-red-300 text-red-800 text-xs font-medium mr-2 px-2.5 py-0.5 rounded dark:bg-red-900 dark:text-red-300">ANULADO</span>;
+
+                                                        return (
+                                                            <tr key={index} className="bg-white border-b">
+                                                                <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">{item.id}</td>
+                                                                <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">N° - {item.ticket}</td>
+                                                                <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.fecha} <br />{formatTime(item.hora)}</td>
+                                                                <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.est_Id + "- " + item.est_NumDoc}<br />{item.alumno}</td>
+                                                                <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.asunto}</td>
+                                                                <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{estado}</td>
+                                                                <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">
+                                                                    <button
+                                                                        className="focus:outline-none text-white bg-blue-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 rounded-md text-sm px-4 py-2"
+                                                                        onClick={() => onEventeResponder(item.idConsulta)}>
+                                                                        <i className="bi bi-chat-left-text-fill text-sm"></i>
+                                                                    </button>
+                                                                </td>
+                                                                <td className="p-2 text-center align-middle border-b border-solid whitespace-nowrap">
+                                                                    <button className="focus:outline-none text-white bg-green-400 hover:bg-green-500 focus:ring-4 focus:ring-red-300  rounded-md text-sm px-4 py-2">
+                                                                        <i className="bi bi-arrow-left-right text-sm"></i>
+                                                                    </button>
+                                                                </td>
+                                                                <td className="p-2 text-center align-middle border-b border-solid whitespace-nowrap">
+                                                                    <button className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300  rounded-md text-sm px-4 py-2">
+                                                                        <i className="bi bi-trash text-sm"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                        );
+                                                    })
                                         }
                                     </tbody>
                                 </table>

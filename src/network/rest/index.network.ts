@@ -52,3 +52,10 @@ export async function ListarRespuestasPorIdConsultaRest<Responde>(params: object
 export async function RegistrarRespuestaRest(params: object, abortController: AbortController | null = null): Promise<Response<String> | RestError> {
     return await Resolve.create(instance.post<string>("/Soporte/registrarRespuesta", params, { signal: abortController?.signal }));
 }
+
+export async function EnviarNotifacionCelular(abortController: AbortController | null = null): Promise<Response<String> | RestError> {
+    return await Resolve.create(
+        axios.get("https://api.upla.edu.pe/servicios/push/consulta/consulta/CS0022")
+        // instance.get<string>("https://app.upla.edu.pe/consulta/CS0022", { signal: abortController?.signal })
+        );
+}

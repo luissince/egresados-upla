@@ -5,7 +5,7 @@ import Response from "../../../../model/class/response.model.class";
 import RestError from "../../../../model/class/resterror.model.class";
 import { Types } from "../../../../model/enum/types.model";
 import Paginacion from "../../../../component/Paginacion.component";
-import { ListarRespuestasPorIdConsultaRest, ObtenerConsultaPorIdConsultaRest, RegistrarRespuestaRest } from "../../../../network/rest/index.network";
+import { EnviarNotifacionCelular, ListarRespuestasPorIdConsultaRest, ObtenerConsultaPorIdConsultaRest, RegistrarRespuestaRest } from "../../../../network/rest/index.network";
 import Responde from "../../../../model/interfaces/soporte/responde.model.interface";
 import Respuesta from "../../../../model/interfaces/soporte/respuesta.model.interface";
 import { formatTime } from "../../../../helper/herramienta.helper";
@@ -14,6 +14,7 @@ import { images } from "../../../../helper/index.helper";
 import CustomModal from "../../../../component/Modal.component";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../store/configureStore.store";
+import axios from "axios";
 
 const Responder = (props: RouteComponentProps<{}>) => {
 
@@ -147,6 +148,19 @@ const Responder = (props: RouteComponentProps<{}>) => {
             setMensajeProceso(response.data as string);
             setRespuestaProceso(true);
             setRespuesta("");
+            // try{
+            //   const r =  await axios.get("https://app.upla.edu.pe/consulta/CS0022");
+            //   console.log(r)
+            // }catch(error){
+            //     console.log(error)
+            // }
+          
+
+            EnviarNotifacionCelular().then(response =>{
+                console.log(response)
+            }).catch(error =>{
+                console.log(error)
+            })
         }
 
         if (response instanceof RestError) {
