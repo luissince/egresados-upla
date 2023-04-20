@@ -1,7 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 import Auth from '../model/types/auth.model';
 
-
 const initialState: Auth = {
     cargando: true,
     codigo: "",

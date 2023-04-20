@@ -1,9 +1,10 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../../../store/authSlice.store";
 import useEventSource, { EventResponse } from "../../../../component/hooks/useEventSource";
 import { useEffect } from "react";
 import toast from 'react-hot-toast';
 import { sound } from "../../../../helper/index.helper";
+import { RootState } from "../../../../store/configureStore.store";
 
 type Props = {
     refBlock: React.RefObject<HTMLInputElement>,
@@ -14,11 +15,11 @@ const Nav = (props: Props) => {
 
     const dispatch = useDispatch();
 
-    // const codigo = useSelector((state: RootState) => state.autenticacion.codigo)
+    const codigo = useSelector((state: RootState) => state.autenticacion.codigo)
 
-    // const message = useEventSource("http://172.16.2.10:9000/notify?id=" + codigo)
+    const message: EventResponse | undefined = useEventSource(`${import.meta.env.VITE_URL_SERVER_SEND_EVENT}notify?id=${codigo}`)
     // const message = useEventSource("http://172.16.2.10:9000/")
-    const message: EventResponse | undefined = useEventSource(import.meta.env.VITE_URL_SERVER_SEND_EVENT)
+    // const message: EventResponse | undefined = useEventSource(import.meta.env.VITE_URL_SERVER_SEND_EVENT)
 
     useEffect(() => {
         const loadNotify = async () => {
@@ -38,10 +39,10 @@ const Nav = (props: Props) => {
 
                             <div className="ml-3 flex-1">
                                 <p className="text-sm font-medium text-gray-900">
-                                    {message.title}
+                                    {message.titulo}
                                 </p>
                                 <p className="mt-1 text-sm text-gray-500">
-                                    {message.message}
+                                    {message.mensaje}
                                 </p>
                             </div>
                         </div>

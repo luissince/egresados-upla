@@ -5,7 +5,7 @@ export const initialState: any = {
 }
 
 export const notifeSlice = createSlice({
-    name: 'notife',
+    name: 'notifications',
     initialState,
     reducers: {
         add: (state, action: PayloadAction<{ valor: string }>) => {

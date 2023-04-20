@@ -109,7 +109,7 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                 }
             } else {
                 const response = await EstudianteRest<Estudiante>(codigo);
-                if (response instanceof Response) {
+                if (response instanceof Response) {                    
                     setInformacion(response.data as Estudiante);
                     setCargando(false);
                 }
