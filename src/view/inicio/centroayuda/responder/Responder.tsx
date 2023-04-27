@@ -238,7 +238,15 @@ const Responder = (props: RouteComponentProps<{}>) => {
                         </div>
                     </div>}
 
-                    <CustomModal isOpen={isOpen} onClose={handleClose}>
+                    <CustomModal 
+                    isOpen={isOpen} 
+                    onOpen={()=>{
+
+                    }}
+                    onHidden={()=>{
+                        
+                    }}
+                    onClose={handleClose}>
                         <div className="relative flex flex-col min-w-0 break-words bg-white border-0 rounded-2xl bg-clip-border">
                             <div className="border-black/12.5 rounded-t-2xl border-b-0 border-solid p-3 pb-0">
                                 <h6 className="mb-1 dark:text-white">Registrar</h6>

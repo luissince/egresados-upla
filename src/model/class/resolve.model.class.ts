@@ -8,8 +8,7 @@ class Resolve {
         try {        
             const response: AxiosResponse = await value;          
             return new Response<T>(response);
-        } catch (ex) {     
-            console.log(ex)      
+        } catch (ex) {          
             if (axios.isAxiosError(ex)) {
                 return new RestError(ex as AxiosError);
             } else {
