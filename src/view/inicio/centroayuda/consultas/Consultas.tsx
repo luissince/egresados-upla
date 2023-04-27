@@ -9,8 +9,12 @@ import Paginacion from "../../../../component/Paginacion.component";
 import Responde from "../../../../model/interfaces/soporte/responde.model.interface";
 import { formatTime } from "../../../../helper/herramienta.helper";
 import { LoaderSvg } from "../../../../component/Svg.component";
+import { useDispatch } from "react-redux";
+import { logout } from "../../../../store/authSlice.store";
 
-const Listar = (props: RouteComponentProps<{}>) => {
+const Consultas = (props: RouteComponentProps<{}>) => {
+
+    const dispatch = useDispatch();
 
     const opcion = useRef<number>(0);
     const paginacion = useRef<number>(0);
@@ -86,6 +90,16 @@ const Listar = (props: RouteComponentProps<{}>) => {
         if (response instanceof RestError) {
             if (response.getType() === Types.CANCELED) return;
 
+            if(response.getStatus() == 401){
+                dispatch(logout());
+                return;
+            }
+
+            if(response.getStatus() == 403){
+                dispatch(logout());
+                return;
+            }
+
             setLista([]);
             setLoading(false);
         }
@@ -140,7 +154,7 @@ const Listar = (props: RouteComponentProps<{}>) => {
                         </div>
 
                         <div className="flex-auto">
-                            <div className="">
+                            <div>
                                 <label className="inline-block mb-2 ml-1 text-sm text-slate-700">Buscar:</label>
                                 <input
                                     autoFocus
@@ -154,7 +168,6 @@ const Listar = (props: RouteComponentProps<{}>) => {
                                     }}
                                 />
                             </div>
-
 
                             <div className="relative overflow-auto rounded-md my-6">
                                 <table className="w-full text-gray-700 uppercase bg-upla-100 border">
@@ -254,4 +267,4 @@ const Listar = (props: RouteComponentProps<{}>) => {
     );
 }
 
-export default Listar;
+export default Consultas;

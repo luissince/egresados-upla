@@ -2,6 +2,7 @@ import axios from 'axios';
 import Response from '../../model/class/response.model.class';
 import Resolve from '../../model/class/resolve.model.class';
 import RestError from '../../model/class/resterror.model.class';
+import Frecuente from '../../model/interfaces/soporte/frecuente.model.interfaces';
 
 const instance = axios.create({
     baseURL: import.meta.env.VITE_URL_APP,
@@ -53,9 +54,24 @@ export async function RegistrarRespuestaRest(params: object, abortController: Ab
     return await Resolve.create(instance.post<string>("/Soporte/registrarRespuesta", params, { signal: abortController?.signal }));
 }
 
-export async function EnviarNotifacionCelular(abortController: AbortController | null = null): Promise<Response<String> | RestError> {
-    return await Resolve.create(
-        axios.get("https://api.upla.edu.pe/servicios/push/consulta/consulta/CS0022")
+export async function SoporteListarFrecuenteRest<Responde>(params: object, abortController: AbortController | null): Promise<Response<Responde> | RestError> {
+    return await Resolve.create<Responde>(instance.post<Responde>("/Soporte/listarFrecuentes", params, { signal: abortController?.signal }));
+}
+
+export async function RegistrarFrecuenteRest<String>(params: object, abortController: AbortController | null = null): Promise<Response<String> | RestError> {
+    return await Resolve.create(instance.post<string>("/Soporte/registrarFrecuente", params, { signal: abortController?.signal }));
+}
+
+export async function ObtenerFrecuentePorIdFrecuenteRest<Frecuente>(idFrecuente: string, abortController: AbortController | null = null): Promise<Response<Frecuente> | RestError> {
+    return await Resolve.create(instance.get<Frecuente>("/Soporte/obtenerFrecuentePorIdFrecuente/" + idFrecuente, { signal: abortController?.signal }));
+}
+
+export async function ActualizarFrecuenteRest<String>(params: object, abortController: AbortController | null = null): Promise<Response<String> | RestError> {
+    return await Resolve.create(instance.post<string>("/Soporte/actualizarFrecuente", params, { signal: abortController?.signal }));
+}
+
+export async function EnviarNotifacionCelular(idConsulta: string, abortController: AbortController | null = null): Promise<Response<String> | RestError> {
+    return await Resolve.create(axios.get("https://api.upla.edu.pe/servicios/push/consulta/consulta/" + idConsulta)
         // instance.get<string>("https://app.upla.edu.pe/consulta/CS0022", { signal: abortController?.signal })
-        );
+    );
 }

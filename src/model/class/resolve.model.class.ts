@@ -5,10 +5,11 @@ import RestError from "./resterror.model.class";
 class Resolve {
 
     static async create<T>(value: any): Promise<Response<T> | RestError> {
-        try {
-            const response: AxiosResponse = await value;
+        try {        
+            const response: AxiosResponse = await value;          
             return new Response<T>(response);
-        } catch (ex) {           
+        } catch (ex) {     
+            console.log(ex)      
             if (axios.isAxiosError(ex)) {
                 return new RestError(ex as AxiosError);
             } else {

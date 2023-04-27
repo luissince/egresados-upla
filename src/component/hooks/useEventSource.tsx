@@ -1,13 +1,8 @@
 import { useEffect, useState } from "react";
+import { Notificacion } from "../../model/types/notificacion.model";
 
-export type EventResponse = {
-    codigo: string
-    titulo: string
-    mensaje: string
-}
-
-export default function useEventSource(url: string) : EventResponse | undefined{
-    const [message, setMessage] = useState<EventResponse>();
+export default function useEventSource(url: string) : Notificacion | undefined{
+    const [message, setMessage] = useState<Notificacion>();
 
     useEffect(() => {
         const source = new EventSource(url);
@@ -17,8 +12,9 @@ export default function useEventSource(url: string) : EventResponse | undefined{
 
         source.onmessage = (event: MessageEvent) => {           
             if (event.data !== "Connected") {
-                const data = JSON.parse(event.data);
-                const eventData:EventResponse = {
+                const data = JSON.parse(event.data);              
+                const eventData:Notificacion = {
+                    id: data.id,
                     codigo: data.codigo,
                     titulo: data.titulo,
                     mensaje: data.mensaje,

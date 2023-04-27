@@ -12,11 +12,13 @@ import { formatTime } from "../../../../helper/herramienta.helper";
 import Consulta from "../../../../model/interfaces/soporte/consulta.model.interfaces";
 import { images } from "../../../../helper/index.helper";
 import CustomModal from "../../../../component/Modal.component";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/configureStore.store";
-import axios from "axios";
+import { logout } from "../../../../store/authSlice.store";
 
 const Responder = (props: RouteComponentProps<{}>) => {
+
+    const dispatch = useDispatch();
 
     const location = useLocation<{ idConsulta: string }>();
 
@@ -106,6 +108,16 @@ const Responder = (props: RouteComponentProps<{}>) => {
         if (response instanceof RestError) {
             if (response.getType() === Types.CANCELED) return;
 
+            if (response.getStatus() == 401) {
+                dispatch(logout());
+                return;
+            }
+
+            if (response.getStatus() == 403) {
+                dispatch(logout());
+                return;
+            }
+
             setRespuestas([]);
             setLoadingRespuesta(false);
         }
@@ -136,6 +148,7 @@ const Responder = (props: RouteComponentProps<{}>) => {
             "fecha": "",
             "hora": ""
         }
+        
         setIsOpen(false);
         setMensajeProceso("Procesando petición...");
         setLoadingProceso(true);
@@ -148,17 +161,10 @@ const Responder = (props: RouteComponentProps<{}>) => {
             setMensajeProceso(response.data as string);
             setRespuestaProceso(true);
             setRespuesta("");
-            // try{
-            //   const r =  await axios.get("https://app.upla.edu.pe/consulta/CS0022");
-            //   console.log(r)
-            // }catch(error){
-            //     console.log(error)
-            // }
-          
 
-            EnviarNotifacionCelular().then(response =>{
+            EnviarNotifacionCelular(location.state.idConsulta).then(response => {
                 console.log(response)
-            }).catch(error =>{
+            }).catch(error => {
                 console.log(error)
             })
         }
@@ -211,9 +217,9 @@ const Responder = (props: RouteComponentProps<{}>) => {
                         <div className=" w-full h-full absolute left-0 top-0 text-white flex justify-center items-center flex-col">
                             {
                                 respuestaProceso ?
-                                <img src={imagenRespuesta} className="w-[6.5rem] mr-0 my-3" alt="Flowbite Logo" />
-                                :
-                                null                           }
+                                    <img src={imagenRespuesta} className="w-[6.5rem] mr-0 my-3" alt="Flowbite Logo" />
+                                    :
+                                    null}
 
 
                             {!respuestaProceso && <div style={{ "borderTopColor": "transparent" }}
@@ -278,7 +284,7 @@ const Responder = (props: RouteComponentProps<{}>) => {
 
                                 </div>
                             </div>
-                        </div>                       
+                        </div>
                     </CustomModal>
 
                     <div className="flex items-start justify-between flex-col lg:flex-row">

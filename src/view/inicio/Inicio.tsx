@@ -14,8 +14,8 @@ import { logout } from '../../store/authSlice.store';
 import RestError from '../../model/class/resterror.model.class';
 import Estudiante from '../../model/interfaces/estudiante.model.interface';
 import Trabajador from '../../model/interfaces/trabajador.model.interface';
-import Listar from './centroayuda/listar/Listar';
-import Crear from './centroayuda/crear/Crear';
+import PFrecuente from './centroayuda/pfrecuente/PFrecuente';
+import Consultas from './centroayuda/consultas/Consultas';
 import Responder from './centroayuda/responder/Responder';
 import toast, { Toaster } from 'react-hot-toast';
 
@@ -213,17 +213,17 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                                 render={(props) => <Dashboard {...props} />}
                             />
                             <Route
-                                path={`${path}/centroayuda/crear`}
+                                path={`${path}/centroayuda/p-frecuente`}
                                 exact={true}
-                                render={(props) => <Crear {...props} />}
+                                render={(props) => <PFrecuente {...props} />}
                             />
                             <Route
-                                path={`${path}/centroayuda/listar`}
+                                path={`${path}/centroayuda/consultas`}
                                 exact={true}
-                                render={(props) => <Listar {...props} />}
+                                render={(props) => <Consultas {...props} />}
                             />
                             <Route
-                                path={`${path}/centroayuda/listar/responder`}
+                                path={`${path}/centroayuda/consultas/responder`}
                                 exact={true}
                                 render={(props) => <Responder {...props} />}
                             />
