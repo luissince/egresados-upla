@@ -44,8 +44,9 @@ module.exports = {
       'transparent': '#fff0',
       'sombra': '#00000054',
       upla: {
+        50: '#4CC2FD',
         100: '#007dbc',
-        200: '#0B5CD4'
+        200: '#25607D'
       },
       gray: {
         50: '#F9FAFB',

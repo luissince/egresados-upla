@@ -12,9 +12,9 @@ const Dashboard = (props: RouteComponentProps<{}>) => {
             <div className="relative flex flex-col min-w-0 mb-6 break-words bg-transparent border-0 border-solid shadow-none rounded-2xl bg-clip-border">
                 <div className="flex-auto p-4">
                     <div className="flex flex-wrap -ml-3">
-                        <div className="w-full max-w-full px-3 lg:flex-0 shrink-0 lg:w-6/12">
+                        <div className="w-full max-w-full px-3 lg:flex-0 shrink-0">
                             <div className="flex flex-col h-full">
-                                <h3 className="mb-0 font-bold text-3xl">General Statistics</h3>
+                                <h3 className="mb-0 font-bold text-3xl">Estadística generales del centro de ayuda</h3>
                             </div>
                         </div>
                     </div>
@@ -28,16 +28,16 @@ const Dashboard = (props: RouteComponentProps<{}>) => {
                             <div className="flex flex-wrap -mx-3">
                                 <div className="flex-none w-2/3 max-w-full px-3">
                                     <div>
-                                        <p className="mb-0 font-sans font-semibold leading-normal text-sm dark:opacity-60">Today's Money</p>
+                                        <p className="mb-0 font-sans font-semibold leading-normal text-sm dark:opacity-60">Ingeniera - Consultas</p>
                                         <h5 className="mb-0 font-bold dark:text-white">
-                                            $53,000
-                                            <span className="leading-normal text-sm font-weight-bolder text-lime-500">+55%</span>
+                                            400
+                                            <span className="leading-normal text-sm font-weight-bolder text-lime-500"> - 10%</span>
                                         </h5>
                                     </div>
                                 </div>
                                 <div className="w-4/12 max-w-full px-3 text-right flex-0">
                                     <div className="inline-block w-12 h-12 text-center rounded-lg bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl">
-                                        <i className="ni leading-none ni-money-coins text-lg relative top-3.5 text-white" aria-hidden="true"></i>
+                                        <i className="bi bi-chat-square-dots leading-none  text-lg relative top-3.5 text-white" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>
@@ -48,16 +48,16 @@ const Dashboard = (props: RouteComponentProps<{}>) => {
                             <div className="flex flex-wrap -mx-3">
                                 <div className="flex-none w-2/3 max-w-full px-3">
                                     <div>
-                                        <p className="mb-0 font-sans font-semibold leading-normal text-sm dark:opacity-60">Today's Users</p>
+                                        <p className="mb-0 font-sans font-semibold leading-normal text-sm dark:opacity-60">Ciencias de la Salud - Consulta</p>
                                         <h5 className="mb-0 font-bold dark:text-white">
                                             2,300
-                                            <span className="leading-normal text-sm font-weight-bolder text-lime-500">+3%</span>
+                                            <span className="leading-normal text-sm font-weight-bolder text-lime-500"> - 10%</span>
                                         </h5>
                                     </div>
                                 </div>
                                 <div className="w-4/12 max-w-full px-3 text-right flex-0">
                                     <div className="inline-block w-12 h-12 text-center rounded-lg bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl">
-                                        <i className="ni leading-none ni-world text-lg relative top-3.5 text-white" aria-hidden="true"></i>
+                                        <i className="bi bi-chat-square-dots leading-none  text-lg relative top-3.5 text-white" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>
@@ -70,16 +70,16 @@ const Dashboard = (props: RouteComponentProps<{}>) => {
                             <div className="flex flex-wrap -mx-3">
                                 <div className="flex-none w-2/3 max-w-full px-3">
                                     <div>
-                                        <p className="mb-0 font-sans font-semibold leading-normal text-sm dark:opacity-60">New Clients</p>
+                                        <p className="mb-0 font-sans font-semibold leading-normal text-sm dark:opacity-60">Ciencias Políticas - Consulta</p>
                                         <h5 className="mb-0 font-bold dark:text-white">
-                                            +3,462
-                                            <span className="leading-normal text-red-600 text-sm font-weight-bolder">-2%</span>
+                                            3,462
+                                            <span className="leading-normal text-sm font-weight-bolder text-lime-500"> - 10%</span>
                                         </h5>
                                     </div>
                                 </div>
                                 <div className="w-4/12 max-w-full px-3 text-right flex-0">
                                     <div className="inline-block w-12 h-12 text-center rounded-lg bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl">
-                                        <i className="ni leading-none ni-paper-diploma text-lg relative top-3.5 text-white" aria-hidden="true"></i>
+                                        <i className="bi bi-chat-square-dots leading-none  text-lg relative top-3.5 text-white" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>
@@ -90,16 +90,16 @@ const Dashboard = (props: RouteComponentProps<{}>) => {
                             <div className="flex flex-wrap -mx-3">
                                 <div className="flex-none w-2/3 max-w-full px-3">
                                     <div>
-                                        <p className="mb-0 font-sans font-semibold leading-normal text-sm dark:opacity-60">Sales</p>
+                                        <p className="mb-0 font-sans font-semibold leading-normal text-sm dark:opacity-60">Administración - Consulta</p>
                                         <h5 className="mb-0 font-bold dark:text-white">
-                                            $103,430
-                                            <span className="leading-normal text-sm font-weight-bolder text-lime-500">+5%</span>
+                                            103,430
+                                            <span className="leading-normal text-sm font-weight-bolder text-lime-500"> - 10%</span>
                                         </h5>
                                     </div>
                                 </div>
                                 <div className="w-4/12 max-w-full px-3 text-right flex-0">
                                     <div className="inline-block w-12 h-12 text-center rounded-lg bg-gradient-to-tl from-purple-700 to-pink-500 shadow-soft-2xl">
-                                        <i className="ni leading-none ni-cart text-lg relative top-3.5 text-white" aria-hidden="true"></i>
+                                        <i className="bi bi-chat-square-dots leading-none  text-lg relative top-3.5 text-white" aria-hidden="true"></i>
                                     </div>
                                 </div>
                             </div>
@@ -113,7 +113,7 @@ const Dashboard = (props: RouteComponentProps<{}>) => {
                     <div className="relative flex flex-col min-w-0 break-words bg-white border-0 border-solid dark:bg-gray-950 border-black-125 drop-shadow-sm  rounded-md bg-clip-border">
                         <div className="p-4 pb-0 mb-0 rounded-t-4">
                             <div className="flex justify-between">
-                                <h6 className="mb-2 dark:text-white">Sales by Country</h6>
+                                <h6 className="mb-2 dark:text-white">Tipo de consulta</h6>
                             </div>
                         </div>
                         <div className="overflow-x-auto ps">
@@ -123,30 +123,30 @@ const Dashboard = (props: RouteComponentProps<{}>) => {
                                         <td className="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap dark:border-white/40">
                                             <div className="flex items-center px-2 py-1">
                                                 <div>
-                                                    <img src="https://demos.creative-tim.com/soft-ui-dashboard-pro-tailwind/assets/img/icons/flags/US.png" alt="Country flag" />
+                                                    <i className="bi bi-caret-right-fill"></i>
                                                 </div>
                                                 <div className="ml-6">
-                                                    <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Country:</p>
-                                                    <h6 className="mb-0 leading-normal text-sm dark:text-white">United States</h6>
+                                                    <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Atención:</p>
+                                                    <h6 className="mb-0 leading-normal text-xs dark:text-white">Cantidad y Porcentaje</h6>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
+                                        <td className="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
                                             <div className="text-center">
-                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Sales:</p>
-                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">2500</h6>
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Pendientes:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">70 - 30%</h6>
                                             </div>
                                         </td>
-                                        <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
+                                        <td className="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
                                             <div className="text-center">
-                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Value:</p>
-                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">$230,900</h6>
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Atendidos:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">30 - 70%</h6>
                                             </div>
                                         </td>
-                                        <td className="p-2 leading-normal align-middle bg-transparent border-b text-sm whitespace-nowrap dark:border-white/40">
+                                        <td className="p-2 leading-normal align-middle bg-transparent border-0 text-sm whitespace-nowrap">
                                             <div className="flex-1 text-center">
-                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Bounce:</p>
-                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">29.9%</h6>
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Total:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">100 - 100%</h6>
                                             </div>
                                         </td>
                                     </tr>
@@ -154,30 +154,30 @@ const Dashboard = (props: RouteComponentProps<{}>) => {
                                         <td className="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap dark:border-white/40">
                                             <div className="flex items-center px-2 py-1">
                                                 <div>
-                                                    <img src="https://demos.creative-tim.com/soft-ui-dashboard-pro-tailwind/assets/img/icons/flags/DE.png" alt="Country flag" />
+                                                    <i className="bi bi-caret-right-fill"></i>
                                                 </div>
                                                 <div className="ml-6">
-                                                    <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Country:</p>
-                                                    <h6 className="mb-0 leading-normal text-sm dark:text-white">Germany</h6>
+                                                    <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Incidencia:</p>
+                                                    <h6 className="mb-0 leading-normal text-xs dark:text-white">Cantidad y Porcentaje</h6>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
+                                        <td className="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
                                             <div className="text-center">
-                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Sales:</p>
-                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">3.900</h6>
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Pendientes:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">70 - 30%</h6>
                                             </div>
                                         </td>
-                                        <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
+                                        <td className="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
                                             <div className="text-center">
-                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Value:</p>
-                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">$440,000</h6>
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Atendidos:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">30 - 70%</h6>
                                             </div>
                                         </td>
-                                        <td className="p-2 leading-normal align-middle bg-transparent border-b text-sm whitespace-nowrap dark:border-white/40">
+                                        <td className="p-2 leading-normal align-middle bg-transparent border-0 text-sm whitespace-nowrap">
                                             <div className="flex-1 text-center">
-                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Bounce:</p>
-                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">40.22%</h6>
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Total:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">100 - 100%</h6>
                                             </div>
                                         </td>
                                     </tr>
@@ -185,30 +185,30 @@ const Dashboard = (props: RouteComponentProps<{}>) => {
                                         <td className="p-2 align-middle bg-transparent border-b w-3/10 whitespace-nowrap dark:border-white/40">
                                             <div className="flex items-center px-2 py-1">
                                                 <div>
-                                                    <img src="https://demos.creative-tim.com/soft-ui-dashboard-pro-tailwind/assets/img/icons/flags/GB.png" alt="Country flag" />
+                                                    <i className="bi bi-caret-right-fill"></i>
                                                 </div>
                                                 <div className="ml-6">
-                                                    <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Country:</p>
-                                                    <h6 className="mb-0 leading-normal text-sm dark:text-white">Great Britain</h6>
+                                                    <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Orientación:</p>
+                                                    <h6 className="mb-0 leading-normal text-xs dark:text-white">Cantidad y Porcentaje</h6>
                                                 </div>
                                             </div>
                                         </td>
-                                        <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
+                                        <td className="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
                                             <div className="text-center">
-                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Sales:</p>
-                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">1.400</h6>
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Pendientes:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">70 - 30%</h6>
                                             </div>
                                         </td>
-                                        <td className="p-2 align-middle bg-transparent border-b whitespace-nowrap dark:border-white/40">
+                                        <td className="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
                                             <div className="text-center">
-                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Value:</p>
-                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">$190,700</h6>
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Atendidos:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">30 - 70%</h6>
                                             </div>
                                         </td>
-                                        <td className="p-2 leading-normal align-middle bg-transparent border-b text-sm whitespace-nowrap dark:border-white/40">
+                                        <td className="p-2 leading-normal align-middle bg-transparent border-0 text-sm whitespace-nowrap">
                                             <div className="flex-1 text-center">
-                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Bounce:</p>
-                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">23.44%</h6>
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Total:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">100 - 100%</h6>
                                             </div>
                                         </td>
                                     </tr>
@@ -216,41 +216,80 @@ const Dashboard = (props: RouteComponentProps<{}>) => {
                                         <td className="p-2 align-middle bg-transparent border-0 w-3/10 whitespace-nowrap">
                                             <div className="flex items-center px-2 py-1">
                                                 <div>
-                                                    <img src="https://demos.creative-tim.com/soft-ui-dashboard-pro-tailwind/assets/img/icons/flags/BR.png" alt="Country flag" />
+                                                    <i className="bi bi-caret-right-fill"></i>
                                                 </div>
                                                 <div className="ml-6">
-                                                    <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Country:</p>
-                                                    <h6 className="mb-0 leading-normal text-sm dark:text-white">Brasil</h6>
+                                                    <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Queja o Reclamo:</p>
+                                                    <h6 className="mb-0 leading-normal text-xs dark:text-white">Cantidad y Porcentaje</h6>
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
                                             <div className="text-center">
-                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Sales:</p>
-                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">562</h6>
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Pendientes:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">70 - 30%</h6>
                                             </div>
                                         </td>
                                         <td className="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
                                             <div className="text-center">
-                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Value:</p>
-                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">$143,960</h6>
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Atendidos:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">30 - 70%</h6>
                                             </div>
                                         </td>
                                         <td className="p-2 leading-normal align-middle bg-transparent border-0 text-sm whitespace-nowrap">
                                             <div className="flex-1 text-center">
-                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Bounce:</p>
-                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">32.14%</h6>
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Total:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">100 - 100%</h6>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td className="p-2 align-middle bg-transparent border-0 w-3/10 whitespace-nowrap">
+                                            <div className="flex items-center px-2 py-1">
+                                                <div>
+                                                    <i className="bi bi-caret-right-fill"></i>
+                                                </div>
+                                                <div className="ml-6">
+                                                    <p className="mb-0 font-semibold leading-tight text-sm dark:opacity-60">Sugerencia:</p>
+                                                    <h6 className="mb-0 leading-normal text-xs dark:text-white">Cantidad y Porcentaje</h6>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td className="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
+                                            <div className="text-center">
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Pendientes:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">70 - 30%</h6>
+                                            </div>
+                                        </td>
+                                        <td className="p-2 align-middle bg-transparent border-0 whitespace-nowrap">
+                                            <div className="text-center">
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Atendidos:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">30 - 70%</h6>
+                                            </div>
+                                        </td>
+                                        <td className="p-2 leading-normal align-middle bg-transparent border-0 text-sm whitespace-nowrap">
+                                            <div className="flex-1 text-center">
+                                                <p className="mb-0 font-semibold leading-tight text-xs dark:opacity-60">Total:</p>
+                                                <h6 className="mb-0 leading-normal text-sm dark:text-white">100 - 100%</h6>
                                             </div>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                            <div className="ps__rail-x" style={{ "left": "0px", "bottom": "0px" }}><div className="ps__thumb-x" tabIndex={0} style={{ "left": "0px", "width": "0px" }}></div></div><div className="ps__rail-y" style={{ "top": "0px", "right": "0px" }}><div className="ps__thumb-y" tabIndex={0} style={{ "top": "0px", "right": "0px" }}></div></div></div>
+                            <div className="ps__rail-x top-0 right-0">
+                                <div className="ps__thumb-x left-0 w-0" tabIndex={0}>
+                                </div>
+                            </div>
+                            <div className="ps__rail-y top-0 right-0">
+                                <div className="ps__thumb-y left-0 w-0" tabIndex={0}>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div className="flex flex-wrap mt-6 -mx-3">
+            {/* <div className="flex flex-wrap mt-6 -mx-3">
                 <div className="w-full max-w-full px-3 mt-0 mb-6 lg:mb-0 lg:w-5/12 lg:flex-none">
                     <div className="relative z-20 flex flex-col min-w-0 break-words bg-white border-0 border-solid dark:bg-gray-950 border-black-125 drop-shadow-sm  dark:shadow-soft-dark-xl rounded-md bg-clip-border">
                         <div className="flex-auto p-4">
@@ -384,182 +423,17 @@ const Dashboard = (props: RouteComponentProps<{}>) => {
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> */}
 
-            <footer className="pt-4">
-                <div className="w-full px-6 mx-auto">
-                    <div className="flex flex-wrap items-center -mx-3 lg:justify-between">
-                        <div className="w-full max-w-full px-3 mt-0 mb-6 shrink-0 lg:mb-0 lg:w-1/2 lg:flex-none">
-                            <div className="leading-normal text-center copyright text-sm text-slate-500 lg:text-left">
-                                ©
-                                {new Date().getFullYear() + ", "}
-                                <i className="fa fa-heart" aria-hidden="true"></i> creado por
-                                <a href="https://upla.edu.pe/" className="font-semibold text-slate-700 dark:text-white" target="_blank"> Oficina de Informatica - UPLA</a>
-                            </div>
-                        </div>
-                        <div className="w-full max-w-full px-3 mt-0 shrink-0 lg:w-1/2 lg:flex-none">
-                            <ul className="flex flex-wrap justify-center pl-0 mb-0 list-none lg:justify-end">
-                                <li className="nav-item">
-                                    <a href="https://www.creative-tim.com" className="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-sm text-slate-500" target="_blank">link</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a href="https://www.creative-tim.com/presentation" className="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-sm text-slate-500" target="_blank">link</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a href="https://creative-tim.com/blog" className="block px-4 pt-0 pb-1 font-normal transition-colors ease-soft-in-out text-sm text-slate-500" target="_blank">link</a>
-                                </li>
-                                <li className="nav-item">
-                                    <a href="https://www.creative-tim.com/license" className="block px-4 pt-0 pb-1 pr-0 font-normal transition-colors ease-soft-in-out text-sm text-slate-500" target="_blank">link</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+            {/* <footer className="fixed left-0 bottom-0 w-full bg-upla-100 text-white h-12 flex items-center justify-center px-4">
+                <div className="leading-normal copyright text-sm text-slate-500">
+                    ©
+                    {new Date().getFullYear() + ", "}
+                    <i className="fa fa-heart" aria-hidden="true"></i> creado por
+                    <a href="https://upla.edu.pe/" className="font-semibold text-slate-700 dark:text-white" target="_blank"> Oficina de Informatica - UPLA</a>
                 </div>
-            </footer>
+            </footer> */}
         </>
-
-        // <div className="">
-        //     <h1 className="font-mont text-4xl text-center font-medium pt-5">
-        //         Tablero de Control de Estudiantes Trica
-        //     </h1>
-        //     <h5 className="font-mont text-4xl text-center font-medium pb-5">
-        //         DATOS USUARIO
-        //     </h5>
-        //     
-        //     <div className=" flex justify-around flex-wrap">
-        //         <a
-        //             href="#"
-        //             className="w-full my-1 md:w-2/4 lg:w-1/5 mx-2 flex flex-col items-center bg-green-500 rounded-lg border border-green-500 shadow-md md:flex-row  hover:bg-green-400"
-        //         >
-        //             <div className="flex justify-between w-full p-4 leading-normal ">
-        //                 <div className="w-2/3">
-        //                     <h5
-        //                         className="mb-2 text-2xl font-bold tracking-tight text-gray-100">
-        //                         Nº
-        //                     </h5>
-        //                     <p className="mb-3 font-normal text-gray-100">Estudiantes Trica</p>
-        //                 </div>
-        //                 <div className="w-1/3 flex justify-center items-center">
-        //                     <BsFillPersonFill className="text-6xl text-sombra" />
-        //                 </div>
-        //             </div>
-        //         </a>
-
-        //         <a
-        //             href="#"
-        //             className="w-full my-1 md:w-2/4 lg:w-1/5 mx-2 flex flex-col items-center bg-blue-500 rounded-lg border border-blue-500 shadow-md md:flex-row  hover:bg-blue-400"
-        //         >
-        //             <div className="flex justify-between w-full p-4 leading-normal ">
-        //                 <div className="w-2/3">
-        //                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-100">
-        //                         Nº
-        //                     </h5>
-        //                     <p className="mb-3 font-normal text-gray-100">Seg. Estudiante</p>
-        //                 </div>
-        //                 <div className="w-1/3 flex justify-center items-center">
-        //                     <GrAnalytics className="text-6xl text-sombra" />
-        //                 </div>
-        //             </div>
-        //         </a>
-
-        //         <a
-        //             href="#"
-        //             className="w-full my-1 md:w-2/4 lg:w-1/5 mx-2 flex flex-col items-center bg-yellow-400 rounded-lg border border-yellow-400 shadow-md md:flex-row  hover:bg-yellow-500"
-        //         >
-        //             <div className="flex justify-between w-full p-4 leading-normal ">
-        //                 <div className="w-2/3">
-        //                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-100">
-        //                         Nº
-        //                     </h5>
-        //                     <p className="mb-3 font-normal text-gray-100">Seg. Asignados</p>
-        //                 </div>
-        //                 <div className="w-1/3 flex justify-center items-center">
-        //                     <SiGoogleanalytics className="text-6xl text-sombra" />
-        //                 </div>
-        //             </div>
-        //         </a>
-
-        //         <a
-        //             href="#"
-        //             className="w-full my-1 md:w-2/4 lg:w-1/5 mx-2 flex flex-col items-center bg-red-500 rounded-lg border border-red-500 shadow-md md:flex-row  hover:bg-red-400"
-        //         >
-        //             <div className="flex justify-between w-full p-4 leading-normal ">
-        //                 <div className="w-2/3">
-        //                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-100">
-        //                         Nº
-        //                     </h5>
-        //                     <p className="mb-3 font-normal text-gray-100">Total</p>
-        //                 </div>
-        //                 <div className="w-1/3 flex justify-center items-center">
-        //                     <TbDeviceAnalytics className="text-6xl text-sombra" />
-        //                 </div>
-        //             </div>
-        //         </a>
-        //     </div>
-        //     {/*  */}
-
-        //     {/*  */}
-        //     <div>
-
-        //         <div className="relative shadow-md sm:rounded-lg">
-        //             <h3 className="font-mont text-4xl text-center font-medium pt-10">Mis Estudiantes Tricas </h3>
-        //             <div className="flex justify-between items-center pb-4 bg-white ">
-
-
-        //             </div>
-        //             <table className="w-full text-sm text-left text-gray-500 ">
-        //                 <thead className="text-xs text-gray-700 uppercase bg-gray-50  ">
-        //                     <tr>
-        //                         <th scope="col" className="py-3 px-6">
-        //                             Codigo
-        //                         </th>
-        //                         <th scope="col" className="py-3 px-6">
-        //                             Estudiante
-        //                         </th>
-        //                         <th scope="col" className="py-3 px-6">
-        //                             Asignatura
-        //                         </th>
-        //                         <th scope="col" className="py-3 px-6 text-center">
-        //                             Nivel - Seccion
-        //                         </th>
-        //                         <th scope="col" className="py-3 px-6 text-center">
-        //                             Tipo
-        //                         </th>
-        //                     </tr>
-        //                 </thead>
-        //                 <tbody>
-        //                     <tr className="bg-white border-b hover:bg-gray-50">
-        //                         <td className="py-4 px-6">
-        //                             asd
-        //                         </td>
-        //                         <th scope="row" className="flex items-center py-4 px-6 text-gray-900 whitespace-nowrap ">
-        //                             <img className="w-10 h-10 rounded-full hover:scale-[5] scale transition duration-500 ease-in-out" src={images.logo_only} alt="Jese image" />
-        //                             <div className="pl-3">
-        //                                 <div className="text-base font-semibold">wer</div>
-
-        //                                 <div className="font-normal text-gray-500">wer</div>
-        //                             </div>
-        //                         </th>
-        //                         <td className="py-4 px-6">
-        //                             wer
-        //                         </td>
-        //                         <td className="py-4 px-6 text-center">
-        //                             wer
-        //                         </td>
-        //                         <td className="py-4 px-6 text-center">
-        //                             wer
-        //                         </td>
-        //                     </tr>
-        //                 </tbody>
-        //             </table>
-
-        //         </div>
-
-        //     </div>
-        //     {/*  */}
-        // </div>
-
-
     );
 }
 

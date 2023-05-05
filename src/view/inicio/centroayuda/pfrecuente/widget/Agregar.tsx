@@ -1,20 +1,18 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../store/configureStore.store";
 import { RegistrarFrecuenteRest } from "../../../../../network/rest/index.network";
-import { images } from "../../../../../helper/index.helper";
 import { Types } from "../../../../../model/enum/types.model";
 import RestError from "../../../../../model/class/resterror.model.class";
 import { logout } from "../../../../../store/authSlice.store";
 import CustomModal from "../../../../../component/Modal.component";
 import Response from "../../../../../model/class/response.model.class";
+import Sweet from "../../../../../model/interfaces/Sweet.mode.interface";
 
 type Props = {
     open: boolean,
-    setLoadingProceso: Dispatch<SetStateAction<boolean>>,
-    setRespuestaProceso: Dispatch<SetStateAction<boolean>>,
-    setMensajeProceso: Dispatch<SetStateAction<string>>,
-    setImagenRespuesta: Dispatch<SetStateAction<string>>,
+    sweet: Sweet,
+    loadInit: () => void,
     abortControl: AbortController,
     onClose: () => void
 }
@@ -37,7 +35,7 @@ const Agregar = (props: Props) => {
     const refDescripcion = useRef<HTMLTextAreaElement>(null);
     const refEstado = useRef<HTMLSelectElement>(null);
 
-    const onEventCrear = async (event: React.FormEvent<HTMLFormElement>) => {
+    const onEventCrear = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
         if (asunto.trim().length == 0) {
@@ -70,61 +68,50 @@ const Agregar = (props: Props) => {
             "c_cod_usuario": codigo
         }
 
-        props.setMensajeProceso("Procesando petición...");
-        props.setLoadingProceso(true);
-        props.setRespuestaProceso(false);
-        props.onClose();
+        props.sweet.openDialog("P. Frecuente", "¿Esta seguro de continuar?", async (value) => {
+            if (value) {
+                props.onClose();
+                props.sweet.openInformation("P. Frecuente", "Procesando información...")
 
-        const response =await RegistrarFrecuenteRest<String>(params, props.abortControl);
-      
-        if (response instanceof Response) {
-            props.setImagenRespuesta(images.accept);
-            props.setMensajeProceso(response.data as string);
-            props.setRespuestaProceso(true);
-            setAsunto("");
-            setDescripcion("")
-            setEstado("")
-        }
+                const response = await RegistrarFrecuenteRest<String>(params, props.abortControl);
 
-        if (response instanceof RestError) {
-            if (response.getType() === Types.CANCELED) return;
+                if (response instanceof Response) {
+                    props.sweet.openSuccess("P. Frecuente", response.data as string, () => props.loadInit());
+                }
 
-            if (response.getStatus() == 401) {
-                dispatch(logout());
-                return;
+                if (response instanceof RestError) {
+                    if (response.getType() === Types.CANCELED) return;
+
+                    if (response.getStatus() == 401) {
+                        dispatch(logout());
+                        return;
+                    }
+
+                    if (response.getStatus() == 403) {
+                        dispatch(logout());
+                        return;
+                    }
+
+                    props.sweet.openWarning("P. Frecuente", response.getMessage());
+                }
             }
-
-            if (response.getStatus() == 403) {
-                dispatch(logout());
-                return;
-            }
-
-            props.setImagenRespuesta(images.warning);
-            props.setMensajeProceso(response.getMessage());
-            props.setRespuestaProceso(true);
-            setAsunto("");
-            setDescripcion("")
-        }
+        });
     }
 
-    const onEventClose = () => {
-        setAsunto("");
-        setDescripcion("")
-        setEstado("")
-        props.onClose()
-    }
 
     return (
         <CustomModal
             isOpen={props.open}
-            onOpen={()=>{
-                
+            onOpen={() => {
+
             }}
-            onHidden={()=>{
-                
+            onHidden={() => {
+                setAsunto("");
+                setDescripcion("")
+                setEstado("")
             }}
-            onClose={onEventClose}>
-            <div className="relative flex flex-col visible w-full h-auto min-w-0 p-4 break-words bg-white opacity-100">
+            onClose={props.onClose}>
+            <div className="relative flex flex-col visible w-full h-auto min-w-0 p-4 break-words bg-white opacity-100 rounded-xl">
 
                 <form className="relative" onSubmit={onEventCrear}>
                     <h5 className="mb-0 font-bold text-lg">Registrar pregunta frecuente</h5>
@@ -203,7 +190,7 @@ const Agregar = (props: Props) => {
                             type="submit"
                             aria-controls="address"
                             next-form-btn=""
-                            className="w-full sm:w-auto text-sm font-semibold rounded-md bg-upla-100 text-white border px-3 py-2 hover:bg-upla-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
+                            className="focus:outline-none  text-white  bg-upla-100  hover:bg-upla-200 hover:text-white focus:ring-4 focus:ring-upla-50 rounded-md text-sm px-4 py-2"
                         >
                             <span className="mr-2">Registrar</span>
                             <i className="bi bi-box-arrow-right"></i>
@@ -212,8 +199,8 @@ const Agregar = (props: Props) => {
                             type="button"
                             aria-controls="address"
                             next-form-btn=""
-                            className="w-full sm:w-auto text-sm font-semibold rounded-md bg-red-500 text-white border px-3 py-2 hover:bg-upla-100 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
-                            onClick={onEventClose}>
+                            className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300  rounded-md text-sm px-4 py-2"
+                            onClick={props.onClose}>
                             <span className="mr-2">Cancelar</span>
                             <i className="bi bi-x-circle"></i>
                         </button>

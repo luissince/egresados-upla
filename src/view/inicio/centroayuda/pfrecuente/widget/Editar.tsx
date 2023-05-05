@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
+import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../store/configureStore.store";
 import { ActualizarFrecuenteRest, ObtenerFrecuentePorIdFrecuenteRest } from "../../../../../network/rest/index.network";
@@ -7,17 +7,15 @@ import RestError from "../../../../../model/class/resterror.model.class";
 import Response from "../../../../../model/class/response.model.class";
 import { logout } from "../../../../../store/authSlice.store";
 import CustomModal from "../../../../../component/Modal.component";
-import { images } from "../../../../../helper/index.helper";
 import Frecuente from "../../../../../model/interfaces/soporte/frecuente.model.interfaces";
+import Sweet from "../../../../../model/interfaces/Sweet.mode.interface";
 
 type Props = {
     open: boolean,
     idFrecuente: string,
-    setFrecuente: Dispatch<SetStateAction<string>>,
-    setLoadingProceso: Dispatch<SetStateAction<boolean>>,
-    setRespuestaProceso: Dispatch<SetStateAction<boolean>>,
-    setMensajeProceso: Dispatch<SetStateAction<string>>,
-    setImagenRespuesta: Dispatch<SetStateAction<string>>,
+    setIdFrecuente: Dispatch<SetStateAction<string>>,
+    sweet: Sweet,
+    onEventPaginacion: () => void,
     abortControl: AbortController,
     onClose: () => void
 }
@@ -27,7 +25,7 @@ const Editar = (props: Props) => {
     const dispatch = useDispatch();
     const codigo = useSelector((state: RootState) => state.autenticacion.codigo)
 
-    const [loading,setLoading] = useState(true);
+    const [loading, setLoading] = useState(true);
 
     const [asunto, setAsunto] = useState<string>("");
     const [descripcion, setDescripcion] = useState<string>("");
@@ -44,8 +42,8 @@ const Editar = (props: Props) => {
     const onEventOpen = async () => {
         setLoading(true);
         const response = await ObtenerFrecuentePorIdFrecuenteRest<Frecuente>(props.idFrecuente);
-    
-        if (response instanceof Response) {          
+
+        if (response instanceof Response) {
             setAsunto(response.data.asunto);
             setDescripcion(response.data.descripcion);
             setEstado(response.data.estado.toString());
@@ -102,37 +100,34 @@ const Editar = (props: Props) => {
             "c_cod_usuario": codigo
         }
 
-        props.setMensajeProceso("Procesando petición...");
-        props.setLoadingProceso(true);
-        props.setRespuestaProceso(false);
-        props.onClose();
+        props.sweet.openDialog("P. Frecuente", "¿Esta seguro de continuar?", async (value) => {
+            if (value) {
+                props.onClose();
+                props.sweet.openInformation("P. Frecuente", "Procesando información...")
 
-        const response = await ActualizarFrecuenteRest<String>(params, props.abortControl);
-      
-        if (response instanceof Response) {
-          
-            props.setImagenRespuesta(images.accept);
-            props.setMensajeProceso(response.data as string);
-            props.setRespuestaProceso(true);
-           
-        }
+                const response = await ActualizarFrecuenteRest<String>(params, props.abortControl);
 
-        if (response instanceof RestError) {
-            if (response.getType() === Types.CANCELED) return;
+                if (response instanceof Response) {
+                    props.sweet.openSuccess("P. Frecuente", response.data as string, () => props.onEventPaginacion());
+                }
 
-            if (response.getStatus() == 401) {
-                dispatch(logout());
-                return;
+                if (response instanceof RestError) {
+                    if (response.getType() === Types.CANCELED) return;
+
+                    if (response.getStatus() == 401) {
+                        dispatch(logout());
+                        return;
+                    }
+
+                    if (response.getStatus() == 403) {
+                        dispatch(logout());
+                        return;
+                    }
+
+                    props.sweet.openWarning("P. Frecuente", response.getMessage());
+                }
             }
-
-            if (response.getStatus() == 403) {
-                dispatch(logout());
-                return;
-            }
-            props.setImagenRespuesta(images.warning);
-            props.setMensajeProceso(response.getMessage());
-            props.setRespuestaProceso(true);
-        }
+        });
     }
 
     return (
@@ -143,10 +138,10 @@ const Editar = (props: Props) => {
                 setAsunto("");
                 setDescripcion("")
                 setEstado("")
-                props.setFrecuente("")
+                props.setIdFrecuente("")
             }}
             onClose={props.onClose}>
-            <div className="relative flex flex-col visible w-full h-auto min-w-0 p-4 break-words bg-white opacity-100">
+            <div className="relative flex flex-col visible w-full h-auto min-w-0 p-4 break-words bg-white opacity-100 rounded-xl">
 
                 {loading && <div className="absolute z-[500] left-0 top-0 right-0 bottom-0">
                     <div className=" w-full h-full bg-gray-900 opacity-80"></div>
@@ -235,7 +230,7 @@ const Editar = (props: Props) => {
                             type="submit"
                             aria-controls="address"
                             next-form-btn=""
-                            className="w-full sm:w-auto text-sm font-semibold rounded-md bg-yellow-500 text-white border px-3 py-2 hover:bg-upla-100 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
+                            className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 rounded-md text-sm px-4 py-2"
                         >
                             <span className="mr-2">Editar</span>
                             <i className="bi bi-box-arrow-right"></i>
@@ -244,7 +239,7 @@ const Editar = (props: Props) => {
                             type="button"
                             aria-controls="address"
                             next-form-btn=""
-                            className="w-full sm:w-auto text-sm font-semibold rounded-md bg-red-500 text-white border px-3 py-2 hover:bg-upla-100 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
+                            className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300  rounded-md text-sm px-4 py-2"
                             onClick={props.onClose}>
                             <span className="mr-2">Cancelar</span>
                             <i className="bi bi-x-circle"></i>

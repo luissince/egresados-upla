@@ -2,7 +2,7 @@ import axios from 'axios';
 import Response from '../../model/class/response.model.class';
 import Resolve from '../../model/class/resolve.model.class';
 import RestError from '../../model/class/resterror.model.class';
-import Frecuente from '../../model/interfaces/soporte/frecuente.model.interfaces';
+import Consulta from '../../model/interfaces/soporte/consulta.mode.interfaces';
 
 const instance = axios.create({
     baseURL: import.meta.env.VITE_URL_APP,
@@ -50,8 +50,16 @@ export async function ListarRespuestasPorIdConsultaRest<Responde>(params: object
     return await Resolve.create<Responde>(instance.post<Responde>("/Soporte/listarRespuestasPorIdConsulta", params, { signal: abortController?.signal }));
 }
 
-export async function RegistrarRespuestaRest(params: object, abortController: AbortController | null = null): Promise<Response<String> | RestError> {
-    return await Resolve.create(instance.post<string>("/Soporte/registrarRespuesta", params, { signal: abortController?.signal }));
+export async function RegistrarRespuestaRest<String>(params: object, abortController: AbortController | null = null): Promise<Response<String> | RestError> {
+    return await Resolve.create<String>(instance.post<string>("/Soporte/registrarRespuesta", params, { signal: abortController?.signal }));
+}
+
+export async function TerminarConsultaRest<String>(params: Consulta, abortController: AbortController | null = null): Promise<Response<String> | RestError> {
+    return await Resolve.create(instance.post<string>("/Soporte/terminarConsulta", params, { signal: abortController?.signal }));
+}
+
+export async function AnularConsultaRest<String>(params: Consulta, abortController: AbortController | null = null): Promise<Response<String> | RestError> {
+    return await Resolve.create<String>(instance.post<String>("/Soporte/anularConsulta", params, { signal: abortController?.signal }));
 }
 
 export async function SoporteListarFrecuenteRest<Responde>(params: object, abortController: AbortController | null): Promise<Response<Responde> | RestError> {

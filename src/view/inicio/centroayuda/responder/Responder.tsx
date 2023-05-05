@@ -9,16 +9,18 @@ import { EnviarNotifacionCelular, ListarRespuestasPorIdConsultaRest, ObtenerCons
 import Responde from "../../../../model/interfaces/soporte/responde.model.interface";
 import Respuesta from "../../../../model/interfaces/soporte/respuesta.model.interface";
 import { formatTime } from "../../../../helper/herramienta.helper";
-import Consulta from "../../../../model/interfaces/soporte/consulta.model.interfaces";
 import { images } from "../../../../helper/index.helper";
 import CustomModal from "../../../../component/Modal.component";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../store/configureStore.store";
 import { logout } from "../../../../store/authSlice.store";
+import useSweetAlert from "../../../../component/hooks/useSweetAlert";
+import Consulta from "../../../../model/interfaces/soporte/consulta.mode.interfaces";
 
 const Responder = (props: RouteComponentProps<{}>) => {
 
     const dispatch = useDispatch();
+    const sweet = useSweetAlert();
 
     const location = useLocation<{ idConsulta: string }>();
 
@@ -37,10 +39,6 @@ const Responder = (props: RouteComponentProps<{}>) => {
 
     const refRespuesta = useRef<HTMLTextAreaElement>(null);
     const [isOpen, setIsOpen] = useState(false);
-    const [loadingProceso, setLoadingProceso] = useState<boolean>(false);
-    const [mensajeProceso, setMensajeProceso] = useState<string>("");
-    const [respuestaProceso, setRespuestaProceso] = useState<boolean>(false);
-    const [imagenRespuesta, setImagenRespuesta] = useState<string>(images.accept);
     const [respuesta, setRespuesta] = useState<string>("");
     const [mensaje, setMensaje] = useState<string>("");
 
@@ -129,10 +127,9 @@ const Responder = (props: RouteComponentProps<{}>) => {
 
     const handleClose = () => {
         setIsOpen(false);
-        setRespuesta("");
     };
 
-    const onEventRegistrar = async () => {
+    const onEventRegistrar = () => {
         if (respuesta.trim().length == 0) {
             setMensaje("!El campo es oblogatorio¡");
             refRespuesta.current?.focus();
@@ -148,51 +145,44 @@ const Responder = (props: RouteComponentProps<{}>) => {
             "fecha": "",
             "hora": ""
         }
-        
-        setIsOpen(false);
-        setMensajeProceso("Procesando petición...");
-        setLoadingProceso(true);
-        setRespuestaProceso(false);
 
-        const response = await RegistrarRespuestaRest(params);
+        sweet.openDialog("Respuesta", "¿Esta seguro de continuar?", async (value) => {
+            if (value) {
 
-        if (response instanceof Response) {
-            setImagenRespuesta(images.accept);
-            setMensajeProceso(response.data as string);
-            setRespuestaProceso(true);
-            setRespuesta("");
+                setIsOpen(false);
+                sweet.openInformation("Respuesta", "Procesando información...")
 
-            EnviarNotifacionCelular(location.state.idConsulta).then(response => {
-                console.log(response)
-            }).catch(error => {
-                console.log(error)
-            })
-        }
+                const response = await RegistrarRespuestaRest(params);
 
-        if (response instanceof RestError) {
-            if (response.getType() === Types.CANCELED) return;
+                if (response instanceof Response) {
 
-            setImagenRespuesta(images.warning);
-            setMensajeProceso(response.getMessage());
-            setRespuestaProceso(true);
-            setRespuesta("");
-        }
+                    sweet.openSuccess("Respuesta", response.data as string, () => {
+                        loadDetalle();
+                    });
+                    EnviarNotifacionCelular(location.state.idConsulta);
+                }
 
+                if (response instanceof RestError) {
+                    if (response.getType() === Types.CANCELED) return;
+
+                    sweet.openWarning("Repuesta", response.getMessage());
+                }
+            }
+        });
     }
 
-    const onEventRespuesta = () => {
-        setLoadingProceso(false);
-        setRespuestaProceso(false);
-        loadDetalle();
-    }
 
     useEffect(() => {
         loadCabecera();
         loadDetalle();
 
-        () => {
+        return () => {
             abortControllerCabecera.current.abort();
             abortControllerDetalle.current.abort();
+
+            if (sweet.alert !== undefined && sweet.alert.isVisible()) {
+                sweet.alert.closePopup()
+            }
         }
     }, []);
 
@@ -212,41 +202,15 @@ const Responder = (props: RouteComponentProps<{}>) => {
                         </div>
                     </div>}
 
-                    {loadingProceso && <div className="absolute z-[500] left-0 top-0 right-0 bottom-0">
-                        <div className=" w-full h-full bg-gray-900 opacity-80"></div>
-                        <div className=" w-full h-full absolute left-0 top-0 text-white flex justify-center items-center flex-col">
-                            {
-                                respuestaProceso ?
-                                    <img src={imagenRespuesta} className="w-[6.5rem] mr-0 my-3" alt="Flowbite Logo" />
-                                    :
-                                    null}
+                    <CustomModal
+                        isOpen={isOpen}
+                        onOpen={() => {
 
-
-                            {!respuestaProceso && <div style={{ "borderTopColor": "transparent" }}
-                                className="w-16 h-16 border-4 border-upla-100 border-solid rounded-full animate-spin">
-                            </div>}
-
-                            <h1 className='m-3 text-center'>{mensajeProceso}</h1>
-
-                            {respuestaProceso && <button
-                                type="button"
-                                className="w-full sm:w-auto text-sm font-semibold rounded-md bg-green-500 text-white border px-3 py-2 hover:bg-upla-200 hover:text-white  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
-                                onClick={onEventRespuesta}>
-                                <span className="mr-2">Aceptar</span>
-                                <i className="bi bi-mouse-fill"></i>
-                            </button>}
-                        </div>
-                    </div>}
-
-                    <CustomModal 
-                    isOpen={isOpen} 
-                    onOpen={()=>{
-
-                    }}
-                    onHidden={()=>{
-                        
-                    }}
-                    onClose={handleClose}>
+                        }}
+                        onHidden={() => {
+                            setRespuesta("");
+                        }}
+                        onClose={handleClose}>
                         <div className="relative flex flex-col min-w-0 break-words bg-white border-0 rounded-2xl bg-clip-border">
                             <div className="border-black/12.5 rounded-t-2xl border-b-0 border-solid p-3 pb-0">
                                 <h6 className="mb-1 dark:text-white">Registrar</h6>
@@ -275,7 +239,7 @@ const Responder = (props: RouteComponentProps<{}>) => {
                                 <div className="flex items-center justify-start gap-x-3 gap-y-4 flex-col sm:flex-row">
                                     <button
                                         type="button"
-                                        className="w-full sm:w-auto text-sm font-semibold rounded-md bg-green-500 text-white border px-3 py-2 hover:bg-upla-200 hover:text-white  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
+                                        className="focus:outline-none text-white bg-green-500 hover:bg-green-800 focus:ring-4 focus:ring-green-300  rounded-md text-sm px-4 py-2"
                                         onClick={onEventRegistrar}>
                                         <span className="mr-2">Registrar</span>
                                         <i className="bi bi-save2-fill"></i>
@@ -284,7 +248,7 @@ const Responder = (props: RouteComponentProps<{}>) => {
                                         type="button"
                                         aria-controls="address"
                                         next-form-btn=""
-                                        className="w-full sm:w-auto text-sm font-semibold rounded-md bg-red-500 text-white border px-3 py-2 hover:bg-upla-100 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
+                                        className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300  rounded-md text-sm px-4 py-2"
                                         onClick={handleClose}>
                                         <span className="mr-2">Cancelar</span>
                                         <i className="bi bi-x-circle-fill"></i>
@@ -306,7 +270,7 @@ const Responder = (props: RouteComponentProps<{}>) => {
                                 type="button"
                                 aria-controls="address"
                                 next-form-btn=""
-                                className="w-full sm:w-auto text-sm font-semibold rounded-md bg-white text-gray-900 border px-3 py-2 hover:bg-upla-100 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
+                                className="focus:outline-none  bg-white border hover:bg-gray-500 hover:text-white focus:ring-4 focus:ring-gray-300 rounded-md text-sm px-4 py-2"
                                 onClick={() => props.history.goBack()}>
                                 <span className="mr-2">Regresar</span>
                                 <i className="bi bi-arrow-left-circle"></i>
@@ -315,7 +279,7 @@ const Responder = (props: RouteComponentProps<{}>) => {
                                 type="button"
                                 aria-controls="address"
                                 next-form-btn=""
-                                className="w-full sm:w-auto text-sm font-semibold rounded-md bg-white text-gray-900 border px-3 py-2 hover:bg-upla-100 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
+                                className="focus:outline-none  bg-white border hover:bg-gray-500 hover:text-white focus:ring-4 focus:ring-gray-300 rounded-md text-sm px-4 py-2"
                                 onClick={() => {
                                     setLoadingConsulta(true);
                                     loadCabecera();
@@ -328,7 +292,7 @@ const Responder = (props: RouteComponentProps<{}>) => {
                                 type="button"
                                 aria-controls="recargar"
                                 next-form-btn=""
-                                className="w-full sm:w-auto text-sm font-semibold rounded-md bg-upla-100 text-white border px-3 py-2 hover:bg-upla-200 hover:text-white  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
+                                className="focus:outline-none  text-white  bg-upla-100  hover:bg-upla-200 hover:text-white focus:ring-4 focus:ring-upla-50 rounded-md text-sm px-4 py-2"
                                 onClick={handleOpen}
                             >
                                 <span className="mr-2">Responder</span>

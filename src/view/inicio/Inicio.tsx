@@ -141,7 +141,7 @@ const Inicio = (props: RouteComponentProps<{}>) => {
 
     useEffect(() => {
         const onEventFocused = () => {
-            console.log("lasd")
+            // console.log("lasd")
         }
 
         window.addEventListener('focus', onEventFocused);

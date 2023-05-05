@@ -63,7 +63,7 @@ const Nav = (props: Props) => {
                     </div>
                 ), {
                     position: "top-right"
-                })
+                }) 
 
                 const audio = new Audio(sound.mixkit);
                 if (audio !== undefined) {

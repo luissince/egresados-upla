@@ -5,7 +5,6 @@ import { SoporteListarFrecuenteRest } from "../../../../network/rest/index.netwo
 import { Types } from "../../../../model/enum/types.model";
 import RestError from "../../../../model/class/resterror.model.class";
 import Response from "../../../../model/class/response.model.class";
-import { images } from "../../../../helper/index.helper";
 import { logout } from "../../../../store/authSlice.store";
 import Frecuente from "../../../../model/interfaces/soporte/frecuente.model.interfaces";
 import { LoaderSvg } from "../../../../component/Svg.component";
@@ -14,6 +13,7 @@ import Paginacion from "../../../../component/Paginacion.component";
 import { formatTime } from "../../../../helper/herramienta.helper";
 import Agregar from "./widget/Agregar";
 import Editar from "./widget/Editar";
+import useSweetAlert from "../../../../component/hooks/useSweetAlert";
 
 const PFrecuente = (props: RouteComponentProps<{}>) => {
 
@@ -21,6 +21,7 @@ const PFrecuente = (props: RouteComponentProps<{}>) => {
      * Funcion de redux encargado de realizar la acciones de los reducer
      */
     const dispatch = useDispatch();
+    const sweet = useSweetAlert();
 
     /**
      * Variables encargadas del manejo del listado de las 
@@ -50,15 +51,7 @@ const PFrecuente = (props: RouteComponentProps<{}>) => {
      * Modal encargado de actualizar el pregunta frecuente 
      */
     const [isOpenEditar, setIsOpenEditar] = useState(false);
-    const [idFrecuente, setFrecuente] = useState<string>("");
-
-    /**
-     * 
-     */
-    const [loadingProceso, setLoadingProceso] = useState(false);
-    const [respuestaProceso, setRespuestaProceso] = useState(false);
-    const [imagenRespuesta, setImagenRespuesta] = useState<string>(images.accept);
-    const [mensajeProceso, setMensajeProceso] = useState("");
+    const [idFrecuente, setIdFrecuente] = useState<string>("");
 
     /**
      * Funcion que inicia la carga de datos
@@ -156,9 +149,13 @@ const PFrecuente = (props: RouteComponentProps<{}>) => {
     useEffect(() => {
         loadInit();
 
-        () => {
+        return () => {
             abortControllerTable.current.abort();
             abortControllerCrear.current.abort();
+
+            if (sweet.alert !== undefined && sweet.alert.isVisible()) {
+                sweet.alert.closePopup()
+            }
         }
     }, []);
 
@@ -190,16 +187,6 @@ const PFrecuente = (props: RouteComponentProps<{}>) => {
         setIsOpenEditar(false);
     };
 
-    /**
-     * Funcion encargada de cerrar el div que se genera
-     * al realizar una acción con el modal
-     * como agregar o editar.
-     */
-    const onEventRespuesta = () => {
-        setLoadingProceso(false);
-        setRespuestaProceso(false);
-        loadInit();
-    }
 
     /**
     * 
@@ -209,50 +196,19 @@ const PFrecuente = (props: RouteComponentProps<{}>) => {
             <div className="w-full max-w-full px-3 flex-0">
                 <div className=" relative flex flex-col visible w-full h-auto min-w-0 p-4 break-words bg-white opacity-100 border rounded-md bg-clip-border">
 
-
-                    {loadingProceso && <div className="absolute z-[500] left-0 top-0 right-0 bottom-0">
-                        <div className=" w-full h-full bg-gray-900 opacity-80"></div>
-                        <div className=" w-full h-full absolute left-0 top-0 text-white flex justify-center items-center flex-col">
-                            {
-                                respuestaProceso ?
-                                    <img src={imagenRespuesta} className="w-[6.5rem] mr-0 my-3" alt="Flowbite Logo" />
-                                    :
-                                    null}
-
-
-                            {!respuestaProceso && <div style={{ "borderTopColor": "transparent" }}
-                                className="w-16 h-16 border-4 border-upla-100 border-solid rounded-full animate-spin">
-                            </div>}
-
-                            <h1 className='m-3 text-center'>{mensajeProceso}</h1>
-
-                            {respuestaProceso && <button
-                                type="button"
-                                className="w-full sm:w-auto text-sm font-semibold rounded-md bg-green-500 text-white border px-3 py-2 hover:bg-upla-200 hover:text-white  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
-                                onClick={onEventRespuesta}>
-                                <span className="mr-2">Aceptar</span>
-                                <i className="bi bi-mouse-fill"></i>
-                            </button>}
-                        </div>
-                    </div>}
-
                     <Agregar
                         open={isOpenAgregar}
-                        setLoadingProceso={setLoadingProceso}
-                        setRespuestaProceso={setRespuestaProceso}
-                        setMensajeProceso={setMensajeProceso}
-                        setImagenRespuesta={setImagenRespuesta}
+                        sweet={sweet}
+                        loadInit={loadInit}
                         abortControl={abortControllerCrear.current}
                         onClose={handleCloseAgregar} />
 
                     <Editar
                         open={isOpenEditar}
                         idFrecuente={idFrecuente}
-                        setFrecuente={setFrecuente}
-                        setLoadingProceso={setLoadingProceso}
-                        setRespuestaProceso={setRespuestaProceso}
-                        setMensajeProceso={setMensajeProceso}
-                        setImagenRespuesta={setImagenRespuesta}
+                        setIdFrecuente={setIdFrecuente}
+                        sweet={sweet}
+                        onEventPaginacion={onEventPaginacion}
                         abortControl={abortControllerCrear.current}
                         onClose={handleCloseEditar} />
 
@@ -267,7 +223,7 @@ const PFrecuente = (props: RouteComponentProps<{}>) => {
                                 type="button"
                                 aria-controls="address"
                                 next-form-btn=""
-                                className="w-full sm:w-auto text-sm font-semibold rounded-md bg-white text-gray-900 border px-3 py-2 hover:bg-upla-100 hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
+                                className="focus:outline-none  bg-white border hover:bg-gray-500 hover:text-white focus:ring-4 focus:ring-gray-300 rounded-md text-sm px-4 py-2"
                                 onClick={() => {
                                     loadInit()
                                 }}>
@@ -278,7 +234,7 @@ const PFrecuente = (props: RouteComponentProps<{}>) => {
                                 type="button"
                                 aria-controls="recargar"
                                 next-form-btn=""
-                                className="w-full sm:w-auto text-sm font-semibold rounded-md bg-upla-100 text-white border px-3 py-2 hover:bg-upla-200 hover:text-white  focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-upla-100"
+                                className="focus:outline-none  text-white  bg-upla-100  hover:bg-upla-200 hover:text-white focus:ring-4 focus:ring-upla-50 rounded-md text-sm px-4 py-2"
                                 onClick={handleOpenAgregar}
                             >
                                 <span className="mr-2">Agregar</span>
@@ -349,7 +305,7 @@ const PFrecuente = (props: RouteComponentProps<{}>) => {
                                                                 <button
                                                                     className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 rounded-md text-sm px-4 py-2"
                                                                     onClick={() => {
-                                                                        setFrecuente(item.idFrecuenta);
+                                                                        setIdFrecuente(item.idFrecuenta);
                                                                         handleOpenEditar();
                                                                     }}>
                                                                     <i className="bi bi-chat-left-text-fill text-sm"></i>
@@ -365,7 +321,7 @@ const PFrecuente = (props: RouteComponentProps<{}>) => {
 
                         <div className="flex items-center justify-between flex-col md:flex-row gap-y-4">
                             <div>
-                                <span className="text-sm font-normal text-gray-900 ">Mostrando <span className="font-semibold text-gray-900"></span> de <span className="font-semibold text-gray-900"> </span>filas </span>
+                                <span className="text-sm font-normal text-gray-900 ">Mostrando <span className="font-semibold text-gray-900">{paginacion.current}-{totalPaginacion.current}</span> de <span className="font-semibold text-gray-900">{filasPorPagina.current} </span>filas </span>
                             </div>
                             <nav className="bg-white rounded-md">
                                 <ul className="flex">
