@@ -5,6 +5,7 @@ import Cargar from './view/cargar/Cargar';
 import Inicio from './view/inicio/Inicio';
 import NotFound from './view/pages/404/NotFound';
 import Acceso from './view/acceso/Acceso';
+import Busqueda from './view/busqueda/Busqueda';
 
 function App() {
 
@@ -30,6 +31,12 @@ function App() {
                 path="/acceso"
                 exact={true}
                 render={(props) => <Acceso {...props} />}
+              />
+
+              <Route
+                path="/consulta"
+                exact={true}
+                render={(props) => <Busqueda {...props} />}
               />
 
               <Route

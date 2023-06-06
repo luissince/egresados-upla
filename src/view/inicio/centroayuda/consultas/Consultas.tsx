@@ -309,26 +309,26 @@ const Consultas = (props: RouteComponentProps<{}>) => {
 
                                                         return (
                                                             <tr key={index} className="bg-white border-b">
-                                                                <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">{item.id}</td>
-                                                                <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">N° - {item.ticket}</td>
-                                                                <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.fecha} <br />{formatTime(item.hora)}</td>
-                                                                <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.est_Id + "- " + item.est_NumDoc}<br />{item.alumno}</td>
-                                                                <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.asunto}</td>
-                                                                <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{estado}</td>
-                                                                <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">
+                                                                <td className="text-sm p-2 text-center align-middle border-b border-solid">{item.id}</td>
+                                                                <td className="text-sm p-2 text-center align-middle border-b border-solid">N° - {item.ticket}</td>
+                                                                <td className="text-sm p-2 text-left align-middle border-b border-solid">{item.fecha} <br />{formatTime(item.hora)}</td>
+                                                                <td className="text-sm p-2 text-left align-middle border-b border-solid">{item.est_Id + "- " + item.est_NumDoc}<br />{item.alumno}</td>
+                                                                <td className="text-sm p-2 text-left align-middle border-b border-solid">{item.asunto}</td>
+                                                                <td className="text-sm p-2 text-left align-middle border-b border-solid">{estado}</td>
+                                                                <td className="text-sm p-2 text-center align-middle border-b border-solid">
                                                                     <button
                                                                         className="focus:outline-none text-white bg-blue-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 rounded-md text-sm px-4 py-2"
                                                                         onClick={() => onEventeResponder(item.idConsulta)}>
                                                                         <i className="bi bi-chat-left-text-fill text-sm"></i>
                                                                     </button>
                                                                 </td>
-                                                                <td className="p-2 text-center align-middle border-b border-solid whitespace-nowrap">
+                                                                <td className="p-2 text-center align-middle border-b border-solid">
                                                                     <button className="focus:outline-none text-white bg-green-400 hover:bg-green-500 focus:ring-4 focus:ring-red-300  rounded-md text-sm px-4 py-2"
                                                                         onClick={() => onEventTerminar(item.idConsulta)}>
                                                                         <i className="bi bi-arrow-left-right text-sm"></i>
                                                                     </button>
                                                                 </td>
-                                                                <td className="p-2 text-center align-middle border-b border-solid whitespace-nowrap">
+                                                                <td className="p-2 text-center align-middle border-b border-solid">
                                                                     <button className="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300  rounded-md text-sm px-4 py-2"
                                                                         onClick={() => onEventAnular(item.idConsulta)}>
                                                                         <i className="bi bi-trash text-sm"></i>

@@ -7,11 +7,14 @@ import { sound } from "../../../../helper/index.helper";
 import { RootState } from "../../../../store/configureStore.store";
 import { addNotification, removeNotification } from "../../../../store/notifeSlice.store";
 import { Notificacion } from "../../../../model/types/notificacion.model";
+import { v4 as uuidv4 } from 'uuid';
 
 type Props = {
     refBlock: React.RefObject<HTMLInputElement>,
     onEventMenu: React.MouseEventHandler,
 }
+
+const uniqueId = uuidv4();
 
 const Nav = (props: Props) => {
 
@@ -21,7 +24,7 @@ const Nav = (props: Props) => {
 
     const noticaciones = useSelector((state: RootState) => state.notificacion);
 
-    const message: Notificacion | undefined = useEventSource(`${import.meta.env.VITE_URL_SERVER_SEND_EVENT}notify?id=${codigo}`)
+    const message: Notificacion | undefined = useEventSource(`${import.meta.env.VITE_URL_SERVER_SEND_EVENT}notify?id=${uniqueId}&codigo=${codigo}`)
 
     const [open, setOpen] = useState<boolean>(false);
 

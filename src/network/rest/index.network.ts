@@ -79,7 +79,7 @@ export async function ActualizarFrecuenteRest<String>(params: object, abortContr
 }
 
 export async function EnviarNotifacionCelular(idConsulta: string, abortController: AbortController | null = null): Promise<Response<String> | RestError> {
-    return await Resolve.create(axios.get("https://api.upla.edu.pe/servicios/push/consulta/consulta/" + idConsulta)
+    return await Resolve.create(axios.get("https://api.upla.edu.pe/servicios/push-app/notificar/" + idConsulta)
         // instance.get<string>("https://app.upla.edu.pe/consulta/CS0022", { signal: abortController?.signal })
     );
 }

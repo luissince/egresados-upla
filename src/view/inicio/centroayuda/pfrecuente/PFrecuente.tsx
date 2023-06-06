@@ -265,8 +265,8 @@ const PFrecuente = (props: RouteComponentProps<{}>) => {
                                     <tr>
                                         <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[5%]">#</th>
                                         <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[20%]">Fecha y Hora</th>
-                                        <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[30%]">Asunto</th>
-                                        <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[40%]">Descripción</th>
+                                        <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[25%]">Asunto</th>
+                                        <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[35%]">Descripción</th>
                                         <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[10%]">Estado</th>
                                         <th className="px-6 py-2 font-bold text-center uppercase align-middle text-white text-xs w-[5%]">Editar</th>
                                     </tr>
@@ -296,12 +296,12 @@ const PFrecuente = (props: RouteComponentProps<{}>) => {
 
                                                     return (
                                                         <tr key={index} className="bg-white border-b">
-                                                            <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">{item.id}</td>
-                                                            <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">{item.fecha} <br />{formatTime(item.hora)}</td>
-                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.asunto}</td>
-                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{item.descripcion}</td>
-                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid whitespace-nowrap">{estado}</td>
-                                                            <td className="text-sm p-2 text-center align-middle border-b border-solid whitespace-nowrap">
+                                                            <td className="text-sm p-2 text-center align-middle border-b border-solid">{item.id}</td>
+                                                            <td className="text-sm p-2 text-center align-middle border-b border-solid">{item.fecha} <br />{formatTime(item.hora)}</td>
+                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid">{item.asunto}</td>
+                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid">{item.descripcion}</td>
+                                                            <td className="text-sm p-2 text-left align-middle border-b border-solid">{estado}</td>
+                                                            <td className="text-sm p-2 text-center align-middle border-b border-solid">
                                                                 <button
                                                                     className="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 rounded-md text-sm px-4 py-2"
                                                                     onClick={() => {
