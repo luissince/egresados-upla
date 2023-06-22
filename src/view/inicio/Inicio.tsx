@@ -18,6 +18,8 @@ import PFrecuente from './centroayuda/pfrecuente/PFrecuente';
 import Consultas from './centroayuda/consultas/Consultas';
 import Responder from './centroayuda/responder/Responder';
 import toast, { Toaster } from 'react-hot-toast';
+import MarcacionBuscar from './reporte/marcacion-scar/MarcacionBuscar';
+import MarcacionLugar from './reporte/marcacion-scar/MarcacionLugar';
 
 const Inicio = (props: RouteComponentProps<{}>) => {
 
@@ -208,6 +210,7 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                                 path={`${path}/bienvenido`}
                                 render={(props) => <Bienvenido {...props} />}
                             />
+                            {/* Modulos del centro de ayuda */}
                             <Route
                                 path={`${path}/dashboard`}
                                 render={(props) => <Dashboard {...props} />}
@@ -226,6 +229,17 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                                 path={`${path}/centroayuda/consultas/responder`}
                                 exact={true}
                                 render={(props) => <Responder {...props} />}
+                            />
+                            {/* Modulos del sistema de control de acceso al resinto */}
+                            <Route
+                                path={`${path}/reporte-scar/por-persona`}
+                                exact={true}
+                                render={(props) => <MarcacionBuscar {...props} />}
+                            />
+                             <Route
+                                path={`${path}/reporte-scar/por-lugar`}
+                                exact={true}
+                                render={(props) => <MarcacionLugar {...props} />}
                             />
                         </Switch>
                     </div>
