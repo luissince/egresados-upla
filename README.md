@@ -101,8 +101,14 @@ Siga los pasos para iniciar el desarrollo:
 
     #code
 
-        //Agregue la url del servidor
-        VITE_URL_AP = "http://localhost"
+        //Agregue la url del servidor de los recursos principales
+        VITE_SERVICES_API_APP = "http://localhost"
+
+        //Agregue la url del servidor de las apis
+        VITE_API_API_APP = "http://localhost"
+
+        //Agregue la url del servidor para las notificaciones
+        VITE_SERVER_SEND_EVENT = "http://localhost"
 
 6. Ejecute **npm run dev** para iniciar el modo desarrollo    
 

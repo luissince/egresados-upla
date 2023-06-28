@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../store/configureStore.store";
-import { ActualizarFrecuenteRest, ObtenerFrecuentePorIdFrecuenteRest } from "../../../../../network/rest/index.network";
+import { ActualizarFrecuenteRest, ObtenerFrecuentePorIdFrecuenteRest } from "../../../../../network/rest/services.network";
 import { Types } from "../../../../../model/enum/types.model";
 import RestError from "../../../../../model/class/resterror.model.class";
 import Response from "../../../../../model/class/response.model.class";

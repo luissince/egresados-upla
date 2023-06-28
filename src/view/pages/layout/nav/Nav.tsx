@@ -24,7 +24,7 @@ const Nav = (props: Props) => {
 
     const noticaciones = useSelector((state: RootState) => state.notificacion);
 
-    const message: Notificacion | undefined = useEventSource(`${import.meta.env.VITE_URL_SERVER_SEND_EVENT}notify?id=${uniqueId}&codigo=${codigo}`)
+    const message: Notificacion | undefined = useEventSource(`${import.meta.env.VITE_SERVER_SEND_EVENT}/notify?id=${uniqueId}&codigo=${codigo}`)
 
     const [open, setOpen] = useState<boolean>(false);
 

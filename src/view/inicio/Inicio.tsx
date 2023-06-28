@@ -8,7 +8,7 @@ import Dashboard from './dashboard/Dashboard';
 import { css, images } from '../../helper/index.helper';
 import Bienvenido from './bienvenido/Bienvenido';
 import { useEffectOnce } from 'react-use';
-import { EstudianteRest, TrabajadorRest } from '../../network/rest/index.network';
+import { EstudianteRest, TrabajadorRest } from '../../network/rest/services.network';
 import Response from '../../model/class/response.model.class';
 import { logout } from '../../store/authSlice.store';
 import RestError from '../../model/class/resterror.model.class';
@@ -16,10 +16,12 @@ import Estudiante from '../../model/interfaces/estudiante.model.interface';
 import Trabajador from '../../model/interfaces/trabajador.model.interface';
 import PFrecuente from './centroayuda/pfrecuente/PFrecuente';
 import Consultas from './centroayuda/consultas/Consultas';
-import Responder from './centroayuda/responder/Responder';
-import toast, { Toaster } from 'react-hot-toast';
-import MarcacionBuscar from './reporte/marcacion-scar/MarcacionBuscar';
-import MarcacionLugar from './reporte/marcacion-scar/MarcacionLugar';
+import Responder from './centroayuda/consultas/responder/Responder';
+import { Toaster } from 'react-hot-toast';
+import PorPesona from './reporte/marcacion-scar/porpersona/PorPersona';
+import PorLugar from './reporte/marcacion-scar/porlugar/PorLugar';
+import PorPersonaDetalle from './reporte/marcacion-scar/porpersona/PorPersonaDetalle';
+
 
 const Inicio = (props: RouteComponentProps<{}>) => {
 
@@ -95,10 +97,6 @@ const Inicio = (props: RouteComponentProps<{}>) => {
 
     useEffect(() => {
         const load = async () => {
-            // await new Promise((resolve, reject) => {
-            //     setTimeout(resolve, 5000);
-            // });
-
             if (codigo.length === 8) {
                 const response = await TrabajadorRest<Trabajador>(codigo);
                 if (response instanceof Response) {
@@ -234,12 +232,17 @@ const Inicio = (props: RouteComponentProps<{}>) => {
                             <Route
                                 path={`${path}/reporte-scar/por-persona`}
                                 exact={true}
-                                render={(props) => <MarcacionBuscar {...props} />}
+                                render={(props) => <PorPesona {...props} />}
+                            />
+                             <Route
+                                path={`${path}/reporte-scar/por-persona/detalle`}
+                                exact={true}
+                                render={(props) => <PorPersonaDetalle {...props} />}
                             />
                              <Route
                                 path={`${path}/reporte-scar/por-lugar`}
                                 exact={true}
-                                render={(props) => <MarcacionLugar {...props} />}
+                                render={(props) => <PorLugar {...props} />}
                             />
                         </Switch>
                     </div>

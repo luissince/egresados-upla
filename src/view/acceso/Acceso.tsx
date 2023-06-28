@@ -10,7 +10,7 @@ import Button from "./widget/Button";
 import InputPassword from "./widget/InputPassword";
 import InputClave from "./widget/InputClave";
 import Checked from "./widget/Checked";
-import { LoginRest } from "../../network/rest/index.network";
+import { LoginRest } from "../../network/rest/services.network";
 import Response from "../../model/class/response.model.class";
 import RestError from "../../model/class/resterror.model.class";
 import Login from "../../model/interfaces/login.model.interface";

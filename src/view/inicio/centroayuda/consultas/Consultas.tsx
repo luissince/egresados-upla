@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { RouteComponentProps, useHistory } from "react-router-dom";
-import { AnularConsultaRest, SoporteListarConsultasRest, TerminarConsultaRest } from "../../../../network/rest/index.network";
+import { AnularConsultaRest, SoporteListarConsultasRest, TerminarConsultaRest } from "../../../../network/rest/services.network";
 import ListarConsulta from "../../../../model/interfaces/soporte/listarconsulta.model.interfaces";
 import RestError from "../../../../model/class/resterror.model.class";
 import Response from "../../../../model/class/response.model.class";
@@ -123,7 +123,7 @@ const Consultas = (props: RouteComponentProps<{}>) => {
         };
     }, []);
 
-    const onEventeResponder = (idConsulta: string) => {
+    const onEventResponder = (idConsulta: string) => {
         history.push(`${props.match.path}/responder`,
             {
                 idConsulta: idConsulta,
@@ -318,7 +318,7 @@ const Consultas = (props: RouteComponentProps<{}>) => {
                                                                 <td className="text-sm p-2 text-center align-middle border-b border-solid">
                                                                     <button
                                                                         className="focus:outline-none text-white bg-blue-400 hover:bg-blue-500 focus:ring-4 focus:ring-blue-300 rounded-md text-sm px-4 py-2"
-                                                                        onClick={() => onEventeResponder(item.idConsulta)}>
+                                                                        onClick={() => onEventResponder(item.idConsulta)}>
                                                                         <i className="bi bi-chat-left-text-fill text-sm"></i>
                                                                     </button>
                                                                 </td>

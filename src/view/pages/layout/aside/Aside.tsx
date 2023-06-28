@@ -50,25 +50,25 @@ const menus: MenuItem[] = [
             }
         ]
     },
-    // {
-    //     id: "3",
-    //     nombre: "Reporte SCAR",
-    //     icon : "bi-file-earmark-bar-graph",
-    //     subMenus: [
-    //         {
-    //             id: "21",
-    //             pathname: "/inicio/reporte-scar/por-persona",
-    //             icon : "bi-dash",
-    //             nombre: "Por Persona",
-    //         },
-    //         {
-    //             id: "22",
-    //             pathname: "/inicio/reporte-scar/por-lugar",
-    //             icon : "bi-dash",
-    //             nombre: "Por Lugar",
-    //         }
-    //     ]
-    // },
+    {
+        id: "3",
+        nombre: "Reporte SCAR",
+        icon : "bi-file-earmark-bar-graph",
+        subMenus: [
+            {
+                id: "21",
+                pathname: "/inicio/reporte-scar/por-persona",
+                icon : "bi-dash",
+                nombre: "Por Persona",
+            },
+            {
+                id: "22",
+                pathname: "/inicio/reporte-scar/por-lugar",
+                icon : "bi-dash",
+                nombre: "Por Lugar",
+            }
+        ]
+    },
     // {
     //     id: "3",
     //     nombre: "Segundo",

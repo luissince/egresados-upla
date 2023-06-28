@@ -5,7 +5,7 @@ import RestError from '../../model/class/resterror.model.class';
 import Consulta from '../../model/interfaces/soporte/consulta.mode.interfaces';
 
 const instance = axios.create({
-    baseURL: import.meta.env.VITE_URL_APP,
+    baseURL: import.meta.env.VITE_SERVICES_API_APP,
     timeout: 10000,
     headers: {
         "Accept": "application/json",
@@ -76,10 +76,4 @@ export async function ObtenerFrecuentePorIdFrecuenteRest<Frecuente>(idFrecuente:
 
 export async function ActualizarFrecuenteRest<String>(params: object, abortController: AbortController | null = null): Promise<Response<String> | RestError> {
     return await Resolve.create(instance.post<string>("/Soporte/actualizarFrecuente", params, { signal: abortController?.signal }));
-}
-
-export async function EnviarNotifacionCelular(idConsulta: string, abortController: AbortController | null = null): Promise<Response<String> | RestError> {
-    return await Resolve.create(axios.get("https://api.upla.edu.pe/servicios/push-app/notificar/" + idConsulta)
-        // instance.get<string>("https://app.upla.edu.pe/consulta/CS0022", { signal: abortController?.signal })
-    );
 }

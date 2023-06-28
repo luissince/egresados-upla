@@ -1,21 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { RouteComponentProps, useLocation } from "react-router-dom";
-import { LoaderSvg } from "../../../../component/Svg.component";
-import Response from "../../../../model/class/response.model.class";
-import RestError from "../../../../model/class/resterror.model.class";
-import { Types } from "../../../../model/enum/types.model";
-import Paginacion from "../../../../component/Paginacion.component";
-import { EnviarNotifacionCelular, ListarRespuestasPorIdConsultaRest, ObtenerConsultaPorIdConsultaRest, RegistrarRespuestaRest } from "../../../../network/rest/index.network";
-import Responde from "../../../../model/interfaces/soporte/responde.model.interface";
-import Respuesta from "../../../../model/interfaces/soporte/respuesta.model.interface";
-import { formatTime } from "../../../../helper/herramienta.helper";
-import { images } from "../../../../helper/index.helper";
-import CustomModal from "../../../../component/Modal.component";
+import { LoaderSvg } from "../../../../../component/Svg.component";
+import Response from "../../../../../model/class/response.model.class";
+import RestError from "../../../../../model/class/resterror.model.class";
+import { Types } from "../../../../../model/enum/types.model";
+import Paginacion from "../../../../../component/Paginacion.component";
+import { ListarRespuestasPorIdConsultaRest, ObtenerConsultaPorIdConsultaRest, RegistrarRespuestaRest } from "../../../../../network/rest/services.network";
+import Responde from "../../../../../model/interfaces/soporte/responde.model.interface";
+import Respuesta from "../../../../../model/interfaces/soporte/respuesta.model.interface";
+import { formatTime } from "../../../../../helper/herramienta.helper";
+import { images } from "../../../../../helper/index.helper";
+import CustomModal from "../../../../../component/Modal.component";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../../store/configureStore.store";
-import { logout } from "../../../../store/authSlice.store";
-import useSweetAlert from "../../../../component/hooks/useSweetAlert";
-import Consulta from "../../../../model/interfaces/soporte/consulta.mode.interfaces";
+import { RootState } from "../../../../../store/configureStore.store";
+import { logout } from "../../../../../store/authSlice.store";
+import useSweetAlert from "../../../../../component/hooks/useSweetAlert";
+import Consulta from "../../../../../model/interfaces/soporte/consulta.mode.interfaces";
+import { EnviarNotifacionCelular } from "../../../../../network/rest/notificacion.network";
 
 const Responder = (props: RouteComponentProps<{}>) => {
 
